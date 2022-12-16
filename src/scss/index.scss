@@ -1,0 +1,13 @@
+@use './common/index';
+@use './common/colors' as color;
+@use './common/layout' as ui;
+@use './common/font';
+
+body{
+    @include ui.flex();
+    text-align: center;
+    color: color.$text;
+    p{
+        max-width: 500px;
+    }
+}
