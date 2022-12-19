@@ -1,0 +1,71 @@
+@use '../common/colors' as color;
+@use '../common/var' as var;
+@use '../common/animation' as anim;
+
+
+#login{
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    >.top{
+        img{
+            max-width: 80%;
+            margin-inline: auto;
+            display: block;
+        }
+        p.smallText{
+            font-size: 0.9em;
+            // color: gray;
+            margin-top: 0.8em;
+        }
+    }
+    >.middle{
+        display: flex;
+        justify-content: center;
+        // align-items: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 1em;
+        >div span{
+            color: gray;
+            font-size: 0.9em;
+        }
+        input{
+            margin-top: 0.2em;
+        }
+        .forgetPassword{
+            display: flex;
+            justify-content: flex-end;
+            align-content: center;
+            padding-block: 0.5em;
+        }
+        input[type=submit]{
+            outline: none;
+            border: none;
+            background-color: color.$accent;
+            color: white;
+            padding: 1.4em;
+            font-size: 0.9em;
+            border-radius: var.$bdrs;
+            @include anim.press(200,98);
+            // font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+    }
+    .signup{
+        font-size: 0.9em;
+    }
+    >.end{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        p{
+            font-size: 0.75em;
+            color: gray;
+        }
+    }
+}

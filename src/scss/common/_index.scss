@@ -24,9 +24,16 @@ body {
 
 a {
     text-decoration: none;
+    color: color.$accent-text;
+    // -webkit-tap-highlight-color: mix(color.$accent,#00000000);
+    -webkit-tap-highlight-color: transparent;
+    &:active{
+        text-decoration: underline;
+    }
 }
 
 ::selection {
-    background: color.color('accent');
-    color: color.$text;
+    background-color: color.color('accent');
+    color: white;
+    // color: color.$text;
 }

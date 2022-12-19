@@ -1,13 +1,34 @@
 @use './common/index';
 @use './common/colors' as color;
-@use './common/layout' as ui;
 @use './common/font';
+@use './common/var' as var;
 
 body{
-    @include ui.flex();
-    text-align: center;
+    min-height: 100vh;
     color: color.$text;
-    p{
-        max-width: 500px;
-    }
+}
+
+input[type='tel'], input[type='password']{
+    width: 100%;
+    padding: 1.5em;
+    font-size: 0.9em;
+    padding-left: 3em;
+    // font-weight: 500;
+    background-color: color.$input-bg;
+    outline: 1.5px solid transparent;
+    border: none;
+    border-radius: var.$bdrs;
+    background-repeat: no-repeat;
+    background-size: 1.1em;
+    background-position: 1.2em center;
+
+    // &:focus{
+    //     outline-color: color.$accent;
+    // }
+}
+input[type=tel]{
+    background-image: url('../assets/icons/mobile-solid.svg');
+}
+input[type=password]{
+    background-image: url('../assets/icons/lock-solid.svg');
 }
