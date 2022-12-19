@@ -11,6 +11,7 @@
     align-items: center;
     min-height: 100vh;
     width: 100%;
+    gap: 1em;
     >.top{
         img{
             max-width: 80%;
@@ -51,7 +52,7 @@
             padding: 1.4em;
             font-size: 0.9em;
             border-radius: var.$bdrs;
-            @include anim.press(200,98);
+            @include anim.press(100,98);
             // font-weight: 500;
             letter-spacing: 0.05em;
         }

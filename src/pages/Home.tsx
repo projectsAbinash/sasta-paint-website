@@ -2,9 +2,10 @@ import { Link } from "react-router-dom"
 import images from '../assets/images/image'
 import icons from '../assets/icons/icons'
 
-
 import '../scss/pages/home.scss'
+import { useEffect } from "react"
 const Home = () => {
+    useEffect(()=> {document.title = 'Welcome to Sasta Paint'}, [])
     return (
         <div id="home">
             <div className="top">

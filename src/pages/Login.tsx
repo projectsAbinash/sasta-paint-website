@@ -1,9 +1,12 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 import images from '../assets/images/image'
 import '../scss/pages/login.scss'
 
 const Login = () => {
+    useEffect(()=> {document.title = 'Login to Sasta Paint'}, [])
+
     return (
         <div id="login">
             <div className="top">
