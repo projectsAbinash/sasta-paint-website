@@ -3,7 +3,7 @@
 @use '../common/animation' as anim;
 
 
-#login{
+#signup{
     padding: 20px;
     display: flex;
     justify-content: space-between;
@@ -15,7 +15,7 @@
     >*{width: 100%;}
     >.top{
         img{
-            max-width: 80%;
+            max-width: 100%;
             margin-inline: auto;
             display: block;
         }
@@ -38,12 +38,6 @@
         }
         input{
             margin-top: 0.2em;
-        }
-        .forgetPassword{
-            display: flex;
-            justify-content: flex-end;
-            align-content: center;
-            padding-block: 0.5em;
         }
         input[type=submit]{
             outline: none;

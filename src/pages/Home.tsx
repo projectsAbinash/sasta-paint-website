@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import images from '../assets/images/image'
-import icons from '../assets/icons/icons'
+import images from '../assets/image'
+import icons from '../assets/icon'
 
 import '../scss/pages/home.scss'
 import { useEffect } from "react"

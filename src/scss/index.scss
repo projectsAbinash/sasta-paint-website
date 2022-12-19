@@ -8,27 +8,41 @@ body{
     color: color.$text;
 }
 
-input[type='tel'], input[type='password']{
+input[type='tel'], input[type='password'], input[type='text'].inp{
     width: 100%;
     padding: 1.5em;
     font-size: 0.9em;
     padding-left: 3em;
     // font-weight: 500;
     background-color: color.$input-bg;
-    outline: 1.5px solid transparent;
+    outline: 1px solid transparent;
     border: none;
     border-radius: var.$bdrs;
     background-repeat: no-repeat;
     background-size: 1.1em;
     background-position: 1.2em center;
 
-    // &:focus{
-    //     outline-color: color.$accent;
-    // }
+    &:focus{
+        outline-color: color.$accent;
+    }
 }
 input[type=tel]{
     background-image: url('../assets/icons/mobile-solid.svg');
 }
 input[type=password]{
     background-image: url('../assets/icons/lock-solid.svg');
+}
+input[type=text].inp{
+    background-image: url('../assets/icons/at.svg');
+    background-size: 1.2em;
+}
+#loading{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 70px;
+    }
 }

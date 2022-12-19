@@ -1,0 +1,78 @@
+@use '../common/animation' as anim;
+@use '../common/var' as var;
+@use '../common/colors' as color;
+
+#verifyOTP{
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // background-color: lime;
+    flex-direction: column;
+    gap: 1em;
+    >*{
+        width: 100%;
+    }
+    >.top{
+        img{
+            width: min(100%, 500px);
+            display: block;
+            margin: auto;
+        }
+    }
+    >.middle{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 1em;
+        h1{
+            text-align: center;
+        }
+        button{
+            display: block;
+            margin-inline: auto;
+            font-size: 0.9em;
+            padding: 1.1em;
+            width: min(50%, 500px);
+            border: none;
+            outline: none;
+            color: white;
+            background-color: color.$accent;
+            border-radius: var.$bdrs;
+            letter-spacing: 0.05em;
+            @include anim.press(100,95);
+        }
+        .inputs{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 0.5em;
+            .input{
+                width: 3em;
+                aspect-ratio: 1 / 1;
+                border-radius: var.$bdrs;
+                padding: 0.5em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: color.$input-bg;
+                input[type=text]{
+                    font-size: 1em;
+                    width: 2em;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .bottom{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 0.96em;
+    }
+}
