@@ -1,19 +1,79 @@
-import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-
+import React, { useEffect, useRef, useState } from 'react'
+import { Link, redirect, useNavigate } from 'react-router-dom'
+import joinLinks from '../linker'
 import images from '../assets/image'
 import '../scss/pages/login.scss'
+import token from '../tokens'
+
+
+const loginAPILink = joinLinks('login')
+
+function makeRequestData(id: string, pass: string) {
+    return {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': token.get('registrationToken')
+        },
+        body: JSON.stringify({
+            phone: id,
+            password: pass
+        })
+    }
+}
+
 
 const Login = () => {
-    useEffect(() => { document.title = 'Login to Sasta Paint' }, [])
     const navigate = useNavigate()
+    useEffect(() => { document.title = 'Login to Sasta Paint' }, [])
 
-    function validateUser() {
-        console.log("Verify OTP");
-        setTimeout(() => {
-            navigate('/verifyOTP')
-        }, 1000);
+    const userIDElem = useRef() as React.MutableRefObject<HTMLInputElement>
+    const passElem = useRef() as React.MutableRefObject<HTMLInputElement>
+    const [loginStatus, updateLoginStatus] = useState('Log In')
+
+    function APILogIn() {
+        const id = userIDElem.current.value
+        const pass = passElem.current.value
+
+        if (id && pass) {
+            // Fetch data
+            const reqData = makeRequestData(id, pass)
+            updateLoginStatus('Logging in...')
+            fetch(loginAPILink, reqData).then(data => data.json())
+                .then(data => {
+                    console.log(data)
+                    // Check for errors
+
+                    if (data.status == 'false') {
+                        alert('Username or password is incorrect.')
+                        updateLoginStatus('Log in Again')
+                        return
+                    }
+
+                    token.set('registrationToken', data.access_token)
+
+                    if (data.verification == 'false') {
+                        navigate('/verifyOTP')
+                        return
+                    }
+                    navigate('/home')
+
+                }).catch(err => {
+                    console.log(err)
+                    updateLoginStatus('Log In Again')
+                })
+
+        } else {
+            alert('Enter your Information correctly')
+            return
+        }
+
+        console.log(id, pass)
     }
+
+
+
 
 
     return (
@@ -27,16 +87,16 @@ const Login = () => {
             <div className="middle">
                 <div>
                     <span>Mobile Number</span>
-                    <input type="tel" id='number' placeholder='+91 123 456 78790' />
+                    <input type="tel" id='number' placeholder='+91 123 456 78790' ref={userIDElem} />
                 </div>
                 <div>
                     <span>Password</span>
-                    <input type="password" id='password' placeholder='********' />
+                    <input type="password" id='password' placeholder='********' ref={passElem} />
                 </div>
                 <div className="forgetPassword">
                     <Link to='/forgetPassword'>Forget Password?</Link>
                 </div>
-                <input type="submit" value="Login" onClick={validateUser}/>
+                <input type="submit" value={loginStatus} onClick={APILogIn} />
                 <p className='text-center signup'>Don't have an account? <Link to='/signup'>Sign Up</Link></p>
             </div>
 

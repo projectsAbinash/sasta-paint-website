@@ -3,12 +3,16 @@
 @use './common/font';
 @use './common/var' as var;
 
-body{
+body {
     min-height: 100vh;
     color: color.$text;
 }
 
-input[type='tel'], input[type='password'], input[type='text'].inp{
+input[type='tel'],
+input[type='password'],
+input[type='text'].inp,
+input[type='email']
+ {
     width: 100%;
     padding: 1.5em;
     font-size: 0.9em;
@@ -22,27 +26,36 @@ input[type='tel'], input[type='password'], input[type='text'].inp{
     background-size: 1.1em;
     background-position: 1.2em center;
 
-    &:focus{
+    &:focus {
         outline-color: color.$accent;
     }
 }
-input[type=tel]{
+
+input[type=tel] {
     background-image: url('../assets/icons/mobile-solid.svg');
 }
-input[type=password]{
+
+input[type=password] {
     background-image: url('../assets/icons/lock-solid.svg');
 }
-input[type=text].inp{
-    background-image: url('../assets/icons/at.svg');
-    background-size: 1.2em;
+
+input[type=text].inp {
+    background-image: url('../assets/icons/user-solid.svg');
 }
-#loading{
+
+input[type=email] {
+    background-image: url('../assets/icons/at.svg');
+    background-size: 1.3em;
+}
+
+#loading {
     height: 100vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    img{
+
+    img {
         width: 70px;
     }
 }

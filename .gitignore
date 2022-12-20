@@ -23,4 +23,9 @@ dist-ssr
 *.ntvs*
 *.njsproj
 *.sln
+:insert
+
+
+
 *.sw?
+test.*
