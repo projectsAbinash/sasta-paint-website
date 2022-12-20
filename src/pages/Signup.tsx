@@ -3,31 +3,11 @@ import { Link, useNavigate } from "react-router-dom"
 import '../scss/pages/signup.scss'
 import { useRef, useState } from "react"
 import joinLinks from "../linker"
-
+import AlertBox from "../components/AlertBox"
 import token from "../tokens"
 
 const registerAPILink = joinLinks('register')
 
-// function makeErrorData(errors: string[]): string {
-//     let errorData = ""
-//     for (let err of errors)
-//         errorData += err
-//     return errorData
-// }
-
-
-/**
- * 
- * @param name is name of the user
- * @param num is mobile number of the user
- * @param pass is password of the user
- * @returns true if registration is successful else false
- */
-function register(name: string, num: string, pass: string): boolean {
-    // const fetchedData = await fetch(registerAPILink, header)
-    // return fetchedData.json()
-    return true
-}
 
 const Signup = () => {
     const fullName = useRef() as React.MutableRefObject<HTMLInputElement>
@@ -36,6 +16,7 @@ const Signup = () => {
     const confirmPassword = useRef() as React.MutableRefObject<HTMLInputElement>
     const emailInput = useRef() as React.MutableRefObject<HTMLInputElement>
     const [signingUpStatus, updateSigningUpStatus] = useState('Sign Up')
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
 
     const navigate = useNavigate()
 
@@ -46,10 +27,17 @@ const Signup = () => {
         const pass = password.current.value
         const confPass = confirmPassword.current.value
 
+
+
         if (name && num && pass && confPass && email) {
             // Check if password matches
             if (pass != confPass) {
-                alert("Make sure you use the same password in Confirm Password.")
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Warning',
+                    content: 'Make sure you use the same password in Confirm Password.',
+                    buttonText: 'OK'
+                })
                 return
             }
 
@@ -84,13 +72,19 @@ const Signup = () => {
                 .then((data) => {
                     console.log(data)
                     if (data.errors) {
-                        alert(data.message)
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Error',
+                            content: data.message,
+                            buttonText: 'OK'
+                        })
                         updateSigningUpStatus('Sign Up')
                     }
 
                     if (data.status == 'true') {
                         // Store Verification token
                         token.set('registrationToken', data.access_token)
+                        localStorage.lastOtpSentTime = (new Date().getTime())
                         if (data.verification === 'false') {
                             navigate('/verifyOTP')
                         }
@@ -99,20 +93,35 @@ const Signup = () => {
                 })
                 .catch((error) => {
                     console.error('Error in JavaScript Fetch');
-                    alert("Error Signing Up, Check your network")
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Error',
+                        content: 'Error Signing Up, Check your network',
+                        buttonText: 'OK'
+                    })
                     console.log(error)
                     updateSigningUpStatus('Sign Up')
                 });
 
         } else {
-            alert("Enter Your Information correctly!")
+            updateAlertBoxDetails({
+                active: true,
+                title: 'Alert',
+                content: 'Enter your Information correctly',
+                buttonText: 'OK'
+            })
         }
     }
 
-
-    console.log('rendered')
     return (
         <div id="signup">
+            <AlertBox
+                active={alertBoxDetails.active}
+                title={alertBoxDetails.title}
+                content={alertBoxDetails.content}
+                buttonText={alertBoxDetails.buttonText}
+                updater={updateAlertBoxDetails}
+            />
             <div className="top">
                 <img src={images.printing} alt="" />
                 <h1>Sign Up</h1>

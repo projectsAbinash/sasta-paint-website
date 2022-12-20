@@ -10,7 +10,6 @@ import Loading from './Loading';
 // import Signup from './Signup';
 
 const LazyHome = React.lazy(() => import('./Home'))
-const LazyAbout = React.lazy(() => import('./About'))
 const LazyStart = React.lazy(() => import('./Start'))
 const LazyLogin = React.lazy(() => import('./Login'))
 const LazySignup = React.lazy(() => import('./Signup'))
@@ -27,7 +26,6 @@ function Main() {
             <Route path='/' element={<LazyStart />} />
             <Route path='/loading' element={<Loading />} />
             <Route path='/login' element={<LazyLogin />} />
-            <Route path='/about' element={<LazyAbout />} />
             <Route path='/signup' element={<LazySignup />} />
             <Route path='/verifyOTP' element={<LazyVerifyOTP />} />
             <Route path='/home' element={<LazyHome />} />

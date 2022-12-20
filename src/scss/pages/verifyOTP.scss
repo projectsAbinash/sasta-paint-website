@@ -74,5 +74,9 @@
         justify-content: center;
         align-items: center;
         font-size: 0.96em;
+        span{
+            color: color.$accent;
+            cursor: pointer;
+        }
     }
 }

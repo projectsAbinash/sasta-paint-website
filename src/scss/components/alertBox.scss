@@ -1,0 +1,55 @@
+@use '../common/animation' as anim;
+@use '../common/colors' as color;
+@use '../common/var' as var;
+
+#alertBox {
+    position: fixed;
+    inset: 0;
+    background-color: #00000033;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    &.hidden{
+        display: none;
+    }
+    #box {
+        width: min(90%, 500px);
+        min-height: 200px;
+        background-color: white;
+        border-radius: 20px;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        gap: 1em;
+
+        .alertButton {  
+            width: 100%;
+            display: block;
+            margin-inline: auto;
+            outline: none;
+            border: none;
+            background-color: color.$accent;
+            color: white;
+            padding: 1.4em;
+            font-size: 0.9em;
+            border-radius: var.$bdrs;
+            @include anim.press(100, 98);
+            // font-weight: 500;
+            letter-spacing: 0.05em;
+            // flex-direction: column;
+            // align-items: center;
+        }
+
+        .alertTitle {
+            text-align: center;
+            font-weight: 500;
+        }
+        .alertText{
+            text-align: center;
+        }
+    }
+}

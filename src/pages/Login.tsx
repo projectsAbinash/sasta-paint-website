@@ -4,7 +4,7 @@ import joinLinks from '../linker'
 import images from '../assets/image'
 import '../scss/pages/login.scss'
 import token from '../tokens'
-
+import AlertBox from '../components/AlertBox'
 
 const loginAPILink = joinLinks('login')
 
@@ -31,6 +31,9 @@ const Login = () => {
     const userIDElem = useRef() as React.MutableRefObject<HTMLInputElement>
     const passElem = useRef() as React.MutableRefObject<HTMLInputElement>
     const [loginStatus, updateLoginStatus] = useState('Log In')
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+
+
 
     function APILogIn() {
         const id = userIDElem.current.value
@@ -44,9 +47,13 @@ const Login = () => {
                 .then(data => {
                     console.log(data)
                     // Check for errors
-
                     if (data.status == 'false') {
-                        alert('Username or password is incorrect.')
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Alert',
+                            content: 'Username or Password is incorrect!',
+                            buttonText: 'OK'
+                        })
                         updateLoginStatus('Log in Again')
                         return
                     }
@@ -65,7 +72,12 @@ const Login = () => {
                 })
 
         } else {
-            alert('Enter your Information correctly')
+            updateAlertBoxDetails({
+                active: true,
+                title: 'Wrong Information',
+                content: 'Enter your Information correctly',
+                buttonText: 'OK'
+            })
             return
         }
 
@@ -78,6 +90,13 @@ const Login = () => {
 
     return (
         <div id="login">
+            <AlertBox
+                active={alertBoxDetails.active}
+                title={alertBoxDetails.title}
+                content={alertBoxDetails.content}
+                buttonText={alertBoxDetails.buttonText}
+                updater={updateAlertBoxDetails}
+            />
             <div className="top">
                 <img src={images.login} alt="" />
                 <h1>Login</h1>

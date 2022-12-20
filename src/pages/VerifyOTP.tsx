@@ -4,8 +4,9 @@ import images from '../assets/image'
 import joinLinks from '../linker'
 import '../scss/pages/verifyOTP.scss'
 import token from '../tokens'
-
+import AlertBox from '../components/AlertBox'
 const verifyotpAPILink = joinLinks('login/verifyotp')
+const resendotpAPILink = joinLinks('otp/resend')
 
 
 function min0Max5(n: number): number {
@@ -21,15 +22,20 @@ function getCurrentOTP(otp: any[]): string {
         otpStr += elem.current.value
     return otpStr
 }
-function clearOTPFields(otps : any[]){
-    for(const otp of otps)
+function clearOTPFields(otps: any[]) {
+    for (const otp of otps)
         otp.current.value = ''
     otps[0].current.focus()
 }
 
+
+
 const VerifyOTP = () => {
     const navigate = useNavigate()
     const [otpVerifyStatus, updateOtpVerifyStatus] = useState('Verify OTP')
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+
+
     let otp: any[] = []
     for (let i = 0; i < 6; i++)
         otp[i] = useRef()
@@ -39,6 +45,52 @@ const VerifyOTP = () => {
         setTimeout(function () { otp[index].current.selectionStart = otp[index].selectionEnd = 10000; }, 0);
     }
 
+    function resendOTP() {
+        const now = new Date().getTime()
+        let lastOtpSentTime
+        if (!localStorage.lastOtpSentTime) { localStorage.lastOtpSentTime = new Date().getTime() }
+        lastOtpSentTime = Number(localStorage.lastOtpSentTime)
+        if (now - lastOtpSentTime < 60 * 1000) {
+            updateAlertBoxDetails({
+                active: true,
+                title: 'Wait',
+                content: 'Wait for a minute and then resend OTP.',
+                buttonText: 'OK'
+            })
+        } else {
+            localStorage.lastOtpSentTime = new Date().getTime()
+            // Resend OTP fetch
+            fetch(resendotpAPILink, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': token.get('registrationToken')
+                },
+            }).then(data => {
+                return data.json()
+            })
+                .then(data => {
+                    if (data.status == 'true') {
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'OTP Sent',
+                            content: data.message,
+                            buttonText: 'OK'
+                        })
+                    } else {
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'OTP not Sent',
+                            content: 'There is an error sending OTP',
+                            buttonText: 'OK'
+                        })
+                    }
+                    console.log(data)
+                })
+            console.log("Resend")
+        }
+    }
 
     function verifyEnteredOTP() {
         let currentOTP: string = getCurrentOTP(otp)
@@ -69,16 +121,17 @@ const VerifyOTP = () => {
                 if (data.status == 'true') {
                     navigate('/home')
                 } else {
-                    alert(data.message)
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Error',
+                        content: data.message,
+                        buttonText: 'OK'
+                    })
                     updateOtpVerifyStatus('Verify OTP')
                     // Clear OTP fields
                     clearOTPFields(otp);
                 }
             })
-
-
-
-        // console.log('Entered OTP : ' + currentOTP)
     }
 
     function focusNext(n: number) {
@@ -100,6 +153,13 @@ const VerifyOTP = () => {
 
     return (
         <div id='verifyOTP'>
+            <AlertBox
+                active={alertBoxDetails.active}
+                title={alertBoxDetails.title}
+                content={alertBoxDetails.content}
+                buttonText={alertBoxDetails.buttonText}
+                updater={updateAlertBoxDetails}
+            />
             <div className="top">
                 <img src={images.otp} />
             </div>
@@ -131,7 +191,7 @@ const VerifyOTP = () => {
             <div className="blank"></div>
             <div className="blank"></div>
             <div className="bottom">
-                <p>Didn't receive OTP? <Link to='/resendOTP'>Resend</Link></p>
+                <p>Didn't receive OTP? <span onClick={resendOTP}>Resend</span></p>
             </div>
         </div>
     )
