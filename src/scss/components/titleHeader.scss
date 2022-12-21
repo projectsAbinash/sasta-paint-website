@@ -1,5 +1,5 @@
 @use '../common/animation' as anim;
-
+@use '../common/layout' as ui;
 
 #titleHeader {
     display: flex;
@@ -8,14 +8,8 @@
     padding-inline: 10px;
     min-height: 60px;
     // background-color: lightblue;
-    *{-webkit-user-select: none;
-    /* Safari */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* IE10+/Edge */
-    user-select: none;
-    /* Standard */
+    *{
+        @include ui.userSelectNone();
     }
     >.left,
     >.right {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router, Route, Routes
 } from 'react-router-dom';
@@ -14,11 +14,15 @@ const LazyStart = React.lazy(() => import('./Start'))
 const LazyLogin = React.lazy(() => import('./Login'))
 const LazySignup = React.lazy(() => import('./Signup'))
 const LazyVerifyOTP = React.lazy(() => import('./VerifyOTP'))
+const LazyProfile = React.lazy(() => import('./Profile'))
+const LazyNotifications = React.lazy(() => import('./Notifications'))
+const LazyCart = React.lazy(() => import('./Cart'))
 const TandC = React.lazy(() => import('./TandC'))
 
 
 
 function Main() {
+  useEffect(() => { window.scrollTo(0, 0) }, [])
   return (
     <div id="container">
       <Router>
@@ -31,6 +35,9 @@ function Main() {
             <Route path='/verifyOTP' element={<LazyVerifyOTP />} />
             <Route path='/home' element={<LazyHome />} />
             <Route path='/t&c' element={<TandC />} />
+            <Route path='/profile' element={<LazyProfile />} />
+            <Route path='/cart' element={<LazyCart />} />
+            <Route path='/notifications' element={<LazyNotifications />} />
           </Routes>
         </React.Suspense>
       </Router>

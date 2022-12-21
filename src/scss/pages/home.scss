@@ -4,12 +4,101 @@
 
 
 #home {
-    >.container{
+    >.container {
         padding: 20px;
         min-height: 100vh;
         padding-bottom: calc(var.$navBarHeight + 20px);
         // background-color: aqua;
         width: 100%;
+
     }
-    
+
+    .greet {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 15px;
+
+        .helloName {
+            // font-weight: normal;
+        }
+
+        img {
+            width: 40px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+    }
+
+    .bigText {
+        margin-top: 0.7em;
+        letter-spacing: 0.05em;
+        // font-size: 2.3em;
+    }
+
+    .banner {
+        min-height: 200px;
+        background-color: #eee;
+        width: 100%;
+        margin-block: 25px;
+    }
+
+
+    .cards {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+
+
+        >a {
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+            color: color.$text;
+            width: 100%;
+
+            &:nth-child(1) .card {
+                background-color: #bfe2e2;
+            }
+
+            &:nth-child(2) .card {
+                background-color: #ffe8c3;
+            }
+
+            >.card {
+                padding: 23px;
+                width: 100%;
+                // background-color: mix(color.$accent, #00000000, 25%);
+                min-height: 100px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 10px;
+                border-radius: 25px;
+                @include anim.press(100, 98);
+
+                >.right {
+                    width: 45%;
+
+                    >img {
+                        width: 100%;
+                    }
+                }
+
+                >.left {
+                    display: flex;
+                    justify-content: center;
+                    // align-items: center;
+                    flex-direction: column;
+                    gap: 10px;
+                    width: 55%;
+                }
+            }
+        }
+    }
 }

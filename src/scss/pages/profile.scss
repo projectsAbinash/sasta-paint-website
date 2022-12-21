@@ -1,0 +1,15 @@
+@use '../common/colors' as color;
+@use '../common/var' as var;
+@use '../common/animation' as anim;
+
+
+#profile {
+    >.container{
+        padding: 20px;
+        min-height: 100vh;
+        padding-bottom: calc(var.$navBarHeight + 20px);
+        // background-color: aqua;
+        width: 100%;
+    }
+    
+}
