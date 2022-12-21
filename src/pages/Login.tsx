@@ -68,6 +68,12 @@ const Login = () => {
 
                 }).catch(err => {
                     console.log(err)
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Error',
+                        content: 'Error Logging in. Check your internet connection.',
+                        buttonText: 'OK'
+                    })
                     updateLoginStatus('Log In Again')
                 })
 
@@ -120,7 +126,7 @@ const Login = () => {
             </div>
 
             <div className="end">
-                <p>By continuing you are accepting our <Link to="./t&c">terms and conditions</Link></p>
+                <p>By continuing you are accepting our <Link to="/t&c">terms and conditions</Link></p>
             </div>
         </div>
     )

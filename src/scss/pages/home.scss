@@ -4,55 +4,12 @@
 
 
 #home {
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    outline: 1px solid color.$accent;
-    min-height: 100vh;
-    >.top{
-        margin-top: 1em;
-        h1{
-            padding-inline: 10%;
-            text-align: center;
-        }
-    }
-    >.middle{
+    >.container{
+        padding: 20px;
+        min-height: 100vh;
+        padding-bottom: calc(var.$navBarHeight + 20px);
+        // background-color: aqua;
         width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img{
-            max-height: 55vh;
-            max-width: 80%;
-        }
-    }
-    >.bottom{
-        text-align: center;
-    }
-    >.controls{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        .left{
-            visibility: hidden;
-        }
-        button{
-            height: 60px;
-            aspect-ratio: 1 / 1;
-            background-color: color.$accent;
-            border: none;
-            outline: none;
-            border-radius: 50%;
-            @include anim.press();
-            img{                
-                aspect-ratio: 1 / 1;
-                padding: 20px;
-                filter: invert(1);
-            }
-        }
     }
     
 }

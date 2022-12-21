@@ -14,6 +14,7 @@ const LazyStart = React.lazy(() => import('./Start'))
 const LazyLogin = React.lazy(() => import('./Login'))
 const LazySignup = React.lazy(() => import('./Signup'))
 const LazyVerifyOTP = React.lazy(() => import('./VerifyOTP'))
+const TandC = React.lazy(() => import('./TandC'))
 
 
 
@@ -29,6 +30,7 @@ function Main() {
             <Route path='/signup' element={<LazySignup />} />
             <Route path='/verifyOTP' element={<LazyVerifyOTP />} />
             <Route path='/home' element={<LazyHome />} />
+            <Route path='/t&c' element={<TandC />} />
           </Routes>
         </React.Suspense>
       </Router>

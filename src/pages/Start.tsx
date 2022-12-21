@@ -2,12 +2,12 @@ import { Link } from "react-router-dom"
 import images from '../assets/image'
 import icons from '../assets/icon'
 
-import '../scss/pages/home.scss'
+import '../scss/pages/start.scss'
 import { useEffect } from "react"
 const Home = () => {
     useEffect(()=> {document.title = 'Welcome to Sasta Paint'}, [])
     return (
-        <div id="home">
+        <div id="start">
             <div className="top">
                 <h1>Fully Secured Service</h1>
             </div>
@@ -24,7 +24,9 @@ const Home = () => {
                     </Link>
                 </div>
                 <div className="center">
+                    <Link to='/home'>
                     <p>Skip Now</p>
+                    </Link>
                 </div>
                 <div className="right">
                     <Link to='./login'>

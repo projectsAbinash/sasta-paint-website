@@ -1,0 +1,11 @@
+@use '../common/var' as var;
+@use '../common/colors' as color;
+
+#navigationBar{
+    background-color: #fff;
+    border-top: 1px solid color.$input-bg;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    min-height: var.$navBarHeight;
+}

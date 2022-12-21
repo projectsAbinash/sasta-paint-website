@@ -154,7 +154,7 @@ const Signup = () => {
             </div>
 
             <div className="end">
-                <p>By continuing you are accepting our <Link to="./t&c">terms and conditions</Link></p>
+                <p>By continuing you are accepting our <Link to="/t&c">terms and conditions</Link></p>
             </div>
         </div>
     )
