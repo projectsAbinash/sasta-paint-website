@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { useDeferredValue, useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import Navigation from "../components/NavigationBar"
 import '../scss/pages/home.scss'
 import joinLinks from "../linker"
 import token from "../tokens"
 import icons from "../assets/icon"
 import images from "../assets/image"
+import Banner from "../components/Banner"
+import Loading from "./Loading"
+import AlertBox from "../components/AlertBox"
 
 
 const profileApiLink = joinLinks('profile')
+
 function makeRequestData(): object {
     return {
         method: 'POST',
@@ -17,48 +21,62 @@ function makeRequestData(): object {
             'Accept': 'application/json',
             'Authorization': token.get('registrationToken')
         },
-        // body: JSON.stringify({
-        //     phone: id,
-        //     password: pass
-        // })
     }
 }
 
 
 const requestData: object = makeRequestData()
 const Home = () => {
-    // const [fuckingName, updateFuckingName] = useState()
-    // const [fetchData, updateFetchedData] = useState(0)
+    const [profileData, updateProfileData] = useState<any>(null)
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+    const navigate = useNavigate()
 
-    // useEffect(() => { fetchDataAPI() })
 
-    // (function fetchDataAPI() {
-    //     fetch(profileApiLink, requestData).then(data => data.json())
-    //         .then(data => {
-    //             updateFetchedData(data)
-    //         })
-    // })()
+    useEffect(() => {
+        fetch(profileApiLink, requestData).then(data => data.json())
+            .then(data => {
+                if (data) {
 
+                    updateProfileData({
+                        name: data.user_main.name.split(' ')[0]
+                    })
+                }
+
+                console.log(data)
+            }).catch(err => {
+
+                console.log(err)
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Error',
+                    content: err,
+                    buttonText: 'OK'
+                })
+                navigate('/login')
+            })
+    }, [])
+
+
+    if (!profileData)
+        return <Loading />
 
     return (
         <div id="home">
+            <AlertBox
+                active={alertBoxDetails.active}
+                title={alertBoxDetails.title}
+                content={alertBoxDetails.content}
+                buttonText={alertBoxDetails.buttonText}
+                updater={updateAlertBoxDetails}
+            />
             <div className="container">
                 <div className="greet">
                     <img src={images.pp} />
-                    <h2 className="helloName">Hello Abinash</h2>
+                    <h2 className="helloName">Hello {profileData?.name || ''}</h2>
                 </div>
 
-
                 <h1 className="bigText">Enjoy! <br />Super Fast Service</h1>
-
-                <div className="banner">This is banner area</div>
-
-                {/* <button onClick={() => 0}>Fetch</button>
-                <Link to='/t&c'>Terms and Conditions</Link>
-
-                 */}
-
-
+                <Banner />
 
                 <div className="cards">
                     <Link to='/t&c'>
@@ -72,7 +90,7 @@ const Home = () => {
                             </div>
                         </div>
                     </Link>
-                    
+
                     <Link to='/login'>
                         <div className="card">
                             <div className="left">
@@ -84,7 +102,7 @@ const Home = () => {
                             </div>
                         </div>
                     </Link>
-                    
+
                 </div>
             </div>
             <Navigation active='home' />

@@ -1,0 +1,40 @@
+@use '../common/colors' as color;
+@use '../common/animation' as anim;
+
+#banner {
+    // min-height: 200px;
+    // background-color: #eee;
+    width: 100%;
+    margin-block: 20px;
+    .swiper-wrapper{
+        // min-height: 200px;
+        padding-bottom: 30px;
+
+        .swiper-slide{
+            min-height: 200px;
+            max-height: 50vh;
+            // background-color: lime;
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            a{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                -webkit-tap-highlight-color: transparent;
+                text-decoration: none;
+                img{
+                    width: 100%;
+                    border-radius: 20px;
+                    @include anim.press(150,98);
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+    .swiper-pagination-bullet-active{
+        background-color: color.$accent;
+    }
+}

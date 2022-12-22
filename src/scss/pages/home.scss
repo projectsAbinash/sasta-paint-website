@@ -39,13 +39,6 @@
         // font-size: 2.3em;
     }
 
-    .banner {
-        min-height: 200px;
-        background-color: #eee;
-        width: 100%;
-        margin-block: 25px;
-    }
-
 
     .cards {
         display: flex;
@@ -81,15 +74,14 @@
                 gap: 10px;
                 border-radius: 25px;
                 @include anim.press(100, 98);
-
                 >.right {
                     width: 45%;
-
+                    
                     >img {
                         width: 100%;
                     }
                 }
-
+                
                 >.left {
                     display: flex;
                     justify-content: center;
@@ -97,6 +89,9 @@
                     flex-direction: column;
                     gap: 10px;
                     width: 55%;
+                    >h2{
+                        text-transform: uppercase;
+                    }
                 }
             }
         }

@@ -7,10 +7,12 @@ import undraw_color_palette_re_dwy7 from './images/undraw_color_palette_re_dwy7.
 import undraw_order_confirmed_re_g0if from './images/undraw_order_confirmed_re_g0if.svg';
 import undraw_printing_invoices from './images/undraw_printing_invoices.svg';
 import undraw_mobile_user_re_xta4 from './images/undraw_mobile_user_re_xta4.svg';
+import sample_banner from './images/sample_banner.webp';
+import sample_banner_2 from './images/sample_banner_2.jpg';
 const images = {
     homeStart, login, printing, otp, pp, undraw_color_palette_re_dwy7,
     undraw_order_confirmed_re_g0if, undraw_printing_invoices,
-    undraw_mobile_user_re_xta4
+    undraw_mobile_user_re_xta4, sample_banner, sample_banner_2
 
 }
 
