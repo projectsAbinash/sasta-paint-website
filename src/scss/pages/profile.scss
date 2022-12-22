@@ -1,15 +1,146 @@
 @use '../common/colors' as color;
 @use '../common/var' as var;
+@use '../common/layout' as ui;
 @use '../common/animation' as anim;
 
 
 #profile {
-    >.container{
+    >.container {
         padding: 20px;
         min-height: 100vh;
         padding-bottom: calc(var.$navBarHeight + 20px);
         // background-color: aqua;
         width: 100%;
+
+        >.selectedFileName {
+            margin-top: 10px;
+            margin-left: 5px;
+        }
+
+        >.top {
+            background-color: color.$accent;
+            // background-color: mix(color.$accent,#00000000, 40%);
+            padding: 20px;
+            border-radius: 20px;
+            $gap : 10px;
+            margin-top: 1em;
+            display: grid;
+            grid-template-columns: calc(50% - $gap / 2) calc(50% - $gap / 2);
+            gap: $gap;
+            align-items: center;
+
+            >* {
+                @include anim.press(150, 95);
+
+            }
+
+            >.left {
+                position: relative;
+                display: grid;
+
+                // place-items: center;
+                >input[type='file'] {
+                    height: 0;
+                    width: 0;
+                }
+
+                img.pp {
+                    width: 70%;
+                    aspect-ratio: 1 / 1;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+
+                .editImageContainer {
+                    position: absolute;
+                    background-color: white;
+                    height: 35px;
+                    width: 35px;
+                    top: 85%;
+                    left: 55%;
+                    padding: 10px;
+                    border-radius: 50%;
+                    aspect-ratio: 1 / 1;
+                    transform: translate(-50%, -50%);
+                }
+
+                .editIcon {
+                    width: 100%;
+                }
+            }
+
+            >.right {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                // border: 1px solid white;
+                background-color: mix(color.$accent, #ffffffff, 85%);
+                border-radius: 20px;
+                aspect-ratio: 1 / 0.6;
+                gap: 0.3em;
+                color: white;
+
+                >.count {
+                    font-weight: 500;
+                    font-size: 1.5em;
+                    // color: color.$accent;
+                }
+            }
+        }
+
+        >.details {
+            display: flex;
+            flex-direction: column;
+            margin-top: 2em;
+            gap: 1em;
+
+            >div {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5em;
+
+                .options {
+                    width: 100%;
+                    // background-color: lightblue;
+                    display: flex;
+                    justify-content: flex-start;
+                    gap: 1em;
+
+                    .option {
+                        margin-block: 0.5em;
+                        padding: 0.8em 2em;
+                        background-color: color.$input-bg;
+                        // border: 1px solid red;
+                        border-radius: 100vmax;
+                        border: 1px solid #ddd;
+                        @include anim.press();
+                        @include ui.userSelectNone();
+                    }
+                }
+            }
+
+            >div>span {
+                color: gray;
+                font-size: 0.9em;
+            }
+        }
+
+        input[type='submit'] {
+            // position: fixed;
+            // right: 50px;
+            // bottom: 200px;
+            outline: none;
+            border: none;
+            background-color: color.$accent;
+            color: white;
+            padding: 1.4em;
+            font-size: 0.9em;
+            border-radius: var.$bdrs;
+            @include anim.press(100, 98);
+            // font-weight: 500;
+            letter-spacing: 0.05em;
+        }
     }
-    
+
 }

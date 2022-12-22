@@ -5,7 +5,11 @@ import icons from '../assets/icon'
 import '../scss/pages/start.scss'
 import { useEffect } from "react"
 const Home = () => {
-    useEffect(()=> {document.title = 'Welcome to Sasta Paint'}, [])
+    let message = "Welcome to Sasta Paint"
+    let speech = new SpeechSynthesisUtterance(message)
+    window.speechSynthesis.speak(speech)
+
+    useEffect(() => { document.title = 'Welcome to Sasta Paint' }, [])
     return (
         <div id="start">
             <div className="top">
@@ -19,13 +23,13 @@ const Home = () => {
             </div>
             <div className="controls">
                 <div className="left">
-                <Link to='./login'>
+                    <Link to='./login'>
                         <button><img src={icons.chevron_right_solid} /> Hello</button>
                     </Link>
                 </div>
                 <div className="center">
-                    <Link to='/home'>
-                    <p>Skip Now</p>
+                    <Link to='/profile'>
+                        <p>Skip Now</p>
                     </Link>
                 </div>
                 <div className="right">

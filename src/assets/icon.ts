@@ -9,6 +9,7 @@ import Home from './icons/Home.svg'
 import Home_Broken from './icons/Home_Broken.svg'
 import Wallet from './icons/Wallet.svg'
 import Wallet_Broken from './icons/Wallet_Broken.svg'
+import pen_solid from './icons/pen-solid.svg'
 
 
 
@@ -18,7 +19,7 @@ const icons = {
     Home, Home_Broken,
     Profile, Profile_Broken,
     Notification, Notification_Broken,
-    Wallet, Wallet_Broken
+    Wallet, Wallet_Broken, pen_solid
 }
 
 export default icons
