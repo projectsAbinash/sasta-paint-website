@@ -5,9 +5,9 @@ import icons from '../assets/icon'
 import '../scss/pages/start.scss'
 import { useEffect } from "react"
 const Home = () => {
-    let message = "Welcome to Sasta Paint"
-    let speech = new SpeechSynthesisUtterance(message)
-    window.speechSynthesis.speak(speech)
+    // let message = "Welcome to Sasta Paint"
+    // let speech = new SpeechSynthesisUtterance(message)
+    // window.speechSynthesis.speak(speech)
 
     useEffect(() => { document.title = 'Welcome to Sasta Paint' }, [])
     return (

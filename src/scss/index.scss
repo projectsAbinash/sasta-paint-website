@@ -12,11 +12,12 @@ input[type='tel'],
 input[type='password'],
 input[type='text'].inp,
 input[type='email'],
+select#gender,
 input[type='date'] {
     width: 100%;
     padding: 1.5em;
     font-size: 0.9em;
-    padding-left: 3em;
+    padding-left: 3.5em;
     // font-weight: 500;
     background-color: color.$input-bg;
     outline: 1px solid transparent;
@@ -43,6 +44,32 @@ input[type=text].inp {
     background-image: url('../assets/icons/user-solid.svg');
 }
 
+select#gender {
+    background-image: url('../assets/icons/venus-mars-solid.svg');
+    background-size: 1.5em;
+}
+
+input#collegeName {
+    background-image: url('../assets/icons/building-columns-solid.svg');
+    background-size: 1.3em;
+}
+
+input#course {
+    background-image: url('../assets/icons/graduation-cap-solid.svg');
+    background-size: 1.5em;
+}
+input#year {
+    background-image: url('../assets/icons/calendar-days-solid.svg');
+    background-size: 1.2em;
+}
+input#semester {
+    background-image: url('../assets/icons/droplet-solid.svg');
+}
+input#work {
+    background-image: url('../assets/icons/briefcase-solid.svg');
+    background-size: 1.3em;
+}
+
 input[type=email] {
     background-image: url('../assets/icons/at.svg');
     background-size: 1.3em;
@@ -50,10 +77,9 @@ input[type=email] {
 
 input[type=date] {
     background-image: url('../assets/icons/calendar-days-solid.svg');
-    background-size: 1.3em;
+    background-size: 1.1em;
     -webkit-appearance: none;
     appearance: none;
-
 }
 
 input[type=date]::-webkit-inner-spin-button,

@@ -116,6 +116,13 @@
                         border: 1px solid #ddd;
                         @include anim.press();
                         @include ui.userSelectNone();
+                        // transition: 200ms background-color, scale;
+                    }
+
+                    .option.active {
+                        background-color: color.$accent;
+                        color: white;
+                        border-color: transparent;
                     }
                 }
             }
@@ -140,6 +147,16 @@
             @include anim.press(100, 98);
             // font-weight: 500;
             letter-spacing: 0.05em;
+        }
+
+        #studentDetails {
+            margin-top: 1em;
+
+            >.input {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5em;
+            }
         }
     }
 
