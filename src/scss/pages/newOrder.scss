@@ -1,0 +1,175 @@
+@use '../common/colors' as color;
+@use '../common/var' as var;
+@use '../common/animation' as anim;
+
+#newOrder {
+    .container {
+        padding: 20px;
+
+        .fileDiv {
+            width: 100%;
+            background-color: color.$input-bg;
+            min-height: 50px;
+            border-radius: var.$bdrs;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.3em;
+            @include anim.press(150,98);
+            >.left {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1em;
+                img {
+                    width: 20px;
+                }
+                >span{
+                    font-size: 0.9em;
+                }
+                >span.noSelect{
+                    color: gray;
+                }
+            }
+
+            >.right {
+                img {
+                    width: 15px;
+                    opacity: 0.6;
+                }
+            }
+        }
+
+        >.details,
+        >.config,
+        >.selectPage {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+            margin-top: 1.5em;
+
+            >.title {
+                background-image: url('../../assets/icons/t-solid.svg');
+            }
+
+            >.selectColor,
+            .selectPage {
+                display: flex;
+                // justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 0.7em 0.8em;
+
+                >.select {
+                    background-color: color.$input-bg;
+                    width: calc(50% - 0.4em);
+                    padding: 1.2em;
+                    border-radius: var.$bdrs;
+                    display: flex;
+                    align-items: center;
+                    @include anim.press(150, 95);
+                    // justify-content: center;
+                    gap: 1em;
+
+                    span {
+                        font-size: 0.9em;
+                    }
+
+                    input[type=radio] {
+                        accent-color: color.$accent;
+                        -webkit-tap-highlight-color: transparent;
+                        // border: none;
+                        // outline: none;
+                        -webkit-appearance: none;
+                        appearance: none;
+                        // height: 1em;
+                        aspect-ratio: 1 / 1;
+                        width: 0.85em;
+                        outline: 1.2px solid black;
+                        outline-offset: 2px;
+                        border-radius: 50%;
+                    }
+
+                    input[type=radio]:checked {
+                        // background-color: color.$accent;
+                        background-color: black;
+                    }
+                }
+            }
+
+            >.selectPage {
+                >.select {
+                    width: 100%;
+                    padding: 1.3em;
+                    @include anim.press(150, 98);
+
+                    >.text {
+                        width: 100%;
+                        // background-color: lightblue;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                    .price {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 0.5em;
+                    }
+
+                    span.price {
+                        color: color.$accent;
+                    }
+
+                    span.price.cancel {
+                        color: gray;
+                        font-size: 0.8em;
+                        text-decoration: line-through;
+                    }
+                }
+
+            }
+
+
+            .copies {
+                width: 100%;
+                display: flex;
+                // background-color: lightblue;
+                gap: 0.6em;
+                justify-content: center;
+                align-items: center;
+
+                >#noOfCopies {
+                    width: 60%;
+                    background-image: url('../../assets/icons/copy-regular.svg');
+                    background-size: 1.2em;
+                }
+
+                >button {
+                    outline: none;
+                    border: none;
+                    background-color: color.$input-bg;
+                    color: white;
+                    padding: 1.4em;
+                    // width: 20%;
+                    // aspect-ratio: 1 / 1;
+                    // aspect-ratio: 1 / 1;
+                    font-size: 0.9em;
+                    border-radius: var.$bdrs;
+                    @include anim.press(100, 90);
+                    flex: 1;
+
+                    // font-weight: 500;
+                    // letter-spacing: 0.05em;
+                    img {
+                        height: 1.1em;
+                        aspect-ratio: 1 / 1;
+                        flex: none;
+
+                    }
+                }
+            }
+        }
+    }
+}

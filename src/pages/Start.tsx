@@ -28,7 +28,7 @@ const Home = () => {
                     </Link>
                 </div>
                 <div className="center">
-                    <Link to='/profile'>
+                    <Link to='/newOrder'>
                         <p>Skip Now</p>
                     </Link>
                 </div>

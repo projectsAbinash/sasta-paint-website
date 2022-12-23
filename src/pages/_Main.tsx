@@ -18,6 +18,7 @@ const LazyProfile = React.lazy(() => import('./Profile'))
 const LazyNotifications = React.lazy(() => import('./Notifications'))
 const LazyCart = React.lazy(() => import('./Cart'))
 const TandC = React.lazy(() => import('./TandC'))
+const NewOrder = React.lazy(() => import('./NewOrder'))
 
 
 
@@ -38,6 +39,7 @@ function Main() {
             <Route path='/profile' element={<LazyProfile />} />
             <Route path='/cart' element={<LazyCart />} />
             <Route path='/notifications' element={<LazyNotifications />} />
+            <Route path='/newOrder' element={<NewOrder />} />
           </Routes>
         </React.Suspense>
       </Router>

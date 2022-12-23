@@ -2,6 +2,7 @@
 @use './common/colors' as color;
 @use './common/font';
 @use './common/var' as var;
+@use './common/animation' as anim;
 
 body {
     min-height: 100vh;
@@ -15,7 +16,8 @@ input[type='number'].inp,
 input[type='email'],
 select#gender,
 select#year,
-input[type='date'] {
+input[type='date'],
+textarea {
     width: 100%;
     padding: 1.5em;
     font-size: 0.9em;
@@ -32,6 +34,16 @@ input[type='date'] {
     &:focus {
         outline-color: color.$accent;
     }
+
+}
+textarea#instructions{
+    background-image: url('../assets/icons/dots.svg');
+    background-position: 1.3em 1.3em;
+    background-size: 1.3em;
+    line-height: 1.7em;
+    padding: 1em;
+    padding-left: 3.5em;
+
 }
 
 input[type=tel] {
@@ -44,6 +56,9 @@ input[type=password] {
 
 input[type=text].inp {
     background-image: url('../assets/icons/user-solid.svg');
+}
+input[type=number].inp {
+    background-image: url('../assets/icons/mobile-solid.svg');
 }
 
 select#gender {
@@ -105,4 +120,20 @@ input[type=date]::-webkit-calendar-picker-indicator {
     img {
         width: 70px;
     }
+}
+
+
+
+input[type=submit].btnLarge{
+    outline: none;
+    border: none;
+    background-color: color.$accent;
+    color: white;
+    padding: 1.4em;
+    font-size: 0.9em;
+    border-radius: var.$bdrs;
+    @include anim.press(100,98);
+    // font-weight: 500;
+    letter-spacing: 0.05em;
+    width: 100%;
 }
