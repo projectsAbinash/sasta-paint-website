@@ -149,8 +149,9 @@
             letter-spacing: 0.05em;
         }
 
-        #studentDetails {
-            margin-top: 1em;
+        #studentDetails,
+        #professionalDetails {
+            // margin-top: 1em;
 
             >.input {
                 display: flex;

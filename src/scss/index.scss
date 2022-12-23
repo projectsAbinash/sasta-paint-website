@@ -11,8 +11,10 @@ body {
 input[type='tel'],
 input[type='password'],
 input[type='text'].inp,
+input[type='number'].inp,
 input[type='email'],
 select#gender,
+select#year,
 input[type='date'] {
     width: 100%;
     padding: 1.5em;
@@ -58,13 +60,18 @@ input#course {
     background-image: url('../assets/icons/graduation-cap-solid.svg');
     background-size: 1.5em;
 }
-input#year {
+
+input#year,
+select#year {
     background-image: url('../assets/icons/calendar-days-solid.svg');
     background-size: 1.2em;
 }
+
 input#semester {
-    background-image: url('../assets/icons/droplet-solid.svg');
+    background-image: url('../assets/icons/graduation-cap-solid.svg');
+    background-size: 1.5em;
 }
+
 input#work {
     background-image: url('../assets/icons/briefcase-solid.svg');
     background-size: 1.3em;
