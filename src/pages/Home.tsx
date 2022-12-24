@@ -38,7 +38,8 @@ const Home = () => {
                 if (data) {
 
                     updateProfileData({
-                        name: data.user_main.name.split(' ')[0]
+                        name: data?.user_main?.name.split(' ')[0],
+                        pic: data?.user_extra?.pic || null
                     })
                 }
 
@@ -73,7 +74,7 @@ const Home = () => {
                 <div className="greet">
                     <div className="left">
 
-                        <img src={images.pp} />
+                        <img src={profileData?.pic || images.pp} />
                         <h2 className="helloName">Hello, <br />{profileData?.name || ''}👋🏻</h2>
                     </div>
                     <div className="right">
