@@ -75,7 +75,7 @@ function Profile() {
             .then(data => {
                 console.log(data)
                 const blockStatus: any = checkBlock(data)
-                console.log(blockStatus)
+                // console.log(blockStatus)
                 checkBlockLocal(blockStatus)
                 const user = data.user_main
                 const user_extra = data.user_extra
@@ -256,13 +256,12 @@ function Profile() {
 
         Object.entries(body).forEach(entry => {
             const [key, value]: any = entry;
-            console.log(key, value)
             formData.append(key, value)
         })
 
 
         const newReqData: any = { ...requestData, body: formData }
-        console.log(newReqData)
+        // console.log(newReqData)
         uSaveChangesStatus('Saving Changes...')
         fetch(profileApiUpdateLink, newReqData).then(data => data.json())
             .then(data => {

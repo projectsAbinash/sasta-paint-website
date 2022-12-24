@@ -21,12 +21,12 @@ const Navigation = (props: any) => {
                     <span className="tabTitle">Alerts</span>
                 </div>
             </Link>
-            <Link to='/cart'>
+            {/* <Link to='/cart'>
                 <div className={"tab " + makeActiveClass(active, 'cart')}>
                     <img src={active == 'cart' ? icons.Wallet : icons.Wallet_Broken} />
                     <span className="tabTitle">Cart</span>
                 </div>
-            </Link>
+            </Link> */}
             <Link to='/profile'>
                 <div className={"tab " + makeActiveClass(active, 'profile')}>
                     <img src={active == 'profile' ? icons.Profile : icons.Profile_Broken} className='profile' />
