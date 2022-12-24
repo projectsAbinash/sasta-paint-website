@@ -74,7 +74,7 @@ const Home = () => {
                     <div className="left">
 
                         <img src={images.pp} />
-                        <h2 className="helloName">Hello{profileData?.name ? (', ' + profileData.name) : ''}👋🏻</h2>
+                        <h2 className="helloName">Hello, <br />{profileData?.name || ''}👋🏻</h2>
                     </div>
                     <div className="right">
                         <div className="countDiv">

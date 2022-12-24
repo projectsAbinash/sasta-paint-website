@@ -8,13 +8,14 @@ import joinLinks from "../linker"
 import '../scss/pages/profile.scss'
 import token from "../tokens"
 import AlertBox from "../components/AlertBox"
+import Loading from "./Loading"
 const profileApiGetLink = joinLinks('profile')
 const profileApiUpdateLink = joinLinks('profile/update')
 
 const requestData = {
     method: 'POST',
     headers: {
-        'Content-Type': 'application/json',
+        // 'Content-Type': 'application/json',
         'Accept': 'application/json',
         'Authorization': token.get('registrationToken')
     },
@@ -30,7 +31,7 @@ function Profile() {
     const pp = useRef<any>()
     const [selectedFileName, updateSelectedFileName] = useState('')
     const [isStudent, uIsStudent] = useState<any>(null)
-    const [userData, updateUserData] = useState<any>({})
+    // const [userData, updateUserData] = useState<any>(null)
     const navigate = useNavigate()
     const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
 
@@ -67,7 +68,10 @@ function Profile() {
     }
 
     useEffect(() => {
-        fetch(profileApiGetLink, requestData).then(data => data.json())
+        fetch(profileApiGetLink, requestData).then(data => {
+            // console.log(data.)
+            return data.json()
+        })
             .then(data => {
                 console.log(data)
                 const blockStatus: any = checkBlock(data)
@@ -79,6 +83,7 @@ function Profile() {
                 uName(user.name)
                 uEmail(user.email)
                 // uPic(user_extra.pic || icons.Profile)
+
                 uDob(user_extra.dob || '2002-01-01')
                 uGender(user_extra.gender || null)
                 uIsStudent(user_extra.student)
@@ -87,13 +92,13 @@ function Profile() {
                 uOccupation(user_extra.occupation || '')
                 uYear(user_extra.Year || '')
                 uSemester(user_extra.Semester || '')
-
+                uPic(user_extra.pic || null)
                 // console.log(user_extra.gender)
-
             })
     }, [])
 
-
+    if (!name)
+        return <Loading />
     return (
         <div id="profile">
             <AlertBox
@@ -233,11 +238,11 @@ function Profile() {
 
         body.student = isStudent
 
-        body.pic = pp.current.files[0]
-
-
-
-
+        if (pp.current.files[0]) {
+            body.pic = pp.current.files[0] || null
+            uPic(URL.createObjectURL(pp.current.files[0]))
+        }
+        // URL.createObjectURL()
         if (college_Name) body.Collage_Name = college_Name
         if (course) body.Course = course
         if (year) body.Year = year
@@ -246,7 +251,19 @@ function Profile() {
         if (gender) body.gender = gender
         if (dob) body.dob = dob
 
-        const newReqData: any = { ...requestData, body: JSON.stringify(body) }
+        const formData = new FormData()
+        // formData.append('name', name)
+        // formData.append('email', email)
+        // formData.append('course', )
+
+        Object.entries(body).forEach(entry => {
+            const [key, value]: any = entry;
+            console.log(key, value)
+            formData.append(key, value)
+        })
+
+
+        const newReqData: any = { ...requestData, body: formData }
         console.log(newReqData)
         uSaveChangesStatus('Saving Changes...')
         fetch(profileApiUpdateLink, newReqData).then(data => data.json())
@@ -265,9 +282,9 @@ function Profile() {
     }
 
 
-    function getFile() {
-        return 0
-    }
+    // function getFile() {
+    //     return 0
+    // }
     function onChangeFileSelect() {
         let file: string = pp.current.value
         let fileName = file.split('\\')
@@ -277,59 +294,58 @@ function Profile() {
     function selectFile() {
         pp.current.click()
     }
-    function StudentSection() {
-        return (
-            <div id="studentDetails">
-                <div className="input">
-                    <span>College Name</span>
-                    <input
-                        type="text" id='collegeName' placeholder='Hello World College' name="college" className="inp"
-                        value={college_Name} onInput={(e: any) => uCollege_Name(e.target.value)}
-                    />
-                </div>
-                <div className="input">
-                    <span>Course of Study</span>
-                    <input
-                        type="text" id='course' placeholder='e.g. B.tech in CSE' name="course" className="inp"
-                        value={course} onInput={(e: any) => uCourse(e.target.value)}
-                    />
-                </div>
-                <div className="input">
-                    <span>Year</span>
-                    <select id="year" name="year" defaultValue={year} onInput={(e: any) => { uYear(e.target.value) }}>
-                        <option value="" disabled>Select Your year</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                    </select>
-                </div>
-                <div className="input">
-                    <span>Semester</span>
-                    <input
-                        type="number" id='semester' placeholder='e.g. 2nd Semester' name="semester" className="inp"
-                        value={semester} onInput={(e: any) => uSemester(e.target.value)}
-                    />
-                </div>
-            </div>
-        )
-    }
-    function ProfessionalSection() {
-        return (
-            <div id="professionalDetails">
-                <div className="input">
-                    <span>Occupation</span>
-                    <input
-                        type="text" id='work' placeholder='e.g. Web Developer' name="work" className="inp"
-                        value={occupation} onInput={(e: any) => uOccupation(e.target.value)}
-                    />
-                </div>
-            </div>
-        )
-    }
-
+    // function StudentSection() {
+    //     return (
+    //         <div id="studentDetails">
+    //             <div className="input">
+    //                 <span>College Name</span>
+    //                 <input
+    //                     type="text" id='collegeName' placeholder='Hello World College' name="college" className="inp"
+    //                     value={college_Name} onInput={(e: any) => uCollege_Name(e.target.value)}
+    //                 />
+    //             </div>
+    //             <div className="input">
+    //                 <span>Course of Study</span>
+    //                 <input
+    //                     type="text" id='course' placeholder='e.g. B.tech in CSE' name="course" className="inp"
+    //                     value={course} onInput={(e: any) => uCourse(e.target.value)}
+    //                 />
+    //             </div>
+    //             <div className="input">
+    //                 <span>Year</span>
+    //                 <select id="year" name="year" defaultValue={year} onInput={(e: any) => { uYear(e.target.value) }}>
+    //                     <option value="" disabled>Select Your year</option>
+    //                     <option value="1">1</option>
+    //                     <option value="2">2</option>
+    //                     <option value="3">3</option>
+    //                     <option value="5">5</option>
+    //                     <option value="6">6</option>
+    //                     <option value="7">7</option>
+    //                     <option value="8">8</option>
+    //                 </select>
+    //             </div>
+    //             <div className="input">
+    //                 <span>Semester</span>
+    //                 <input
+    //                     type="number" id='semester' placeholder='e.g. 2nd Semester' name="semester" className="inp"
+    //                     value={semester} onInput={(e: any) => uSemester(e.target.value)}
+    //                 />
+    //             </div>
+    //         </div>
+    //     )
+    // }
+    // function ProfessionalSection() {
+    //     return (
+    //         <div id="professionalDetails">
+    //             <div className="input">
+    //                 <span>Occupation</span>
+    //                 <input
+    //                     type="text" id='work' placeholder='e.g. Web Developer' name="work" className="inp"
+    //                     value={occupation} onInput={(e: any) => uOccupation(e.target.value)}
+    //                 />
+    //             </div>
+    //         </div>
+    //     )
+    // }
 }
 export default Profile
