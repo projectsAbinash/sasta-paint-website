@@ -57,8 +57,8 @@ const Home = () => {
     }, [])
 
 
-    if (!profileData)
-        return <Loading />
+    // if (!profileData)
+    //     return <Loading />
 
     return (
         <div id="home">
@@ -71,16 +71,24 @@ const Home = () => {
             />
             <div className="container">
                 <div className="greet">
-                    <img src={images.pp} />
-                    <h2 className="helloName">Hello {profileData?.name || ''}</h2>
+                    <div className="left">
+
+                        <img src={images.pp} />
+                        <h2 className="helloName">Hello👋🏻{profileData?.name ? (', ' + profileData.name) : ''}</h2>
+                    </div>
+                    <div className="right">
+                        <div className="countDiv">
+                            <span className="count">15</span>
+                            {/* <span className="text">Pages Printed</span> */}
+                        </div>
+                    </div>
                 </div>
 
-                <h1 className="bigText">Enjoy! <br />Super Fast Service</h1>
                 <Banner />
 
                 <div className="cards">
-                    <Link to='/t&c'>
-                        <div className="card">
+                    <Link to='/newOrder'>
+                        <div className="card glow">
                             <div className="left">
                                 <h2>Place new Order</h2>
                                 <p>Click here to place a new order.</p>

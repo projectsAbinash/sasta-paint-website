@@ -74,19 +74,22 @@ function Profile() {
                 console.log(blockStatus)
                 checkBlockLocal(blockStatus)
                 const user = data.user_main
+                const user_extra = data.user_extra
 
-                uPic(user.pic)
                 uName(user.name)
                 uEmail(user.email)
-                // user.dob = '2002-02-07'
-                uDob(user.dob || '12/12/2002')
-                uGender(user.gender || 'Other')
-                uIsStudent(user.student || null)
-                uCollege_Name(user.Collage_Name || '')
-                uCourse(user.Course || '')
-                uOccupation(user.occupation || '')
-                uYear(user.year || '')
-                uSemester(user.Semester || '')
+                // uPic(user_extra.pic || icons.Profile)
+                uDob(user_extra.dob || '2002-01-01')
+                uGender(user_extra.gender || null)
+                uIsStudent(user_extra.student)
+                uCollege_Name(user_extra.Collage_Name || '')
+                uCourse(user_extra.Course || '')
+                uOccupation(user_extra.occupation || '')
+                uYear(user_extra.Year || '')
+                uSemester(user_extra.Semester || '')
+
+                // console.log(user_extra.gender)
+
             })
     }, [])
 
@@ -104,7 +107,7 @@ function Profile() {
                 <div className="top">
                     <div className="left">
                         <img src={pic ? pic : images.pp} onClick={selectFile} className='pp' />
-                        <input type="file" ref={pp} onChange={onChangeFileSelect} />
+                        <input type="file" ref={pp} onChange={onChangeFileSelect} key={6626} />
                         <div className="editImageContainer" onClick={selectFile} >
                             <img src={icons.pen_solid} className='editIcon' />
                         </div>
@@ -139,20 +142,21 @@ function Profile() {
                     </div>
                     <div>
                         <span>Your Gender</span>
-                        <select id="gender" name="gender" defaultValue={gender} onInput={(e: any) => { uGender(e.target.value) }}>
+                        <select id="gender" name="gender" onInput={(e: any) => { uGender(e.target.value) }} value={gender}>
                             <option value="" disabled>Select Your Gender</option>
-                            <option value="Male">Male</option>
+                            <option value="Male" >Male</option>
                             <option value="Female" >Female</option>
-                            <option value="Other">Other</option>
+                            <option value="Other" >Other</option>
+                            {/* <option value="Male" selected={gender === 'Male' ? true : false}>Male</option>
+                            <option value="Female" selected={gender === 'Female' ? true : false}>Female</option>
+                            <option value="Other" selected={gender === 'Other' ? true : false}>Other</option> */}
                         </select>
                     </div>
-
-
                     <div>
                         <span>Are you a student?</span>
                         <div className="options">
-                            <div className={`option ${(isStudent === true) ? ' active' : ''}`} onClick={() => { uIsStudent(true) }}>Yes</div>
-                            <div className={`option ${(isStudent === false) ? ' active' : ''}`} onClick={() => { uIsStudent(false) }}>No</div>
+                            <div className={`option ${(isStudent === 1) ? ' active' : ''}`} onClick={() => { uIsStudent(1) }}>Yes</div>
+                            <div className={`option ${(isStudent === 0) ? ' active' : ''}`} onClick={() => { uIsStudent(0) }}>No</div>
                         </div>
                     </div>
 
@@ -160,8 +164,8 @@ function Profile() {
 
                     {/* Condition for isStudent */}
                     {[isStudent].map((s) => {
-                        if (s === true)
-                            return <div id="studentDetails">
+                        if (s === 1)
+                            return <div id="studentDetails" key={1233}>
                                 <div className="input">
                                     <span>College Name</span>
                                     <input
@@ -183,22 +187,19 @@ function Profile() {
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
+                                        <option value="4">4</option>
                                     </select>
                                 </div>
                                 <div className="input">
                                     <span>Semester</span>
                                     <input
-                                        type="number" id='semester' placeholder='e.g. 2nd Semester' name="semester" className="inp"
+                                        type="text" id='semester' placeholder='e.g. 2nd Semester' name="semester" className="inp"
                                         value={semester} onInput={(e: any) => uSemester(e.target.value)}
                                     />
                                 </div>
                             </div>
-                        else if (s === false) {
-                            return <div id="professionalDetails">
+                        else if (s === 0) {
+                            return <div id="professionalDetails" key={9999}>
                                 <div className="input">
                                     <span>Occupation</span>
                                     <input
@@ -230,12 +231,20 @@ function Profile() {
             // dob: dob,
         }
 
-        if (isStudent) body.isStudent = isStudent
-        if (college_Name) body.College_name = college_Name
+        body.student = isStudent
+
+        body.pic = pp.current.files[0]
+
+
+
+
+        if (college_Name) body.Collage_Name = college_Name
         if (course) body.Course = course
         if (year) body.Year = year
-        if (semester) body.semester = semester
+        if (semester) body.Semester = semester
         if (occupation) body.occupation = occupation
+        if (gender) body.gender = gender
+        if (dob) body.dob = dob
 
         const newReqData: any = { ...requestData, body: JSON.stringify(body) }
         console.log(newReqData)
@@ -253,7 +262,6 @@ function Profile() {
                 }
                 uSaveChangesStatus('Save Changes')
             })
-
     }
 
 

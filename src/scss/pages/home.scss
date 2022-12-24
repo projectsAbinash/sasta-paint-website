@@ -15,20 +15,45 @@
 
     .greet {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         align-items: center;
         gap: 15px;
 
-        .helloName {
-            // font-weight: normal;
+        >.left {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
+
+            .helloName {
+                // font-weight: normal;
+            }
+
+            img {
+                width: 40px;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                background-color: #ddd;
+                border-radius: 50%;
+            }
         }
 
-        img {
-            width: 40px;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            background-color: #ddd;
-            border-radius: 50%;
+        >.right {
+            .countDiv {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: var.$bdrs;
+                background-color: color.$input-bg;
+                // background-color: lightblue;
+                padding: 1em;
+                flex-direction: column;
+                text-align: center;
+
+                .count {
+                    font-weight: 500;
+                }
+            }
         }
 
     }
@@ -45,7 +70,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        gap: 10px;
+        gap: 1em;
         width: 100%;
 
 
@@ -74,14 +99,15 @@
                 gap: 10px;
                 border-radius: 25px;
                 @include anim.press(100, 98);
+
                 >.right {
                     width: 45%;
-                    
+
                     >img {
                         width: 100%;
                     }
                 }
-                
+
                 >.left {
                     display: flex;
                     justify-content: center;
@@ -89,9 +115,27 @@
                     flex-direction: column;
                     gap: 10px;
                     width: 55%;
-                    >h2{
+
+                    >h2 {
                         text-transform: uppercase;
                     }
+                }
+            }
+
+            .glow {
+                outline: 5px solid color.$accent;
+                animation: pulse 1s linear infinite;
+            }
+            @keyframes pulse {
+                0%{
+                    outline-color: color.$accent;
+                    outline-offset: 0;
+                    outline-width: 2px;
+                }
+                70%,100%{
+                    outline-color: transparent;
+                    outline-offset: 0.5em;
+                    outline-width: 5px;
                 }
             }
         }
