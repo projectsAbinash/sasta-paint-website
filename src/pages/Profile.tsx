@@ -231,9 +231,7 @@ function Profile() {
     function updateDetails() {
         const body: any = {
             name: name,
-            email: email,
-            // pic: pp.current.files[0],
-            // dob: dob,
+            email: email
         }
 
         body.student = isStudent
@@ -276,8 +274,22 @@ function Profile() {
                         content: data.message,
                         buttonText: 'OK'
                     })
+                } else {
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Error',
+                        content: data.message,
+                        buttonText: 'OK'
+                    })
                 }
                 uSaveChangesStatus('Save Changes')
+            }).catch(err => {
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Error',
+                    content: err,
+                    buttonText: 'OK'
+                })
             })
     }
 
