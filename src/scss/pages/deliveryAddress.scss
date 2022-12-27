@@ -2,8 +2,10 @@
 @use '../common/var' as var;
 @use '../common/animation' as anim;
 
+
 #deliveryAddress {
     min-height: 100vh;
+
     >.container {
         padding: 20px;
         display: flex;
@@ -91,12 +93,37 @@
                     background-color: mix(color.$accent, #00000000, 15%);
                 }
             }
-
-            >.btnFullWidth {
-                margin-top: 3em;
-            }
         }
 
+        >.btnFullWidth {
+            margin-top: 2em !important;
+        }
 
+    }
+}
+
+#deliveryAddress.loading {
+
+    // background-color: lightblue;
+    >.container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2em;
+
+        >img {
+            width: 65%;
+        }
+
+        >p {
+            color: gray;
+        }
+    }
+
+    .linkBtn {
+        padding: 0.7em 1.2em;
+        background-color: mix(color.$accent, #00000000, 20%);
+        border-radius: var.$bdrs;
     }
 }

@@ -1,12 +1,12 @@
 import Navigation from "../components/NavigationBar"
 
-function Profile(){
+function Orders(){
     return (
         <div id="profile">
-            <h1>This is Cart</h1>
-            <Navigation active='cart' />
+            <h1>Orders</h1>
+            <Navigation active='orders' />
 
         </div>
     )
 }
-export default Profile
+export default Orders

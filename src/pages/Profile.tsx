@@ -48,6 +48,7 @@ function Profile() {
     const [year, uYear] = useState('')
     const [semester, uSemester] = useState('')
     const [occupation, uOccupation] = useState('')
+    const [pagesCount, uPagesCount] = useState('')
     // const [isStudent, uIsStudent] = useState('')
 
 
@@ -93,7 +94,8 @@ function Profile() {
                 uYear(user_extra.Year || '')
                 uSemester(user_extra.Semester || '')
                 uPic(user_extra.pic || null)
-                // console.log(user_extra.gender)
+                // console.log(user_extra.gender).total_pages
+                uPagesCount(user_extra.total_pages || 0)
             })
     }, [])
 
@@ -118,7 +120,7 @@ function Profile() {
                         </div>
                     </div>
                     <div className="right">
-                        <span className="count">15</span>
+                        <span className="count">{pagesCount}</span>
                         <p>Pages Printed</p>
                     </div>
                 </div>

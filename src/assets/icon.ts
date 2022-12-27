@@ -17,6 +17,8 @@ import plus from './icons/plus.svg'
 import check_solid_accent from './icons/check-solid.svg'
 import trash from './icons/trash-solid.svg'
 import edit from './icons/pen-to-square-solid.svg'
+import bag_solid from './icons/bag_solid.svg'
+import bag_broken from './icons/bag_broken.svg'
 
 
 
@@ -28,7 +30,7 @@ const icons = {
     Notification, Notification_Broken,
     Wallet, Wallet_Broken, pen_solid,
     minus_solid, plus_solid, file_pdf_solid, plus,
-    check_solid_accent, trash, edit
+    check_solid_accent, trash, edit, bag_broken, bag_solid,
 }
 
 export default icons

@@ -10,5 +10,16 @@ const token = {
     get : getToken
 }
 
+export function makeRequestData(): object {
+    return {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': token.get('registrationToken')
+        },
+        body : {}
+    }
+}
 
 export default token

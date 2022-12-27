@@ -34,16 +34,14 @@ const Home = () => {
         fetch(profileApiLink, requestData).then(data => data.json())
             .then(data => {
                 if (data) {
-
                     updateProfileData({
                         name: data?.user_main?.name.split(' ')[0],
-                        pic: data?.user_extra?.pic || null
+                        pic: data?.user_extra?.pic || null,
+                        page_count : data?.user_extra?.total_pages
                     })
                 }
-
                 console.log(data)
             }).catch(err => {
-
                 console.log(err)
                 updateAlertBoxDetails({
                     active: true,
@@ -77,7 +75,7 @@ const Home = () => {
                     </div>
                     <div className="right">
                         <div className="countDiv">
-                            <span className="count">15</span>
+                            <span className="count">{profileData?.page_count || 0}</span>
                             {/* <span className="text">Pages Printed</span> */}
                         </div>
                     </div>
