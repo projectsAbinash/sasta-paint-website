@@ -58,6 +58,17 @@
                             color: gray;
                             font-size: 0.8em;
                         }
+                        >.calc{
+                            display: flex;
+                            justify-content: flex-start;
+                            align-items: center;
+                            gap: 0.5em;
+                            img{
+                                width: 1.3em;
+                                height: 1.3em;
+                                // aspect-ratio: 1 / 1;
+                            }
+                        }
                     }
                     span {
                         font-size: 0.9em;

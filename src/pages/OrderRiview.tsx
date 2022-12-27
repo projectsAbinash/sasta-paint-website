@@ -29,7 +29,7 @@ function OrderReview() {
                                         <div className="left">
                                             <span>Print Charges</span>
                                             <span className="printType">Two-sided</span>
-                                            <span className="calc">7 pages * $0.22/ page</span>
+                                            <span className="calc">7 pages * $0.22/ page <img src={false ? icons.color : icons.bAndW} alt="" /></span>
                                         </div>
                                         <div className="right">
                                             <div className="price accent">$35</div>
