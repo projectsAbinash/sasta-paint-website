@@ -193,7 +193,7 @@ function NewOrder() {
                                 />
                                 <div className="left">
                                     <img src={icons.file_pdf_solid} />
-                                    {file.status === 'uploading' ?
+                                    {!(file.status === 'initial') ?
                                         <span className="fileName">
                                             {file.fileName}
                                         </span> :
