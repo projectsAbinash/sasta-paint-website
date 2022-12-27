@@ -20,6 +20,29 @@ function uuid(len: number) {
 function NewOrder() {
 
     function addNewButtonClick() {
+        // Check if the last input file is selected or not
+        const lastFile = files[files.length - 1]
+        if (lastFile.status === 'initial' || lastFile.status === 'failed') {
+            updateAlertBoxDetails({
+                active: true,
+                title: 'Select File',
+                content: 'Please Upload a PDF file before adding a new file',
+                buttonText: 'OK'
+            })
+            return
+        }
+
+        if (lastFile.status === 'uploading') {
+
+            updateAlertBoxDetails({
+                active: true,
+                title: 'Please Wait',
+                content: 'Please wait, your file is uploading.',
+                buttonText: 'OK'
+            })
+            return
+        }
+
         // files
         const newFilesData = [...files]
         // newFilesData.push({ fileName: '', uploaded: false, selected: false, failed: false })
@@ -116,16 +139,14 @@ function NewOrder() {
                 .then(data => data.json())
                 .then(data => {
                     console.log(data)
-                    const newFilesData = [...files]
+                    let newFilesData = [...files]
                     if (data.status === 'true') {
                         // Show success icon
                         newFilesData[index].status = 'uploaded'
                         updateFiles(newFilesData)
                     }
                     else {
-                        // Show the failed icon
                         newFilesData[index].status = 'failed'
-                        updateFiles(newFilesData)
                         updateAlertBoxDetails({
                             active: true,
                             title: 'Error',
@@ -165,8 +186,8 @@ function NewOrder() {
                         // console.log("Rendered Files")
                         return (
                             // <>
-                            <div className="fileDiv" key={uuid(5)} onClick={() => (files[index].status == 'initial') ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
-                                <input type="file" name="fileInput"
+                            <div className="fileDiv" key={uuid(5)} onClick={() => (files[index].status == 'initial' || files[index].status == 'failed') ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
+                                <input type="file" name="fileInput" accept="application/pdf"
                                     ref={(element) => allFileInputs.current[index] = element}
                                     onChange={handelEachFileChange(index)}
                                 />
