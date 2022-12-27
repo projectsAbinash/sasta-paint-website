@@ -165,7 +165,7 @@ function NewOrder() {
                         // console.log("Rendered Files")
                         return (
                             // <>
-                            <div className="fileDiv" key={crypto.randomUUID() + '22'} onClick={() => (files[index].status == 'initial') ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
+                            <div className="fileDiv" key={uuid(5)} onClick={() => (files[index].status == 'initial') ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
                                 <input type="file" name="fileInput"
                                     ref={(element) => allFileInputs.current[index] = element}
                                     onChange={handelEachFileChange(index)}
@@ -311,7 +311,7 @@ function NewOrder() {
 
         // Now store other details in localStorage and go to next page
         const formData = {
-            'order_id' : orderID,
+            'order_id': orderID,
 
 
         }
