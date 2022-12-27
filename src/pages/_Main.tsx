@@ -21,6 +21,7 @@ const TandC = React.lazy(() => import('./TandC'))
 const NewOrder = React.lazy(() => import('./NewOrder'))
 const DeliveryAddress = React.lazy(() => import('./DeliveryAddress'))
 const AddNewAddress = React.lazy(() => import('./AddNewAddress'))
+const OrderReview = React.lazy(() => import('./OrderRiview'))
 
 
 
@@ -44,6 +45,7 @@ function Main() {
             <Route path='/newOrder' element={<NewOrder />} />
             <Route path='/deliveryAddress' element={<DeliveryAddress />} />
             <Route path='/addNewAddress' element={<AddNewAddress />} />
+            <Route path='/orderReview' element={<OrderReview />} />
           </Routes>
         </React.Suspense>
       </Router>

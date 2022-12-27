@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import icons from '../assets/icon'
 import AlertBox from '../components/AlertBox'
 import TitleHeader from '../components/TitleHeader'
@@ -17,22 +18,12 @@ function uuid(len: number) {
 
 
 function NewOrder() {
-    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
-
-    const [noOfCopies, uNoOfCopies] = useState<any>(1)
-    const [files, updateFiles] = useState([{ fileName: '', uploaded: false, selected: false, failed: false }])
-    const colorRadio1 = useRef<any>()
-    const colorRadio2 = useRef<any>()
-    const pageSide1 = useRef<any>()
-    const pageSide2 = useRef<any>()
-
-    const allFileInputs = useRef<any>([])
-    // let fileCount = 0
 
     function addNewButtonClick() {
         // files
         const newFilesData = [...files]
-        newFilesData.push({ fileName: '', uploaded: false, selected: false, failed: false })
+        // newFilesData.push({ fileName: '', uploaded: false, selected: false, failed: false })
+        newFilesData.push({ fileName: '', status: 'initial' })
         updateFiles(newFilesData)
     }
 
@@ -63,23 +54,37 @@ function NewOrder() {
             const fileName = getFileName(i)
             let currentFileData = newFilesData[i]
             currentFileData.fileName = fileName
-            currentFileData.selected = true
+            currentFileData.status = 'uploading'
             // currentFileData.uploaded = true
             updateFiles(newFilesData)
         }
     }
-    function showFileStatus(file: any) {
-        if (file.failed)
-            return <img src={icons.circle_exclamation_solid}></img>
-        if (file.selected) {
-            if (file.uploaded)
-                return <img src={icons.check_solid_accent}></img>
-            else
-                return <img src={icons.preloader} className='loading'></img>
-        }
-        else
+    function showFileStatus(file: (typeof files[0])) {
+        if (file.status == 'initial')
             return <img src={icons.plus_solid} />
+        if (file.status === 'uploading')
+            return <img src={icons.preloader} className='loading'></img>
+        if (file.status === 'uploaded')
+            return <img src={icons.check_solid_accent}></img>
+        if (file.status === 'failed')
+            return <img src={icons.circle_exclamation_solid}></img>
     }
+
+
+
+
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+
+    const [noOfCopies, uNoOfCopies] = useState<any>(1)
+    const [files, updateFiles] = useState([{ fileName: '', status: 'initial' }])
+    const colorRadio1 = useRef<any>()
+    const colorRadio2 = useRef<any>()
+    const pageSide1 = useRef<any>()
+    const pageSide2 = useRef<any>()
+    const navigate = useNavigate()
+
+    const allFileInputs = useRef<any>([])
+    // let fileCount = 0
 
     useEffect(() => {
         // const hello = randomUUID.
@@ -114,12 +119,12 @@ function NewOrder() {
                     const newFilesData = [...files]
                     if (data.status === 'true') {
                         // Show success icon
-                        newFilesData[index].uploaded = true
+                        newFilesData[index].status = 'uploaded'
                         updateFiles(newFilesData)
                     }
                     else {
                         // Show the failed icon
-                        newFilesData[index].failed = true
+                        newFilesData[index].status = 'failed'
                         updateFiles(newFilesData)
                         updateAlertBoxDetails({
                             active: true,
@@ -160,14 +165,14 @@ function NewOrder() {
                         // console.log("Rendered Files")
                         return (
                             // <>
-                            <div className="fileDiv" key={crypto.randomUUID() + '22'} onClick={() => (!files[index].selected) ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
+                            <div className="fileDiv" key={crypto.randomUUID() + '22'} onClick={() => (files[index].status == 'initial') ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
                                 <input type="file" name="fileInput"
                                     ref={(element) => allFileInputs.current[index] = element}
                                     onChange={handelEachFileChange(index)}
                                 />
                                 <div className="left">
                                     <img src={icons.file_pdf_solid} />
-                                    {file.selected ?
+                                    {file.status === 'uploading' ?
                                         <span className="fileName">
                                             {file.fileName}
                                         </span> :
@@ -269,33 +274,49 @@ function NewOrder() {
     )
 
     function handelSubmit(event: any) {
-        // Check if all files are submitted or noSelect
 
-        let isOk = true
-        files.forEach(file => {
-            if (file.uploaded == true || file.failed == true)
+        let isSingleSuccess = false
+        let fileLen = files.length
+
+        for (let i = 0; i < fileLen; i++) {
+            // Check uploading
+            if (files[i].status === 'uploading') {
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Please Wait',
+                    content: 'Please wait, your documents are uploading.',
+                    buttonText: 'OK'
+                })
                 return
-            else
-                isOk = false
-        })
+            }
 
-        if (!isOk) {
+            // Count uploaded files
+            if (files[i].status === 'uploaded' && !isSingleSuccess)
+                isSingleSuccess = true
+        }
+
+        if (!isSingleSuccess) {
             updateAlertBoxDetails({
                 active: true,
-                title: 'Please Wait',
-                content: 'Please wait, your documents are uploading',
+                title: 'Select File',
+                content: 'Please upload a PDF file to continue.',
                 buttonText: 'OK'
             })
             return
         }
-        const orderID = localStorage.getItem('currentOrderID')
-        
-        // Now store other details in localStorage and go to next page
-        
 
-        event.preventDefault()
-        console.log("Submit")
-        console.log(event)
+
+
+        const orderID = localStorage.getItem('currentOrderID')
+
+        // Now store other details in localStorage and go to next page
+        const formData = {
+            'order_id' : orderID,
+
+
+        }
+        localStorage.setItem('currentOrderDetails', JSON.stringify(formData))
+        navigate('/deliveryAddress')
     }
 }
 
