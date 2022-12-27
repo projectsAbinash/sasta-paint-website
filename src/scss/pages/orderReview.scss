@@ -1,5 +1,108 @@
-#orderReview{
-    >.container{
-        
+@use '../common/colors' as color;
+
+#orderReview {
+    >.container {
+        padding: 10px 20px 20px 20px;
+        min-height: calc(100vh - 65px);
+        // background-color: lightblue;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 0.7em;
+        // align-items: center;
+        // background-color: rebeccapurple;
+
+        >.top {
+            display: flex;
+            justify-content: center;
+            // align-items: center;
+            flex-direction: column;
+            gap: 1em;
+
+            >.eachFile {
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+                padding: 15px;
+                background-color: color.$input-bg;
+
+                >span.label {
+                    color: gray;
+                    font-size: 0.8em;
+                }
+
+                >.fileName {
+                    display: flex;
+                    justify-content: space-between;
+
+                    // align-items: center;
+                    >.right {
+                        img {
+                            width: 20px;
+                        }
+                    }
+                }
+
+                >.printCharge {
+                    display: flex;
+                    justify-content: space-between;
+
+                    // max-width: 80%;
+                    >.left {
+                        width: 80%;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.3em;
+                        >.printType, >.calc{
+                            color: gray;
+                            font-size: 0.8em;
+                        }
+                    }
+                    span {
+                        font-size: 0.9em;
+                    }
+                }
+                >.spiral, >.copies{
+                    display: flex;
+                    // background-color: lavender;
+                    justify-content: space-between;
+                }
+            }
+
+            >.deliveryCharge {
+                padding: 1em;
+                border-radius: 10px;
+                background-color: color.$input-bg;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                >.right {
+                    display: flex;
+                    gap: 1em;
+
+                    >.noPrice {
+                        color: gray;
+                        text-decoration: line-through;
+                    }
+                }
+            }
+        }
+
+        >.bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+
+            >.total {
+                background-color: color.$input-bg;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1em;
+                border-radius: 10px;
+            }
+        }
     }
 }
