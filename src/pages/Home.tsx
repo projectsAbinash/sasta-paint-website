@@ -1,14 +1,12 @@
-import { useDeferredValue, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import Navigation from "../components/NavigationBar"
-import '../scss/pages/home.scss'
-import joinLinks from "../linker"
-import token from "../tokens"
-import icons from "../assets/icon"
 import images from "../assets/image"
-import Banner from "../components/Banner"
-import Loading from "./Loading"
 import AlertBox from "../components/AlertBox"
+import Banner from "../components/Banner"
+import Navigation from "../components/NavigationBar"
+import joinLinks from "../linker"
+import '../scss/pages/home.scss'
+import token from "../tokens"
 
 
 const profileApiLink = joinLinks('profile')

@@ -1,0 +1,82 @@
+@use '../common/colors' as color;
+@use '../common/var' as var;
+@use '../common/animation' as anim;
+
+#addNewAddress {
+
+    // background-color: lightblue;
+    // padding: 100px;
+    >.container {
+        padding: 10px 20px 20px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+
+        >.label {
+            font-size: 0.8em;
+            color: gray;
+            margin-top: 0.3em;
+        }
+
+        input.address,
+        input.state {
+            background-image: url('../../assets/icons/map-location-dot-solid.svg');
+            background-size: 1.3em;
+        }
+
+        input.landmark {
+            background-image: url('../../assets/icons/location-dot-solid.svg');
+        }
+
+        input.pincode {
+
+            background-image: url('../../assets/icons/location-crosshairs-solid.svg');
+            background-size: 1.3em;
+        }
+
+        input.city {
+            background-image: url('../../assets/icons/city-solid.svg');
+            background-size: 1.3em;
+        }
+
+        >div {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+
+            >.select {
+                background-color: color.$input-bg;
+                padding: 1em;
+                border-radius: var.$bdrs;
+                display: flex;
+                align-items: center;
+                @include anim.press(150, 95);
+                gap: 0.65em;
+
+                span {
+                    font-size: 0.9em;
+                }
+
+                input[type=radio] {
+                    accent-color: color.$accent;
+                    -webkit-tap-highlight-color: transparent;
+                    -webkit-appearance: none;
+                    appearance: none;
+                    aspect-ratio: 1 / 1;
+                    width: 0.85em;
+                    outline: 1.2px solid black;
+                    outline-offset: 2px;
+                    border-radius: 50%;
+                }
+
+                input[type=radio]:checked {
+                    background-color: black;
+                }
+            }
+        }
+
+        input[type=submit] {
+            margin-top: 1.5em;
+        }
+    }
+}

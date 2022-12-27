@@ -15,18 +15,18 @@ const Navigation = (props: any) => {
                     <span className="tabTitle">Home</span>
                 </div>
             </Link>
-            <Link to='/notifications'>
-                <div className={"tab " + makeActiveClass(active, 'notifications')}>
-                    <img src={active == 'notifications' ? icons.Notification : icons.Notification_Broken} />
+            {/* <Link to='/newOrder'>
+                <div className='plus tab'>
+                    <img src={icons.plus} />
                     <span className="tabTitle">Alerts</span>
                 </div>
-            </Link>
-            {/* <Link to='/cart'>
+            </Link> */}
+            <Link to='/cart'>
                 <div className={"tab " + makeActiveClass(active, 'cart')}>
                     <img src={active == 'cart' ? icons.Wallet : icons.Wallet_Broken} />
                     <span className="tabTitle">Cart</span>
                 </div>
-            </Link> */}
+            </Link>
             <Link to='/profile'>
                 <div className={"tab " + makeActiveClass(active, 'profile')}>
                     <img src={active == 'profile' ? icons.Profile : icons.Profile_Broken} className='profile' />

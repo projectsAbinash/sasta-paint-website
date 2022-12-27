@@ -1,20 +1,29 @@
-import '../scss/pages/newOrder.scss'
-import TitleHeader from '../components/TitleHeader'
+import { useRef, useState } from 'react'
 import icons from '../assets/icon'
-import { useCallback, useRef, useState } from 'react'
 import AlertBox from '../components/AlertBox'
+import TitleHeader from '../components/TitleHeader'
+import '../scss/pages/newOrder.scss'
 
 function NewOrder() {
     const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
 
     const [noOfCopies, uNoOfCopies] = useState<any>(1)
-
+    const [files, updateFiles] = useState([{ fileName: '', uploaded: false, selected: false }])
     const colorRadio1 = useRef<any>()
     const colorRadio2 = useRef<any>()
     const pageSide1 = useRef<any>()
     const pageSide2 = useRef<any>()
 
 
+    const allFileInputs = useRef<any>([])
+    // let fileCount = 0
+
+    function addNewButtonClick() {
+        // files
+        const newFilesData = [...files]
+        newFilesData.push({ fileName: '', uploaded: false, selected: false })
+        updateFiles(newFilesData)
+    }
 
     function changeNoOfCopies(n: number) {
         if ((noOfCopies === 1 || noOfCopies === null) && n < 0) {
@@ -31,6 +40,33 @@ function NewOrder() {
         else
             uNoOfCopies(num)
     }
+    function getFileName(i: number) {
+        const file = allFileInputs.current[i].value
+        let fileName = file.split('\\')
+        return fileName[fileName.length - 1]
+    }
+    function handelEachFileChange(i: number) {
+        return function () {
+            // update the file name here
+            const newFilesData = [...files]
+            const fileName = getFileName(i)
+            let currentFileData = newFilesData[i]
+            currentFileData.fileName = fileName
+            currentFileData.selected = true
+            // currentFileData.uploaded = true
+            updateFiles(newFilesData)
+        }
+    }
+    function showFileStatus(file: any) {
+        if (file.selected) {
+            if (file.uploaded)
+                return <img src={icons.check_solid_accent}></img>
+            else
+                return <img src={icons.preloader} className='loading'></img>
+        }
+        else
+            return <img src={icons.plus_solid} />
+    }
     return (
         <div id="newOrder">
             <AlertBox
@@ -43,17 +79,38 @@ function NewOrder() {
             <TitleHeader title='Printing Details' />
             <div className="container">
                 {/* <form action=""> */}
+                {
+                    files.map((file, index) => {
+                        // console.log("Rendered Files")
+                        return (
+                            // <>
+                            <div className="fileDiv" key={crypto.randomUUID() + '22'} onClick={() => allFileInputs.current[index].click()}>
+                                <input type="file" name="fileInput"
+                                    ref={(element) => allFileInputs.current[index] = element} key={crypto.randomUUID()}
+                                    onChange={handelEachFileChange(index)}
+                                />
+                                <div className="left">
+                                    <img src={icons.file_pdf_solid} />
+                                    {file.selected ?
+                                        <span className="fileName">
+                                            {file.fileName}
+                                        </span> :
+                                        <span className="fileName noSelect">
+                                            Attach a PDF file
+                                        </span>
+                                    }
+                                </div>
 
-                <div className="fileDiv">
-                    <div className="left">
-                        <img src={icons.file_pdf_solid} />
-                        <span className="fileName noSelect">Attach a PDF file</span>
-                    </div>
+                                <div className="right">
+                                    {showFileStatus(file)}
+                                    {/* <img src={file.uploaded ? icons.check_solid_accent : icons.plus_solid} /> */}
+                                </div>
+                            </div>
+                            // </>
+                        )
+                    })
+                }
 
-                    <div className="right">
-                        <img src={icons.plus_solid} />
-                    </div>
-                </div>
 
 
 
@@ -125,7 +182,7 @@ function NewOrder() {
                 </div>
                 <br />
                 <div className="buttons">
-                    <input type="submit" name="" id="" value={'Add New'} className='btnLarge' onClick={handelSubmit} />
+                    <input type="submit" name="" id="" value={'Add New'} className='btnLarge' onClick={addNewButtonClick} />
                     <input type="submit" name="" id="" value={'Next'} className='btnLarge' onClick={handelSubmit} />
 
                 </div>

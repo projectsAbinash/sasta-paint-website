@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link, redirect, useNavigate } from 'react-router-dom'
-import joinLinks from '../linker'
+import { Link, useNavigate } from 'react-router-dom'
 import images from '../assets/image'
+import AlertBox from '../components/AlertBox'
+import joinLinks from '../linker'
 import '../scss/pages/login.scss'
 import token from '../tokens'
-import AlertBox from '../components/AlertBox'
 
 const loginAPILink = joinLinks('login')
 
@@ -87,7 +87,7 @@ const Login = () => {
             return
         }
 
-        console.log(id, pass)
+        // console.log(id, pass)
     }
 
 

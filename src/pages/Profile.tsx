@@ -39,7 +39,7 @@ function Profile() {
 
 
     const [name, uName] = useState('')
-    const [pic, uPic] = useState(null)
+    const [pic, uPic] = useState<any>(null)
     const [email, uEmail] = useState('')
     const [dob, uDob] = useState('')
     const [gender, uGender] = useState('')

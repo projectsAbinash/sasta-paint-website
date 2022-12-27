@@ -1,0 +1,102 @@
+@use '../common/colors' as color;
+@use '../common/var' as var;
+@use '../common/animation' as anim;
+
+#deliveryAddress {
+    min-height: 100vh;
+    >.container {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: calc(100vh - 70px);
+
+        >div {
+            // minhe
+
+            >.addNewArea {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                >.right {
+                    color: color.$accent;
+                    // font-weight: 500;
+                }
+            }
+
+            >.addresses {
+                width: 100%;
+                // background-color: lightblue;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 1em;
+                margin-top: 1.5em;
+
+                >.address {
+                    // background-color: lime;
+                    width: 100%;
+                    border-radius: 20px;
+                    padding: 20px;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: color.$input-bg;
+                    @include anim.press(150, 98);
+
+                    // >*{
+                    //     outline: 1px solid rebeccapurple;
+                    // }
+                    >.left {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 0.4em;
+
+                        >h3 {
+                            font-weight: 500;
+                        }
+
+                        >p {
+                            font-size: 0.95em;
+                        }
+
+                        width: 70%;
+                    }
+
+                    >.right {
+                        width: 30%;
+                        display: flex;
+                        justify-content: flex-end;
+                        align-items: center;
+                        gap: 1.5em;
+
+                        // padding-left: 1em;
+                        >img {
+                            width: 18px;
+                            @include anim.press(100, 90);
+                        }
+
+                        >img.delete {
+                            width: 15px;
+                            margin-right: 0.5em;
+                            // background-color: lightblue;
+                        }
+                    }
+
+                }
+
+                >.address.active {
+                    background-color: mix(color.$accent, #00000000, 15%);
+                }
+            }
+
+            >.btnFullWidth {
+                margin-top: 3em;
+            }
+        }
+
+
+    }
+}

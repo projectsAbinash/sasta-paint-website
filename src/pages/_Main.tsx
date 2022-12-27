@@ -15,10 +15,12 @@ const LazyLogin = React.lazy(() => import('./Login'))
 const LazySignup = React.lazy(() => import('./Signup'))
 const LazyVerifyOTP = React.lazy(() => import('./VerifyOTP'))
 const LazyProfile = React.lazy(() => import('./Profile'))
-const LazyNotifications = React.lazy(() => import('./Notifications'))
+// const LazyNotifications = React.lazy(() => import('./Notifications'))
 const LazyCart = React.lazy(() => import('./Cart'))
 const TandC = React.lazy(() => import('./TandC'))
 const NewOrder = React.lazy(() => import('./NewOrder'))
+const DeliveryAddress = React.lazy(() => import('./DeliveryAddress'))
+const AddNewAddress = React.lazy(() => import('./AddNewAddress'))
 
 
 
@@ -38,8 +40,10 @@ function Main() {
             <Route path='/t&c' element={<TandC />} />
             <Route path='/profile' element={<LazyProfile />} />
             <Route path='/cart' element={<LazyCart />} />
-            <Route path='/notifications' element={<LazyNotifications />} />
+            {/* <Route path='/notifications' element={<LazyNotifications />} /> */}
             <Route path='/newOrder' element={<NewOrder />} />
+            <Route path='/deliveryAddress' element={<DeliveryAddress />} />
+            <Route path='/addNewAddress' element={<AddNewAddress />} />
           </Routes>
         </React.Suspense>
       </Router>

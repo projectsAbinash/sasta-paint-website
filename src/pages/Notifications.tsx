@@ -23,6 +23,8 @@ function Profile() {
         )
     }
 
+
+
     return (
         <div id="notifications">
             <div className="container">

@@ -8,6 +8,7 @@
         // background-color: lightblue;
         gap: 0.8em;
     }
+
     .container {
         padding: 20px;
 
@@ -18,23 +19,31 @@
             min-height: 50px;
             border-radius: var.$bdrs;
             display: flex;
+            margin-bottom: 0.5em;
             justify-content: space-between;
             align-items: center;
             padding: 1.3em;
             @include anim.press(150, 98);
 
+            >input[type=file] {
+                display: none;
+            }
+
             >.left {
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 gap: 1em;
-
+                width: calc(100% - 50px);
                 img {
                     width: 20px;
                 }
 
                 >span {
                     font-size: 0.9em;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    // outline: 1px solid red;
                 }
 
                 >span.noSelect {
@@ -46,6 +55,10 @@
                 img {
                     width: 15px;
                     opacity: 0.6;
+
+                    &.loading {
+                        width: 23px;
+                    }
                 }
             }
         }

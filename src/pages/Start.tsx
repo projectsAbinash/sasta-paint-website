@@ -28,7 +28,7 @@ const Home = () => {
                     </Link>
                 </div>
                 <div className="center">
-                    <Link to='/newOrder'>
+                    <Link to='/deliveryAddress'>
                         <p>Skip Now</p>
                     </Link>
                 </div>
