@@ -1,19 +1,30 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import icons from '../assets/icon'
 import AlertBox from '../components/AlertBox'
 import TitleHeader from '../components/TitleHeader'
+import joinLinks from '../linker'
 import '../scss/pages/newOrder.scss'
+import token from '../tokens'
+
+const fileUploadAPILink = joinLinks('Orders/UploadDoc/')
+
+function uuid(len: number) {
+    const min = 10 ** (len - 1)
+    const max = 10 ** len - 1
+    const rand = Math.floor(min + Math.random() * (max - min))
+    return "SSTPRNT" + rand
+}
+
 
 function NewOrder() {
     const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
 
     const [noOfCopies, uNoOfCopies] = useState<any>(1)
-    const [files, updateFiles] = useState([{ fileName: '', uploaded: false, selected: false }])
+    const [files, updateFiles] = useState([{ fileName: '', uploaded: false, selected: false, failed: false }])
     const colorRadio1 = useRef<any>()
     const colorRadio2 = useRef<any>()
     const pageSide1 = useRef<any>()
     const pageSide2 = useRef<any>()
-
 
     const allFileInputs = useRef<any>([])
     // let fileCount = 0
@@ -21,7 +32,7 @@ function NewOrder() {
     function addNewButtonClick() {
         // files
         const newFilesData = [...files]
-        newFilesData.push({ fileName: '', uploaded: false, selected: false })
+        newFilesData.push({ fileName: '', uploaded: false, selected: false, failed: false })
         updateFiles(newFilesData)
     }
 
@@ -58,6 +69,8 @@ function NewOrder() {
         }
     }
     function showFileStatus(file: any) {
+        if (file.failed)
+            return <img src={icons.circle_exclamation_solid}></img>
         if (file.selected) {
             if (file.uploaded)
                 return <img src={icons.check_solid_accent}></img>
@@ -67,7 +80,70 @@ function NewOrder() {
         else
             return <img src={icons.plus_solid} />
     }
+
+    useEffect(() => {
+        // const hello = randomUUID.
+        const randomUUID = uuid(7)
+        // console.log(randomUUID)
+        localStorage.setItem('currentOrderID', randomUUID)
+    }, [])
+
+    function uploadFile(index: number) {
+        return function () {
+            const currentFile = allFileInputs.current[index].files[0]
+            const bodyFormData = new FormData()
+            bodyFormData.append('doc', currentFile)
+            bodyFormData.append('order_id', localStorage.getItem('currentOrderID') || 'no-id')
+
+            const reqData = {
+                method: 'POST',
+                headers: {
+                    // 'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': token.get('registrationToken')
+                },
+                body: bodyFormData
+            }
+
+            console.log(reqData)
+
+            fetch(fileUploadAPILink, reqData)
+                .then(data => data.json())
+                .then(data => {
+                    console.log(data)
+                    const newFilesData = [...files]
+                    if (data.status === 'true') {
+                        // Show success icon
+                        newFilesData[index].uploaded = true
+                        updateFiles(newFilesData)
+                    }
+                    else {
+                        // Show the failed icon
+                        newFilesData[index].failed = true
+                        updateFiles(newFilesData)
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Error',
+                            content: data.message,
+                            buttonText: 'OK'
+                        })
+                    }
+
+                })
+                .catch(err => {
+                    console.log(err)
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Upload Failed',
+                        content: 'There is an error uploading the file. Maybe it is network error. Check your internet connection.',
+                        buttonText: 'OK'
+                    })
+                })
+
+        }
+    }
     return (
+
         <div id="newOrder">
             <AlertBox
                 active={alertBoxDetails.active}
@@ -84,9 +160,9 @@ function NewOrder() {
                         // console.log("Rendered Files")
                         return (
                             // <>
-                            <div className="fileDiv" key={crypto.randomUUID() + '22'} onClick={() => allFileInputs.current[index].click()}>
+                            <div className="fileDiv" key={crypto.randomUUID() + '22'} onClick={() => (!files[index].selected) ? allFileInputs.current[index].click() : () => { }} onChange={uploadFile(index)}>
                                 <input type="file" name="fileInput"
-                                    ref={(element) => allFileInputs.current[index] = element} key={crypto.randomUUID()}
+                                    ref={(element) => allFileInputs.current[index] = element}
                                     onChange={handelEachFileChange(index)}
                                 />
                                 <div className="left">
@@ -192,8 +268,31 @@ function NewOrder() {
         </div>
     )
 
-
     function handelSubmit(event: any) {
+        // Check if all files are submitted or noSelect
+
+        let isOk = true
+        files.forEach(file => {
+            if (file.uploaded == true || file.failed == true)
+                return
+            else
+                isOk = false
+        })
+
+        if (!isOk) {
+            updateAlertBoxDetails({
+                active: true,
+                title: 'Please Wait',
+                content: 'Please wait, your documents are uploading',
+                buttonText: 'OK'
+            })
+            return
+        }
+        const orderID = localStorage.getItem('currentOrderID')
+        
+        // Now store other details in localStorage and go to next page
+        
+
         event.preventDefault()
         console.log("Submit")
         console.log(event)

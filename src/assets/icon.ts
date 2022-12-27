@@ -19,6 +19,7 @@ import trash from './icons/trash-solid.svg'
 import edit from './icons/pen-to-square-solid.svg'
 import bag_solid from './icons/bag_solid.svg'
 import bag_broken from './icons/bag_broken.svg'
+import circle_exclamation_solid from './icons/circle-exclamation-solid.svg'
 
 
 
@@ -31,6 +32,7 @@ const icons = {
     Wallet, Wallet_Broken, pen_solid,
     minus_solid, plus_solid, file_pdf_solid, plus,
     check_solid_accent, trash, edit, bag_broken, bag_solid,
+    circle_exclamation_solid
 }
 
 export default icons
