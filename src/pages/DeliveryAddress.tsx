@@ -1,24 +1,32 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate, useRouteLoaderData } from "react-router-dom"
 import icons from "../assets/icon"
 import images from "../assets/image"
 import TitleHeader from "../components/TitleHeader"
 import joinLinks from "../linker"
 import '../scss/pages/deliveryAddress.scss'
 import { makeRequestData } from "../tokens"
+import AlertBox from '../components/AlertBox'
 
 const deliveryAddressAPILink = joinLinks('profile/Address')
+const placeAPILink = joinLinks('Orders/Place')
 const reqData = makeRequestData()
+
+
 
 function DeliveryAddress() {
     const [addresses, updateAddresses] = useState<any[]>([])
     const [addressStatus, updateAddressStatus] = useState('loading')
     const [activeAddress, updateActiveAddress] = useState(0)
+    const [placeOrderStatus, uPlaceOderStatus] = useState('Deliver to this address')
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+
+    const navigate = useNavigate()
     // const addressDOM = useRef()
     useEffect(() => {
         fetch(deliveryAddressAPILink, reqData).then(data => data.json())
             .then(data => {
-                updateAddressStatus('fetched')  
+                updateAddressStatus('fetched')
                 updateActiveAddress(data.data[0]?.id)
                 updateAddresses(data.data)
                 console.log(data)
@@ -69,6 +77,13 @@ function DeliveryAddress() {
 
     return (
         <div id="deliveryAddress">
+            <AlertBox
+                active={alertBoxDetails.active}
+                title={alertBoxDetails.title}
+                content={alertBoxDetails.content}
+                buttonText={alertBoxDetails.buttonText}
+                updater={updateAlertBoxDetails}
+            />
             <TitleHeader title='Delivery Address' />
             <div className="container">
                 <div className="top">
@@ -96,10 +111,43 @@ function DeliveryAddress() {
                         })}
                     </div>
                 </div>
-                <input type="submit" value="Deliver to this address" className="btnFullWidth" />
+                <input type="submit" value={placeOrderStatus} className="btnFullWidth" onClick={handelSubmit} />
             </div>
         </div>
     )
+
+
+
+    function handelSubmit() {
+        const reqData: any = makeRequestData()
+        reqData.body = JSON.stringify({
+            order_id: localStorage.getItem('currentOrderID'),
+            address_id: activeAddress
+        })
+        uPlaceOderStatus('Placing Order...')
+
+        fetch(placeAPILink, reqData)
+            .then(data => {
+                // console.log(data)
+                return data.json()
+            })
+            .then(data => {
+                if (data.status === 'true') {
+                    navigate('/orderReview', { replace: true })
+                } else {
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Error',
+                        content: data.message,
+                        buttonText: 'OK'
+                    })
+                    // navigate('')
+                }
+                console.log(data)
+                uPlaceOderStatus('Deliver to this address')
+            })
+        console.log(reqData)
+    }
 }
 
 export default DeliveryAddress

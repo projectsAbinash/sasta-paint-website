@@ -9,6 +9,7 @@
         flex-direction: column;
         justify-content: space-between;
         gap: 0.7em;
+        font-size: 0.9em;
         // align-items: center;
         // background-color: rebeccapurple;
 
@@ -25,8 +26,8 @@
                 flex-direction: column;
                 gap: 1em;
                 padding: 15px;
-                background-color: color.$input-bg;
-
+                // background-color: color.$input-bg;
+                border: 2px solid color.$input-bg;
                 >span.label {
                     color: gray;
                     font-size: 0.8em;

@@ -13,6 +13,7 @@ import undraw_new_notifications_re_xpcv from './images/undraw_new_notifications_
 import undraw_fast_loading_re_8oi3 from './images/undraw_fast_loading_re_8oi3.svg'
 import undraw_delivery_address_re_cjca from './images/undraw_delivery_address_re_cjca.svg'
 import undraw_map_dark_re_36sy from './images/undraw_map_dark_re_36sy.svg'
+import undraw_reminder_re_fe15 from './images/undraw_reminder_re_fe15.svg'
 
 
 const images = {
@@ -20,7 +21,8 @@ const images = {
     undraw_order_confirmed_re_g0if, undraw_printing_invoices,
     undraw_mobile_user_re_xta4, sample_banner, sample_banner_2,
     undraw_new_notifications_re_xpcv, undraw_fast_loading_re_8oi3,
-    undraw_delivery_address_re_cjca, undraw_map_dark_re_36sy
+    undraw_delivery_address_re_cjca, undraw_map_dark_re_36sy,
+    undraw_reminder_re_fe15
 }
 
 export default images

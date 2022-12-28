@@ -141,3 +141,16 @@ input[type=submit].btnLarge{
 .accent{
     color: color.$accent-text;
 }
+
+span.pending{
+    color: orange;
+}
+span.success{
+    color: color.$accent-text;
+}
+span.amount{
+    color: color.$accent-text;
+}
+span.failed{
+    color: red;
+}
