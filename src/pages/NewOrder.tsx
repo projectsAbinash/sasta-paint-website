@@ -347,8 +347,8 @@ function NewOrder() {
                             <div className="text">
                                 <span >Two-Sided</span>
                                 <div className="price">
-                                    <span className='price cancel'>$1.00</span>
-                                    <span className='price'>$0.55/page</span>
+                                    <span className='price cancel'>₹0.55</span>
+                                    <span className='price'>₹0.50/page</span>
                                 </div>
                             </div>
                         </div>
@@ -358,8 +358,8 @@ function NewOrder() {
                             <div className="text">
                                 <span >One-Sided</span>
                                 <div className="price">
-                                    <span className='price cancel'>$1.5.00</span>
-                                    <span className='price'>$0.65/page</span>
+                                    <span className='price cancel'>₹0.70</span>
+                                    <span className='price'>₹0.65/page</span>
                                 </div>
                             </div>
                         </div>
@@ -373,8 +373,8 @@ function NewOrder() {
                             <div className="text">
                                 <span >Spiral Binding</span>
                                 <div className="price">
-                                    <span className='price cancel'>$25.00</span>
-                                    <span className='price'>$5/150pages</span>
+                                    {/* <span className='price cancel'>$25.00</span> */}
+                                    <span className='price'>₹9/- Upto 100 Pages</span>
                                 </div>
                             </div>
                         </div>
@@ -384,7 +384,7 @@ function NewOrder() {
                                 <span >Stapled</span>
                                 <div className="price">
                                     {/* <span className='price cancel'>$1.5.00</span> */}
-                                    <span className='price'>$0.00/page</span>
+                                    <span className='price'>₹0.00/page</span>
                                 </div>
                             </div>
                         </div>
@@ -394,7 +394,7 @@ function NewOrder() {
                                 <span >Loose Paper</span>
                                 <div className="price">
                                     {/* <span className='price calcel'>$0.65/page</span> */}
-                                    <span className='price'>$0.00 / Page</span>
+                                    <span className='price'>₹0.00 / Page</span>
                                 </div>
                             </div>
                         </div>

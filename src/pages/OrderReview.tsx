@@ -1,9 +1,36 @@
+import { useEffect, useId, useState } from 'react'
 import icons from '../assets/icon'
 import TitleHeader from '../components/TitleHeader'
+import joinLinks from '../linker'
 import '../scss/pages/orderReview.scss'
+import { makeRequestData } from '../tokens'
+import Loading from './Loading'
+import token from '../tokens'
+
+
+const getOrderStatusAPILink = joinLinks('Orders/GetbyId/')
+const reqData: any = makeRequestData()
+reqData.body = JSON.stringify({
+    order_id: localStorage.getItem('currentOrderID')
+})
 
 function OrderReview() {
     const arr = [1, 2]
+    const [orderReview, uOrderReview] = useState<any>(null)
+    useEffect(() => {
+        console.log(reqData)
+        fetch(getOrderStatusAPILink, reqData)
+            .then(data => data.json())
+            .then(data => {
+                console.log(data)
+                uOrderReview(data.order_data)
+                // console.log(orderReview)
+            })
+    }, [])
+
+    if (orderReview === null)
+        return <Loading />
+
     return (
         <div id="orderReview">
             <TitleHeader title='Order Review' />
@@ -11,45 +38,39 @@ function OrderReview() {
                 {/* <h1>Review Order</h1> */}
 
                 <div className="top">
-                    {arr.map(elem => {
+                    {orderReview.userdocs.map((doc:any) => {
                         return (
-                            <>
-                                <div className="eachFile">
-                                    <span className="label">File Name</span>
-                                    <div className="fileName">
-                                        <div className="left">
-                                            <span className="name">Hello.pdf</span>
-                                        </div>
-                                        <div className="right">
-                                            <img src={icons.file_pdf_solid} />
-                                        </div>
+                            <div className="eachFile" key={crypto.randomUUID()}>
+                                <span className="label">File Name</span>
+                                <div className="fileName">
+                                    <div className="left">
+                                        <span className="name">{doc.doc_name}</span>
                                     </div>
-                                    <span className="label">Order Details</span>
-                                    <div className="printCharge">
-                                        <div className="left">
-                                            <span>Print Charges</span>
-                                            <span className="printType">Two-sided</span>
-                                            <span className="calc">7 pages * $0.22/ page <img src={false ? icons.color : icons.bAndW} alt="" /></span>
-                                        </div>
-                                        <div className="right">
-                                            <div className="price accent">$35</div>
-                                        </div>
-                                    </div>
-                                    <div className="spiral">
-                                        <span>Spiral Binding</span>
-                                        <span className="price accent">$65</span>
-                                    </div>
-
-                                    <div className="copies">
-                                        <span>Number of Copies <span className='gray'></span></span>
-                                        <span className="price accent">$645</span>
+                                    <div className="right">
+                                        <img src={icons.file_pdf_solid} />
                                     </div>
                                 </div>
+                                <span className="label">Order Details</span>
+                                <div className="printCharge">
+                                    <div className="left">
+                                        <span>Print Charges</span>
+                                        <span className="printType">{doc.page_config}</span>
+                                        <span className="calc">{doc.total_pages} page(s) * $0.22/ page <img src={doc.print_configicons === 'black_and_white' ? icons.color : icons.bAndW} alt="" /></span>
+                                    </div>
+                                    <div className="right">
+                                        <div className="price accent">₹{doc.print_charges}</div>
+                                    </div>
+                                </div>
+                                <div className="spiral">
+                                    <span>{doc.binding_config}</span>
+                                    <span className="price accent">₹{doc.binding_charge}</span>
+                                </div>
 
-
-
-                            </>
-
+                                <div className="copies">
+                                    <span>Number of Copies <span className='gray'>x{doc.copies_count}</span></span>
+                                    <span className="price accent">₹{doc.total_copies_charge}</span>
+                                </div>
+                            </div>
                         )
                     })}
                     <div className="deliveryCharge">
@@ -57,8 +78,8 @@ function OrderReview() {
                             <span>Delivery Charge</span>
                         </div>
                         <div className="right">
-                            <span className="noPrice">$0.33</span>
-                            <span className="price accent">$0.22</span>
+                            <span className="noPrice">₹{orderReview.delivery_charge * 2}</span>
+                            <span className="price accent">₹{orderReview.delivery_charge}</span>
                         </div>
                     </div>
 
@@ -66,7 +87,7 @@ function OrderReview() {
                 <div className="bottom">
                     <div className="total">
                         <span>Total Payable Amount</span>
-                        <span className='accent'>$10.33</span>
+                        <span className='accent'>₹{orderReview.amount}</span>
                     </div>
                     <input type='submit' className='btnFullWidth' value='Confirm and Pay'></input>
                 </div>
