@@ -64,8 +64,11 @@ const Login = () => {
                         navigate('/verifyOTP')
                         return
                     }
+                    else if (data.verification == 'true') {
+                        navigate('/home')
+                        return
+                    }
                     navigate('/home')
-
                 }).catch(err => {
                     console.log(err)
                     updateAlertBoxDetails({

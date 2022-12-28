@@ -142,17 +142,20 @@ input[type=submit].btnLarge{
     color: color.$accent-text;
 }
 
-span.pending{
+span.pending, span.orange{
     color: orange;
 }
-span.success{
+span.success, span.green{
     color: color.$accent-text;
 }
 span.amount{
     color: color.$accent-text;
 }
-span.failed{
+span.failed, span.red{
     color: red;
+}
+span.blue{
+    color: dodgerblue;
 }
 span.gray{
     color: gray;

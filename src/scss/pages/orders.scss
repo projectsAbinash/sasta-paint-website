@@ -43,10 +43,17 @@
                     gap: 0.7em;
                     width: 70%;
 
+                    >.top {
+                        span {
+                            font-size: 0.9em;
+                        }
+                    }
+
                     >.bottom {
                         display: flex;
                         gap: 1em;
                         justify-content: space-between;
+
                         // background-color: lightblue;
                         span {
                             font-size: 0.8em;
@@ -58,31 +65,31 @@
             }
         }
     }
+}
 
-    #orders.loading {
+#orders.loading {
 
-        // background-color: lightblue;
-        >.container {
-            min-height: calc(100vh - 100px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            gap: 2em;
+    // background-color: lightblue;
+    >.container {
+        min-height: calc(100vh - 100px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 2em;
 
-            >img {
-                width: 50%;
-            }
-
-            >p {
-                color: gray;
-            }
+        >img {
+            width: 50%;
         }
 
-        .linkBtn {
-            padding: 0.7em 1.2em;
-            background-color: mix(color.$accent, #00000000, 20%);
-            border-radius: var.$bdrs;
+        >p {
+            color: gray;
         }
+    }
+
+    .linkBtn {
+        padding: 0.7em 1.2em;
+        background-color: mix(color.$accent, #00000000, 20%);
+        border-radius: var.$bdrs;
     }
 }

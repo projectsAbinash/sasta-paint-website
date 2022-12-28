@@ -5,7 +5,15 @@ import joinLinks from '../linker'
 import '../scss/pages/orderReview.scss'
 import { makeRequestData } from '../tokens'
 import Loading from './Loading'
-import token from '../tokens'
+
+
+function snakeToSpace(str: string): string {
+    const words = str.split('_')
+    const upp: string[] = words.map(w => {
+        return w[0].toUpperCase() + w.substring(1)
+    })
+    return upp.join(' ')
+}
 
 
 const getOrderStatusAPILink = joinLinks('Orders/GetbyId/')
@@ -38,7 +46,7 @@ function OrderReview() {
                 {/* <h1>Review Order</h1> */}
 
                 <div className="top">
-                    {orderReview.userdocs.map((doc:any) => {
+                    {orderReview.userdocs.map((doc: any) => {
                         return (
                             <div className="eachFile" key={crypto.randomUUID()}>
                                 <span className="label">File Name</span>
@@ -54,20 +62,22 @@ function OrderReview() {
                                 <div className="printCharge">
                                     <div className="left">
                                         <span>Print Charges</span>
-                                        <span className="printType">{doc.page_config}</span>
-                                        <span className="calc">{doc.total_pages} page(s) * $0.22/ page <img src={doc.print_configicons === 'black_and_white' ? icons.color : icons.bAndW} alt="" /></span>
+                                        <span className="printType">{snakeToSpace(doc.page_config)}</span>
+                                        <span className="calc">{doc.total_pages} page(s) * ₹{doc.page_config === 'two_side' ? 0.50 : 0.70}/ page
+                                            <img src={doc.print_configicons === 'black_and_white' ? icons.color : icons.bAndW} alt="" />
+                                        </span>
                                     </div>
                                     <div className="right">
                                         <div className="price accent">₹{doc.print_charges}</div>
                                     </div>
                                 </div>
                                 <div className="spiral">
-                                    <span>{doc.binding_config}</span>
+                                    <span>{snakeToSpace(doc.binding_config)}</span>
                                     <span className="price accent">₹{doc.binding_charge}</span>
                                 </div>
 
                                 <div className="copies">
-                                    <span>Number of Copies <span className='gray'>x{doc.copies_count}</span></span>
+                                    <span>Number of Copies <span className='gray'> x{doc.copies_count}</span></span>
                                     <span className="price accent">₹{doc.total_copies_charge}</span>
                                 </div>
                             </div>

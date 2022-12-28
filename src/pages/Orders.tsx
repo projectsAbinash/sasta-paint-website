@@ -4,14 +4,32 @@ import Navigation from "../components/NavigationBar"
 import '../scss/pages/orders.scss'
 import { Link } from "react-router-dom"
 import joinLinks from "../linker"
+import { makeRequestData } from "../tokens"
 
 
-const ordersAPILink = joinLinks('blank')
+const ordersAPILink = joinLinks('Orders/list/')
+const reqData = makeRequestData()
 
+function getColoredClass(status : string){
+    if(status === 'Placed')
+        return 'orange'
+    if(status === 'Shipped')
+        return 'blue'
+    if(status === 'Delivered')
+        return 'green'
+    else
+        return 'red'
+}
 
 function Orders() {
-    const [ordersData, uOrderData] = useState<any | any[]>([, ,])
+    const [ordersData, uOrderData] = useState<any | any[]>(null)
     useEffect(() => {
+        fetch(ordersAPILink, reqData)
+            .then(data => data.json())
+            .then(data => {
+                console.log(data)
+                uOrderData(data.data)
+            })
 
     }, [])
 
@@ -41,39 +59,31 @@ function Orders() {
             </div>
         )
     }
+    // 'Placed', 'Shipped', 'Delivered'
 
     return (
         <div id="orders">
             <div className="container">
                 <h3 className="text-center">Your Orders</h3>
                 <div className="orders">
-                    <div className="order">
-                        <div className="left">
-                            <img src={images.undraw_printing_invoices} />
-                        </div>
-                        <div className="right">
-                            <div className="top">Order ID : {'6965645'}</div>
-                            <div className="bottom">
-                                <span className="amount">{'$45.55'}</span>
-                                <span className="status success">{'Success'}</span>
-                                <span className="date">15/12/22</span>
+                    {ordersData.map((o: any) => {
+                        return (
+                            <div className="order" key={crypto.randomUUID()}>
+                                <div className="left">
+                                    <img src={images.undraw_printing_invoices} />
+                                </div>
+                                <div className="right">
+                                    <div className="top"><span>Order ID : {o.order_id}</span></div>
+                                    <div className="bottom">
+                                        <span className="amount">₹{o.amount}</span>
+                                        <span className={"status " + getColoredClass(o.status)}>{o.status}</span>
+                                        <span className="date">{new Date(o.created_at).toLocaleDateString()}</span>
 
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="order">
-                        <div className="left">
-                            <img src={images.undraw_printing_invoices} />
-                        </div>
-                        <div className="right">
-                            <div className="top">Order ID : {'6965645'}</div>
-                            <div className="bottom">
-                                <span className="amount">{'$45.55'}</span>
-                                <span className="status pending">{'Pending'}</span>
-                                <span className="date">15/12/22</span>
-                            </div>
-                        </div>
-                    </div>
+                        )
+                    })}
                 </div>
             </div>
             <Navigation active='orders' />
