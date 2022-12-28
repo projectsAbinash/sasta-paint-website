@@ -23,22 +23,28 @@ function makeRequestData(): object {
 }
 
 
-const requestData: object = makeRequestData()
 const Home = () => {
     const [profileData, updateProfileData] = useState<any>(null)
     const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
     const navigate = useNavigate()
+    const requestData: object = makeRequestData()
 
 
     useEffect(() => {
+        console.log(requestData)
         fetch(profileApiLink, requestData).then(data => data.json())
             .then(data => {
                 if (data) {
                     updateProfileData({
                         name: data?.user_main?.name.split(' ')[0],
                         pic: data?.user_extra?.pic || null,
-                        page_count : data?.user_extra?.total_pages
+                        page_count: data?.user_extra?.total_pages
                     })
+                }
+                // console.log(data.message)
+                if (data?.message === 'Unauthenticated.') {
+                    localStorage.clear()
+                    navigate('/login', { replace: true })
                 }
                 console.log(data)
             }).catch(err => {

@@ -14,7 +14,7 @@ function makeRequestData(id: string, pass: string) {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'Authorization': token.get('registrationToken')
+            // 'Authorization': token.get('registrationToken')
         },
         body: JSON.stringify({
             phone: id,
@@ -47,6 +47,8 @@ const Login = () => {
                 .then(data => {
                     console.log(data)
                     // Check for errors
+                    token.set('registrationToken', data.access_token)
+                    // console.log(token.get('registrationToken'))
                     if (data.status == 'false') {
                         updateAlertBoxDetails({
                             active: true,
@@ -58,7 +60,6 @@ const Login = () => {
                         return
                     }
 
-                    token.set('registrationToken', data.access_token)
 
                     if (data.verification == 'false') {
                         navigate('/verifyOTP')

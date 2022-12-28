@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import images from "../assets/image"
 import Navigation from "../components/NavigationBar"
 import '../scss/pages/orders.scss'
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import joinLinks from "../linker"
 import { makeRequestData } from "../tokens"
 
@@ -23,6 +23,9 @@ function getColoredClass(status : string){
 
 function Orders() {
     const [ordersData, uOrderData] = useState<any | any[]>(null)
+    const navigate = useNavigate()
+
+
     useEffect(() => {
         fetch(ordersAPILink, reqData)
             .then(data => data.json())
@@ -68,7 +71,7 @@ function Orders() {
                 <div className="orders">
                     {ordersData.map((o: any) => {
                         return (
-                            <div className="order" key={crypto.randomUUID()}>
+                            <div className="order" key={crypto.randomUUID()} onClick={()=>navigate(`/trackOrder/${o.order_id}`)}>
                                 <div className="left">
                                     <img src={images.undraw_printing_invoices} />
                                 </div>
@@ -78,7 +81,6 @@ function Orders() {
                                         <span className="amount">₹{o.amount}</span>
                                         <span className={"status " + getColoredClass(o.status)}>{o.status}</span>
                                         <span className="date">{new Date(o.created_at).toLocaleDateString()}</span>
-
                                     </div>
                                 </div>
                             </div>
