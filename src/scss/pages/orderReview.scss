@@ -1,4 +1,5 @@
 @use '../common/colors' as color;
+@use '../common/animation' as anim;
 
 #orderReview {
     >.container {
@@ -28,15 +29,45 @@
                 padding: 15px;
                 // background-color: color.$input-bg;
                 border: 2px solid color.$input-bg;
+                position: relative;
+
+                >.deleteButton {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+
+                    // background-color: color.$input-bg;
+                    img {
+                        width: 15px;
+                    }
+                }
+
                 >span.label {
                     color: gray;
                     font-size: 0.8em;
+                }
+                >span.label.fileNameHeading{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    // background-color: lime;
+                    >span.red{
+                        background-color: color.$input-bg;
+                        padding: 0.5em 1em;
+                        border-radius: 100vmax;
+                        @include anim.press();
+                    }
                 }
 
                 >.fileName {
                     display: flex;
                     justify-content: space-between;
-
+                    
                     // align-items: center;
                     >.right {
                         img {
@@ -55,27 +86,34 @@
                         display: flex;
                         flex-direction: column;
                         gap: 0.3em;
-                        >.printType, >.calc{
+
+                        >.printType,
+                        >.calc {
                             color: gray;
                             font-size: 0.8em;
                         }
-                        >.calc{
+
+                        >.calc {
                             display: flex;
                             justify-content: flex-start;
                             align-items: center;
                             gap: 0.5em;
-                            img{
+
+                            img {
                                 width: 1.3em;
                                 height: 1.3em;
                                 // aspect-ratio: 1 / 1;
                             }
                         }
                     }
+
                     span {
                         font-size: 0.9em;
                     }
                 }
-                >.spiral, >.copies{
+
+                >.spiral,
+                >.copies {
                     display: flex;
                     // background-color: lavender;
                     justify-content: space-between;

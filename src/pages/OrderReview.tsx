@@ -1,11 +1,12 @@
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import icons from '../assets/icon'
+import AlertBox from '../components/AlertBox'
 import TitleHeader from '../components/TitleHeader'
 import joinLinks from '../linker'
 import '../scss/pages/orderReview.scss'
 import { makeRequestData } from '../tokens'
 import Loading from './Loading'
-
 
 function snakeToSpace(str: string): string {
     const words = str.split('_')
@@ -15,16 +16,20 @@ function snakeToSpace(str: string): string {
     return upp.join(' ')
 }
 
-
 const getOrderStatusAPILink = joinLinks('Orders/GetbyId/')
+const deleteDocumtAPILink = joinLinks('Orders/UploadDoc/Removed')
 const reqData: any = makeRequestData()
 reqData.body = JSON.stringify({
     order_id: localStorage.getItem('currentOrderID')
 })
 
 function OrderReview() {
-    const arr = [1, 2]
     const [orderReview, uOrderReview] = useState<any>(null)
+    const navigate = useNavigate()
+
+    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+
+
     useEffect(() => {
         console.log(reqData)
         fetch(getOrderStatusAPILink, reqData)
@@ -32,15 +37,27 @@ function OrderReview() {
             .then(data => {
                 console.log(data)
                 uOrderReview(data.order_data)
-                // console.log(orderReview)
+                if (data?.order_data?.userdocs.length === 0) {
+                    navigate('/newOrder', { replace: true })
+                }
+                console.log(data)
             })
     }, [])
 
     if (orderReview === null)
         return <Loading />
 
+
+
     return (
         <div id="orderReview">
+            <AlertBox
+                active={alertBoxDetails.active}
+                title={alertBoxDetails.title}
+                content={alertBoxDetails.content}
+                buttonText={alertBoxDetails.buttonText}
+                updater={updateAlertBoxDetails}
+            />
             <TitleHeader title='Order Review' />
             <div className="container">
                 {/* <h1>Review Order</h1> */}
@@ -49,7 +66,10 @@ function OrderReview() {
                     {orderReview.userdocs.map((doc: any) => {
                         return (
                             <div className="eachFile" key={crypto.randomUUID()}>
-                                <span className="label">File Name</span>
+                                {/* <div className="deleteButton">
+                                    <img src={icons.trash} />
+                                </div> */}
+                                <span className="label fileNameHeading"><span>File Name</span> <span className='red' onClick={() => removeDocument(doc.id)}>Remove</span></span>
                                 <div className="fileName">
                                     <div className="left">
                                         <span className="name">{doc.doc_name}</span>
@@ -104,5 +124,35 @@ function OrderReview() {
             </div>
         </div>
     )
+
+
+    function removeDocument(id: string) {
+        updateAlertBoxDetails({
+            active: true,
+            title: 'Alert',
+            content: 'Removing Document',
+            buttonText: 'OK'
+        })
+        const reqData: any = makeRequestData()
+        const body = { doc_id: id }
+
+        reqData.body = JSON.stringify(body)
+
+        // 
+        console.log(reqData.body)
+        fetch(deleteDocumtAPILink, reqData)
+            .then(data => data.json())
+            .then(data => {
+                console.log(data)
+                navigate(0)
+            }).catch(err => {
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Error',
+                    content: 'Remove Failed, check your network connection',
+                    buttonText: 'OK'
+                })
+            })
+    }
 }
 export default OrderReview
