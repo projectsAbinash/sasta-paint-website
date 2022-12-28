@@ -5,9 +5,10 @@ import AlertBox from '../components/AlertBox'
 import TitleHeader from '../components/TitleHeader'
 import joinLinks from '../linker'
 import '../scss/pages/newOrder.scss'
-import token from '../tokens'
+import token, { makeRequestData } from '../tokens'
 
 const fileUploadAPILink = joinLinks('Orders/UploadDoc/')
+const updateDocumentLink = joinLinks('Orders/UploadDoc/Update')
 
 function uuid(len: number) {
     const min = 10 ** (len - 1)
@@ -43,12 +44,67 @@ function NewOrder() {
             return
         }
 
+        // Now send previous data to server
+        sendCurrentData()
+
+
         // files
         const newFilesData = [...files]
         // newFilesData.push({ fileName: '', uploaded: false, selected: false, failed: false })
         newFilesData.push({ fileName: '', status: 'initial' })
+
+
+
+
         updateFiles(newFilesData)
     }
+
+    function sendCurrentData() {
+        const data: any = {
+            //     copies_count: noOfCopies,
+            //     doc_id: currentDocId,
+            //     print_config: printConfig,
+            //     page_config: pageConfig,
+            //     binding_config: binding_status,
+            //     title: title,
+            //     instructions: instructions
+        }
+        data.copies_count = noOfCopies
+        data.doc_id = currentDocId
+        data.print_config = printConfig
+        data.page_config = pageConfig
+        data.binding_config = binding_status
+        if (title) data.title = title
+        if (instructions) data.instructions = instructions
+
+        const reqData: any = makeRequestData()
+        reqData.body = JSON.stringify(data)
+
+
+        fetch(updateDocumentLink, reqData)
+            .then(data => data.json())
+            .then(data => {
+                console.log(data)
+            })
+
+        // Make data
+
+
+        // Make Everything Blank
+        titleInput.current.value = ''
+        instructionInput.current.value = ''
+        uNoOfCopies(1)
+        uCurrentDocId(null)
+        colorRadio1.current.click()
+        // updatePrintConfig('black_and_white') 
+        spiral.current.click()
+        pageSide2.current.click()
+        // updatePageConfig('two_side')
+        updateTitle('')
+        updateInstructions('')
+        console.log(data)
+    }
+
 
     function changeNoOfCopies(n: number) {
         if ((noOfCopies === 1 || noOfCopies === null) && n < 0) {
@@ -94,7 +150,18 @@ function NewOrder() {
     }
 
 
+    function changeBindingStatus(e: any) {
+        uBinding_status(e.target.value)
+        console.log(binding_status)
+    }
+    function changePageConfig(e: any) {
+        updatePageConfig(e.target.value)
+    }
+    function changePrintConfig(e: any) {
+        updatePrintConfig(e.target.value)
+    }
 
+    const navigate = useNavigate()
 
     const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
 
@@ -104,7 +171,18 @@ function NewOrder() {
     const colorRadio2 = useRef<any>()
     const pageSide1 = useRef<any>()
     const pageSide2 = useRef<any>()
-    const navigate = useNavigate()
+    const titleInput = useRef<any>()
+    const instructionInput = useRef<any>()
+    const [currentDocId, uCurrentDocId] = useState<null | string>(null)
+    const spiral = useRef<any>()
+    const stapled = useRef<any>()
+    const loose_paper = useRef<any>()
+    const [title, updateTitle] = useState('')
+    const [instructions, updateInstructions] = useState('')
+    const [pageConfig, updatePageConfig] = useState('two_side')
+    const [printConfig, updatePrintConfig] = useState('black_and_white')
+
+    const [binding_status, uBinding_status] = useState('spiral_binding')
 
     const allFileInputs = useRef<any>([])
     // let fileCount = 0
@@ -142,8 +220,9 @@ function NewOrder() {
                     let newFilesData = [...files]
                     if (data.status === 'true') {
                         // Show success icon
-                        newFilesData[index].status = 'uploaded'
                         updateFiles(newFilesData)
+                        uCurrentDocId(data.doc_id)
+                        newFilesData[index].status = 'uploaded'
                     }
                     else {
                         newFilesData[index].status = 'failed'
@@ -218,9 +297,11 @@ function NewOrder() {
 
                 <div className="details">
                     <p className="label">Details</p>
-                    <input type="text" className='inp title' placeholder='Title of your document' />
-                    <textarea name="Instructions" id="instructions" rows={2}
+                    <input type="text" className='inp title' placeholder='Title of your document'
+                        onInput={(e: any) => updateTitle(e.target.value)} ref={titleInput} />
+                    <textarea name="Instructions" id="instructions" rows={2} onInput={(e: any) => updateInstructions(e.target.value)}
                         placeholder='Enter any instructions that should be carried out while printing your file.'
+                        ref={instructionInput}
                     ></textarea>
                     <p className="label">Number of Copies</p>
                     <div className="copies">
@@ -239,7 +320,7 @@ function NewOrder() {
                     <p className="label">Print Configurations</p>
                     <div className="selectColor">
                         <div className="select" onClick={() => { colorRadio1.current.click() }}>
-                            <input ref={colorRadio1} type="radio" name="printColor" id="color1" value='b&w' checked onChange={() => { }} />
+                            <input ref={colorRadio1} type="radio" name="printColor" id="color1" value='black_and_white' defaultChecked onChange={changePrintConfig} />
                             <span>Black & White</span>
                         </div>
                         <div className="select" onClick={() => {
@@ -261,7 +342,8 @@ function NewOrder() {
                     <p className="label">Page Sides</p>
                     <div className="selectPage">
                         <div className="select" onClick={() => { pageSide2.current.click() }}>
-                            <input ref={pageSide2} type="radio" name="pageSide" id="color1" value='2' checked onChange={() => { }} />
+                            <input ref={pageSide2} type="radio" name="pageSide" id="color1" value='two_side'
+                                defaultChecked onChange={changePageConfig} />
                             <div className="text">
                                 <span >Two-Sided</span>
                                 <div className="price">
@@ -271,12 +353,48 @@ function NewOrder() {
                             </div>
                         </div>
                         <div className="select" onClick={() => { pageSide1.current.click() }}>
-                            <input ref={pageSide1} type="radio" name="pageSide" id="color1" value='1' />
+                            <input ref={pageSide1} type="radio" name="pageSide" id="color1" value='one_side'
+                                onChange={changePageConfig} />
                             <div className="text">
                                 <span >One-Sided</span>
                                 <div className="price">
                                     <span className='price cancel'>$1.5.00</span>
                                     <span className='price'>$0.65/page</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="selectPage">
+                    <p className="label">Binding Configuration</p>
+                    <div className="selectPage">
+                        <div className="select" onClick={() => spiral.current.click()}>
+                            <input ref={spiral} type="radio" name="binding" value='spiral_binding' defaultChecked onChange={changeBindingStatus} />
+                            <div className="text">
+                                <span >Spiral Binding</span>
+                                <div className="price">
+                                    <span className='price cancel'>$25.00</span>
+                                    <span className='price'>$5/150pages</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="select" onClick={() => stapled.current.click()}>
+                            <input ref={stapled} type="radio" name="binding" value='stapled' onChange={changeBindingStatus} />
+                            <div className="text">
+                                <span >Stapled</span>
+                                <div className="price">
+                                    {/* <span className='price cancel'>$1.5.00</span> */}
+                                    <span className='price'>$0.00/page</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="select" onClick={() => loose_paper.current.click()}>
+                            <input ref={loose_paper} type="radio" name="binding" value='loose_paper' onChange={changeBindingStatus} />
+                            <div className="text">
+                                <span >Loose Paper</span>
+                                <div className="price">
+                                    {/* <span className='price calcel'>$0.65/page</span> */}
+                                    <span className='price'>$0.00 / Page</span>
                                 </div>
                             </div>
                         </div>
@@ -328,15 +446,13 @@ function NewOrder() {
 
 
 
-        const orderID = localStorage.getItem('currentOrderID')
-
+        // const orderID = localStorage.getItem('currentOrderID')
+        sendCurrentData()
         // Now store other details in localStorage and go to next page
-        const formData = {
-            'order_id': orderID,
-
-
-        }
-        localStorage.setItem('currentOrderDetails', JSON.stringify(formData))
+        // const formData = {
+        //     'order_id': orderID,
+        // }
+        // localStorage.setItem('currentOrderDetails', JSON.stringify(formData))
         navigate('/deliveryAddress')
     }
 }

@@ -31,6 +31,9 @@ const Home = () => {
                     <Link to='/orderReview'>
                         <p>Skip Now</p>
                     </Link>
+                    <Link to='/newOrder'>
+                        <p>New Order</p>
+                    </Link>
                 </div>
                 <div className="right">
                     <Link to='./login'>

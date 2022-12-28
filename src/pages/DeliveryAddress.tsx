@@ -18,8 +18,8 @@ function DeliveryAddress() {
     useEffect(() => {
         fetch(deliveryAddressAPILink, reqData).then(data => data.json())
             .then(data => {
-                updateAddressStatus('fetched')
-                updateActiveAddress(data.data[0].id)
+                updateAddressStatus('fetched')  
+                updateActiveAddress(data.data[0]?.id)
                 updateAddresses(data.data)
                 console.log(data)
             })
