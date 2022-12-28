@@ -19,9 +19,7 @@ function snakeToSpace(str: string): string {
 const getOrderStatusAPILink = joinLinks('Orders/GetbyId/')
 const deleteDocumtAPILink = joinLinks('Orders/UploadDoc/Removed')
 const reqData: any = makeRequestData()
-reqData.body = JSON.stringify({
-    order_id: localStorage.getItem('currentOrderID')
-})
+
 
 function OrderReview() {
     const [orderReview, uOrderReview] = useState<any>(null)
@@ -31,6 +29,9 @@ function OrderReview() {
 
 
     useEffect(() => {
+        reqData.body = JSON.stringify({
+            order_id: localStorage.getItem('currentOrderID')
+        })
         console.log(reqData)
         fetch(getOrderStatusAPILink, reqData)
             .then(data => data.json())

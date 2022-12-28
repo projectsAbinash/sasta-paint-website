@@ -192,6 +192,7 @@ function NewOrder() {
         const randomUUID = uuid(7)
         // console.log(randomUUID)
         localStorage.setItem('currentOrderID', randomUUID)
+        console.log(randomUUID)
     }, [])
 
     function uploadFile(index: number) {
