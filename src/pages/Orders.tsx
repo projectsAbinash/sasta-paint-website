@@ -7,7 +7,7 @@ import joinLinks from "../linker"
 import { makeRequestData } from "../tokens"
 
 
-const ordersAPILink = joinLinks('Orders/list/')
+const ordersAPILink = joinLinks('Orders/list')
 const reqData = makeRequestData()
 
 function getColoredClass(status : string){

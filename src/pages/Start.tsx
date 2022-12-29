@@ -33,10 +33,7 @@ const Home = () => {
                     </Link>
                 </div>
                 <div className="center">
-                    <Link to='/orderReview'><p>Skip Now</p></Link>
-                    <Link to='/newOrder'><p>New Order</p></Link>
-                    <Link to='/orders'><p>Orders</p></Link>
-                    <Link to='/trackOrder/55445'><p>Track Order</p></Link>
+                    <Link to='/start'><p>Skip Now</p></Link>
                 </div>
                 <div className="right">
                     <Link to='./login'>

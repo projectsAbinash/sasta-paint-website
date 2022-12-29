@@ -26,7 +26,7 @@ function snakeToSpace(str: string): string {
     return upp.join(' ')
 }
 
-const getByIdApiLink = joinLinks('Orders/GetbyId/')
+const getByIdApiLink = joinLinks('Orders/GetbyId')
 function TrackOrder() {
     const { id } = useParams()
     const [orderData, uOrderData] = useState<any>(null)
