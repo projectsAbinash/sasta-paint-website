@@ -43,7 +43,7 @@ function TrackOrder() {
             .then(data => data.json())
             .then(data => {
                 console.log(data)
-                data.order_data.tracking_link = "https://google.com"
+                // data.order_data.tracking_link = "https://google.com"
                 uOrderData(data.order_data)
             })
     }, [])
