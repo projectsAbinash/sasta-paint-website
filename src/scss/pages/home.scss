@@ -76,70 +76,78 @@
         width: 100%;
 
 
-        >a {
+        a {
             text-decoration: none;
             -webkit-tap-highlight-color: transparent;
             color: color.$text;
             width: 100%;
+        }
 
-            &:nth-child(1) .card {
-                background-color: #bfe2e2;
+        .card1 {
+
+            background-color: #bfe2e2;
+        }
+
+        .card2 {
+            background-color: #ffe8c3;
+
+        }
+
+        .card {
+
+            padding: 23px;
+            width: 100%;
+            // background-color: mix(color.$accent, #00000000, 25%);
+            min-height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            border-radius: 25px;
+            @include anim.press(100, 98);
+
+            >.right {
+                width: 45%;
+
+                >img {
+                    width: 100%;
+                }
             }
 
-            &:nth-child(2) .card {
-                background-color: #ffe8c3;
-            }
-
-            >.card {
-                padding: 23px;
-                width: 100%;
-                // background-color: mix(color.$accent, #00000000, 25%);
-                min-height: 100px;
+            >.left {
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                justify-content: center;
+                // align-items: center;
+                flex-direction: column;
                 gap: 10px;
-                border-radius: 25px;
-                @include anim.press(100, 98);
+                width: 55%;
 
-                >.right {
-                    width: 45%;
-
-                    >img {
-                        width: 100%;
-                    }
-                }
-
-                >.left {
-                    display: flex;
-                    justify-content: center;
-                    // align-items: center;
-                    flex-direction: column;
-                    gap: 10px;
-                    width: 55%;
-
-                    >h2 {
-                        text-transform: uppercase;
-                    }
+                >h2 {
+                    text-transform: uppercase;
                 }
             }
+        }
 
-            .glow {
-                outline: 5px solid color.$accent;
-                animation: pulse 1s linear infinite;
+        .glow {
+            outline: 5px solid color.$accent;
+            animation: pulse 1s linear infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                outline-color: color.$accent;
+                outline-offset: 0;
+                outline-width: 2px;
             }
-            @keyframes pulse {
-                0%{
-                    outline-color: color.$accent;
-                    outline-offset: 0;
-                    outline-width: 2px;
-                }
-                70%,100%{
-                    outline-color: transparent;
-                    outline-offset: 0.5em;
-                    outline-width: 5px;
-                }
+
+            70%,
+            100% {
+                outline-color: transparent;
+                outline-offset: 0.5em;
+                outline-width: 5px;
             }
         }
     }
 }
+
+// }

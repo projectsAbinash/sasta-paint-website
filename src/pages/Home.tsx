@@ -91,7 +91,7 @@ const Home = () => {
 
                 <div className="cards">
                     <Link to='/newOrder'>
-                        <div className="card glow">
+                        <div className="card glow card1">
                             <div className="left">
                                 <h2>Place new Order</h2>
                                 <p>Click here to place a new order.</p>
@@ -102,17 +102,24 @@ const Home = () => {
                         </div>
                     </Link>
 
-                    <Link to='/login'>
-                        <div className="card">
-                            <div className="left">
-                                <h2>Print Your Near</h2>
-                                <p>Click here to check print near you.</p>
-                            </div>
-                            <div className="right">
-                                <img src={images.undraw_printing_invoices} alt="" />
-                            </div>
+                    {/* <Link to='/login'> */}
+                    <div className="card card2" onClick={() => {
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Soon',
+                            content: 'This feature is coming soon!',
+                            buttonText: 'OK'
+                        })
+                    }}>
+                        <div className="left">
+                            <h2>Print Your Near</h2>
+                            <p>Click here to check print near you.</p>
                         </div>
-                    </Link>
+                        <div className="right">
+                            <img src={images.undraw_printing_invoices} alt="" />
+                        </div>
+                    </div>
+                    {/* </Link> */}
 
                 </div>
             </div>

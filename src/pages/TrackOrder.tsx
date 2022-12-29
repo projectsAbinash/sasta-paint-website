@@ -8,6 +8,9 @@ import images from "../assets/image"
 import icons from "../assets/icon"
 import { Link } from "react-router-dom"
 
+import uuid from "../randomId"
+
+
 function getColoredClass(status: string) {
     if (status === 'Placed')
         return 'orange'
@@ -40,6 +43,7 @@ function TrackOrder() {
             .then(data => data.json())
             .then(data => {
                 console.log(data)
+                data.order_data.tracking_link = "https://google.com"
                 uOrderData(data.order_data)
             })
     }, [])
@@ -65,7 +69,7 @@ function TrackOrder() {
                     <div className="docs">
                         {orderData.userdocs.map((doc: any) => {
                             return (
-                                <div className="eachFile" key={crypto.randomUUID()}>
+                                <div className="eachFile" key={uuid(5)}>
                                     {/* <div className="deleteButton">
                                     <img src={icons.trash} />
                                 </div> */}
@@ -143,7 +147,7 @@ function TrackOrder() {
                     </div>
                 </div>
                 <div className="bottom">
-                    {orderData.tracking_link ? <TrackLinkButton trackLink={orderData.tracking_link} /> : ""}
+                    {(orderData.tracking_link != null) ? <TrackLinkButton trackLink={orderData.tracking_link} /> : ""}
                 </div>
             </div>
         </div >

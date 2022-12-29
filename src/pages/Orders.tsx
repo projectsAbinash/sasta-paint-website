@@ -5,17 +5,18 @@ import '../scss/pages/orders.scss'
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import joinLinks from "../linker"
 import { makeRequestData } from "../tokens"
+import uuid from "../randomId"
 
 
 const ordersAPILink = joinLinks('Orders/list')
 const reqData = makeRequestData()
 
-function getColoredClass(status : string){
-    if(status === 'Placed')
+function getColoredClass(status: string) {
+    if (status === 'Placed')
         return 'orange'
-    if(status === 'Shipped')
+    if (status === 'Shipped')
         return 'blue'
-    if(status === 'Delivered')
+    if (status === 'Delivered')
         return 'green'
     else
         return 'red'
@@ -71,7 +72,7 @@ function Orders() {
                 <div className="orders">
                     {ordersData.map((o: any) => {
                         return (
-                            <div className="order" key={crypto.randomUUID()} onClick={()=>navigate(`/trackOrder/${o.order_id}`)}>
+                            <div className="order" key={uuid(5)} onClick={() => navigate(`/trackOrder/${o.order_id}`)}>
                                 <div className="left">
                                     <img src={images.undraw_printing_invoices} />
                                 </div>

@@ -4,6 +4,7 @@ import icons from '../assets/icon'
 import AlertBox from '../components/AlertBox'
 import TitleHeader from '../components/TitleHeader'
 import joinLinks from '../linker'
+import uuid from '../randomId'
 import '../scss/pages/orderReview.scss'
 import { makeRequestData } from '../tokens'
 import Loading from './Loading'
@@ -66,7 +67,7 @@ function OrderReview() {
                 <div className="top">
                     {orderReview.userdocs.map((doc: any) => {
                         return (
-                            <div className="eachFile" key={crypto.randomUUID()}>
+                            <div className="eachFile" key={uuid(5)}>
                                 {/* <div className="deleteButton">
                                     <img src={icons.trash} />
                                 </div> */}
