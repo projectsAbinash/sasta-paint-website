@@ -16,7 +16,7 @@ function snakeToSpace(str: string): string {
     return upp.join(' ')
 }
 
-const getOrderStatusAPILink = joinLinks('Orders/GetbyId/')
+const getOrderStatusAPILink = joinLinks('Orders/GetbyId')
 const deleteDocumtAPILink = joinLinks('Orders/UploadDoc/Removed')
 const reqData: any = makeRequestData()
 
