@@ -7,7 +7,7 @@ import joinLinks from '../linker'
 import '../scss/pages/newOrder.scss'
 import token, { makeRequestData } from '../tokens'
 
-const fileUploadAPILink = joinLinks('Orders/UploadDoc/')
+const fileUploadAPILink = joinLinks('Orders/UploadDoc')
 const updateDocumentLink = joinLinks('Orders/UploadDoc/Update')
 
 function uuid(len: number) {
@@ -201,11 +201,12 @@ function NewOrder() {
             const bodyFormData = new FormData()
             bodyFormData.append('doc', currentFile)
             bodyFormData.append('order_id', localStorage.getItem('currentOrderID') || 'no-id')
-            const header = new Headers({
-                // 'Content-Type': 'application/json',
-                // 'Accept': 'application/json',
+            const header = {
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
                 'Authorization': token.get('registrationToken')
-            })
+            }
+            // delete header['content-type']
             const reqData = {
                 method: 'POST',
                 headers: header,
