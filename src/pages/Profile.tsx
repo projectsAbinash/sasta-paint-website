@@ -12,14 +12,6 @@ import Loading from "./Loading"
 const profileApiGetLink = joinLinks('profile')
 const profileApiUpdateLink = joinLinks('profile/update')
 
-const requestData = {
-    method: 'POST',
-    headers: {
-        // 'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': token.get('registrationToken')
-    },
-}
 
 
 
@@ -28,6 +20,14 @@ function Profile() {
     // let message = "This is Your Profile Page"
     // let speech = new SpeechSynthesisUtterance(message)
     // window.speechSynthesis.speak(speech)
+    const requestData = {
+        method: 'POST',
+        headers: {
+            // 'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': token.get('registrationToken')
+        },
+    }
     const pp = useRef<any>()
     const [selectedFileName, updateSelectedFileName] = useState('')
     const [isStudent, uIsStudent] = useState<any>(null)

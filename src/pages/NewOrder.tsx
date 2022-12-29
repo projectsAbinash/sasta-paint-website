@@ -201,14 +201,14 @@ function NewOrder() {
             const bodyFormData = new FormData()
             bodyFormData.append('doc', currentFile)
             bodyFormData.append('order_id', localStorage.getItem('currentOrderID') || 'no-id')
-
+            const header = new Headers({
+                // 'Content-Type': 'application/json',
+                // 'Accept': 'application/json',
+                'Authorization': token.get('registrationToken')
+            })
             const reqData = {
                 method: 'POST',
-                headers: {
-                    // 'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    'Authorization': token.get('registrationToken')
-                },
+                headers: header,
                 body: bodyFormData
             }
 
