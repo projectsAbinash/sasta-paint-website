@@ -1,26 +1,16 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import icons from "../assets/icon"
+import images from "../assets/image"
 import TitleHeader from "../components/TitleHeader"
 import joinLinks from "../linker"
 import '../scss/pages/trackOrder.scss'
 import { makeRequestData } from "../tokens"
-import images from "../assets/image"
-import icons from "../assets/icon"
-import { Link } from "react-router-dom"
-
+import PayButton from "../components/PayButton"
 import uuid from "../randomId"
+import { getColoredClass } from "./colors"
 
 
-function getColoredClass(status: string) {
-    if (status === 'Placed')
-        return 'orange'
-    if (status === 'Shipped')
-        return 'blue'
-    if (status === 'Delivered')
-        return 'green'
-    else
-        return 'red'
-}
 function snakeToSpace(str: string): string {
     const words = str.split('_')
     const upp: string[] = words.map(w => {
@@ -38,7 +28,7 @@ function TrackOrder() {
     useEffect(() => {
         const reqData: any = makeRequestData()
         reqData.body = JSON.stringify({ order_id: id })
-
+        localStorage.setItem('currentOrderId', id + '')
         fetch(getByIdApiLink, reqData)
             .then(data => data.json())
             .then(data => {
@@ -118,7 +108,7 @@ function TrackOrder() {
                         </div>
                         <div className="detail">
                             <span>Status</span>
-                            <span className={getColoredClass(orderData.status)}>{orderData.status}</span>
+                            <span className={getColoredClass(orderData.status) + ' capitalize'}>{orderData.status}</span>
                         </div>
 
                         {orderData.assigned_store ?
@@ -147,7 +137,8 @@ function TrackOrder() {
                     </div>
                 </div>
                 <div className="bottom">
-                    {(orderData.tracking_link != null) ? <TrackLinkButton trackLink={orderData.tracking_link} /> : ""}
+                    {(orderData.tracking_link != null && orderData.status === 'shipped') ? <TrackLinkButton trackLink={orderData.tracking_link} /> : ""}
+                    {(orderData.status.toLowerCase() === 'unpaid') ? <PayButton /> : ''}
                 </div>
             </div>
         </div >

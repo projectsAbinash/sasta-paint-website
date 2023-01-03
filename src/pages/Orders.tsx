@@ -6,21 +6,12 @@ import { Link, Navigate, useNavigate } from "react-router-dom"
 import joinLinks from "../linker"
 import { makeRequestData } from "../tokens"
 import uuid from "../randomId"
-
+import { getColoredClass } from "./colors"
 
 const ordersAPILink = joinLinks('Orders/list')
 const reqData = makeRequestData()
 
-function getColoredClass(status: string) {
-    if (status === 'Placed')
-        return 'orange'
-    if (status === 'Shipped')
-        return 'blue'
-    if (status === 'Delivered')
-        return 'green'
-    else
-        return 'red'
-}
+
 
 function Orders() {
     const [ordersData, uOrderData] = useState<any | any[]>(null)
@@ -80,7 +71,7 @@ function Orders() {
                                     <div className="top"><span>Order ID : {o.order_id}</span></div>
                                     <div className="bottom">
                                         <span className="amount">₹{o.amount}</span>
-                                        <span className={"status " + getColoredClass(o.status)}>{o.status}</span>
+                                        <span className={"status " + getColoredClass(o.status) + ' capitalize'}>{o.status}</span>
                                         <span className="date">{new Date(o.created_at).toLocaleDateString()}</span>
                                     </div>
                                 </div>

@@ -79,19 +79,10 @@ const PayButton = () => {
                         active: true,
                         title: 'Failed',
                         content: data.message,
-                        buttonText: 'Ok',
-                        cb: () => { navigate('/home') }
+                        buttonText: 'Ok'
                     })
-                    console.log("Now redirect to home")
                 } else {
-                    updateAlertBoxDetails({
-                        active: true,
-                        title: 'Successful',
-                        content: data.message,
-                        buttonText: 'Ok',
-                        cb: () => { navigate('/home') }
-                    })
-                    console.log("Payment Failed")
+                    { navigate(0) }
                 }
             })
     }
