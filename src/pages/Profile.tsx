@@ -30,7 +30,6 @@ function Profile() {
     }
     const pp = useRef<any>()
     const [selectedFileName, updateSelectedFileName] = useState('')
-    const [isStudent, uIsStudent] = useState<any>(null)
     // const [userData, updateUserData] = useState<any>(null)
     const navigate = useNavigate()
     const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, })
@@ -49,7 +48,7 @@ function Profile() {
     const [semester, uSemester] = useState('')
     const [occupation, uOccupation] = useState('')
     const [pagesCount, uPagesCount] = useState('')
-    // const [isStudent, uIsStudent] = useState('')
+    const [isStudent, uIsStudent] = useState<any>(null)
     const navigateHome = () => { navigate('/home') }
 
 
@@ -89,7 +88,7 @@ function Profile() {
 
                 uDob(user_extra.dob || '')
                 uGender(user_extra.gender || null)
-                uIsStudent(user_extra.student)
+                uIsStudent(user_extra.student || null)
                 uCollege_Name(user_extra.Collage_Name || '')
                 uCourse(user_extra.Course || '')
                 uOccupation(user_extra.occupation || '')
@@ -258,8 +257,10 @@ function Profile() {
             email: email
         }
 
-        body.student = isStudent
-
+        if (isStudent === 1 || isStudent === 0) {
+            body.student = isStudent
+        }
+        
         if (pp.current.files[0]) {
             body.pic = pp.current.files[0] || null
             uPic(URL.createObjectURL(pp.current.files[0]))

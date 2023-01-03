@@ -182,7 +182,7 @@ function NewOrder() {
     const [pageConfig, updatePageConfig] = useState('two_side')
     const [printConfig, updatePrintConfig] = useState('black_and_white')
 
-    const [binding_status, uBinding_status] = useState('spiral_binding')
+    const [binding_status, uBinding_status] = useState('loose_paper')
 
     const allFileInputs = useRef<any>([])
     // let fileCount = 0
@@ -385,7 +385,7 @@ function NewOrder() {
                     <p className="label">Binding Configuration</p>
                     <div className="selectPage">
                         <div className="select" onClick={() => spiral.current.click()}>
-                            <input ref={spiral} type="radio" name="binding" value='spiral_binding' defaultChecked onChange={changeBindingStatus} />
+                            <input ref={spiral} type="radio" name="binding" value='spiral_binding' onChange={changeBindingStatus} />
                             <div className="text">
                                 <span >Spiral Binding</span>
                                 <div className="price">
@@ -405,7 +405,7 @@ function NewOrder() {
                             </div>
                         </div>
                         <div className="select" onClick={() => loose_paper.current.click()}>
-                            <input ref={loose_paper} type="radio" name="binding" value='loose_paper' onChange={changeBindingStatus} />
+                            <input ref={loose_paper} type="radio" name="binding" value='loose_paper' defaultChecked onChange={changeBindingStatus} />
                             <div className="text">
                                 <span >Loose Paper</span>
                                 <div className="price">
