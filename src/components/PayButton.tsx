@@ -60,9 +60,9 @@ const PayButton = () => {
         const reqData: any = makeRequestData()
         reqData.body = JSON.stringify({
             product_order_id: localStorage.getItem('currentOrderID'),
-            rzp_paymentid : res.razorpay_payment_id,
-            rzp_orderid : res.razorpay_order_id,
-            rzp_signature : res.razorpay_signature
+            rzp_paymentid: res.razorpay_payment_id,
+            rzp_orderid: res.razorpay_order_id,
+            rzp_signature: res.razorpay_signature
         })
         updateAlertBoxDetails({
             active: true,
@@ -74,11 +74,11 @@ const PayButton = () => {
         fetch(url, reqData).then(data => data.json())
             .then(data => {
                 console.log(data)
-                if (!data.errors) {
+                if (data.errors || data.status === 'false') {
                     updateAlertBoxDetails({
                         active: true,
-                        title: 'Successful',
-                        content: 'Payment successful',
+                        title: 'Failed',
+                        content: data.message,
                         buttonText: 'Ok',
                         cb: () => { navigate('/home') }
                     })
@@ -86,8 +86,8 @@ const PayButton = () => {
                 } else {
                     updateAlertBoxDetails({
                         active: true,
-                        title: 'Payment Failed',
-                        content: 'Payment Failed!',
+                        title: 'Successful',
+                        content: data.message,
                         buttonText: 'Ok',
                         cb: () => { navigate('/home') }
                     })
