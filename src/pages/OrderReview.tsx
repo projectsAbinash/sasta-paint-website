@@ -8,6 +8,7 @@ import uuid from '../randomId'
 import '../scss/pages/orderReview.scss'
 import { makeRequestData } from '../tokens'
 import Loading from './Loading'
+import PayButton from '../components/PayButton'
 
 function snakeToSpace(str: string): string {
     const words = str.split('_')
@@ -135,7 +136,7 @@ function OrderReview() {
                         <span>Total Payable Amount</span>
                         <span className='accent'>₹{orderReview.amount}</span>
                     </div>
-                    <input type='submit' className='btnFullWidth' value='Confirm and Pay'></input>
+                    <PayButton />
                 </div>
             </div>
         </div>
