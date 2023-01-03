@@ -19,7 +19,8 @@
         }
 
         input.address,
-        input.state {
+        input.state,
+        select.state {
             background-image: url('../../assets/icons/map-location-dot-solid.svg');
             background-size: 1.3em;
         }

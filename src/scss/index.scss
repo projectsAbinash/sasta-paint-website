@@ -16,6 +16,7 @@ input[type='number'].inp,
 input[type='email'],
 select#gender,
 select#year,
+select.select,
 input[type='date'],
 textarea {
     width: 100%;
@@ -45,7 +46,9 @@ textarea#instructions{
     padding-left: 3.5em;
 
 }
-
+select.select.state{
+    background-image: url('../assets/icons/mobile-solid.svg');
+}
 input[type=tel] {
     background-image: url('../assets/icons/mobile-solid.svg');
 }

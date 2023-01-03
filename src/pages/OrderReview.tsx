@@ -63,18 +63,18 @@ function OrderReview() {
                 cbNo={alertBoxDetails.cbNo}
                 btnNoText={alertBoxDetails.btnNoText}
             />
-            <TitleHeader title='Order Review' back={()=>{
-                        updateAlertBoxDetails({
-                            active: true,
-                            title: 'Are you sure?',
-                            content: 'Are you sure you want to discard this order?',
-                            buttonText: 'Yes',
-                            btnNoText: 'No',
-                            cb: () => {
-                                navigate(-1)
-                            }
-                        })
-            }}/>
+            <TitleHeader title='Order Review' back={() => {
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Are you sure?',
+                    content: 'Are you sure you want to discard this order?',
+                    buttonText: 'Yes',
+                    btnNoText: 'No',
+                    cb: () => {
+                        navigate(-1)
+                    }
+                })
+            }} />
             <div className="container">
                 {/* <h1>Review Order</h1> */}
 
@@ -147,28 +147,32 @@ function OrderReview() {
             active: true,
             title: 'Alert',
             content: 'Removing Document',
-            buttonText: 'OK'
+            buttonText: 'Remove',
+            btnNoText: "Keep",
+            cb: () => {
+
+                const reqData: any = makeRequestData()
+                const body = { doc_id: id }
+
+                reqData.body = JSON.stringify(body)
+
+                // 
+                console.log(reqData.body)
+                fetch(deleteDocumtAPILink, reqData)
+                    .then(data => data.json())
+                    .then(data => {
+                        console.log(data)
+                        navigate(0)
+                    }).catch(err => {
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Error',
+                            content: 'Remove Failed, check your network connection',
+                            buttonText: 'OK'
+                        })
+                    })
+            }
         })
-        const reqData: any = makeRequestData()
-        const body = { doc_id: id }
-
-        reqData.body = JSON.stringify(body)
-
-        // 
-        console.log(reqData.body)
-        fetch(deleteDocumtAPILink, reqData)
-            .then(data => data.json())
-            .then(data => {
-                console.log(data)
-                navigate(0)
-            }).catch(err => {
-                updateAlertBoxDetails({
-                    active: true,
-                    title: 'Error',
-                    content: 'Remove Failed, check your network connection',
-                    buttonText: 'OK'
-                })
-            })
     }
 }
 export default OrderReview

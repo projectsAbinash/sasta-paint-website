@@ -11,7 +11,6 @@ const AlertBox = (props: any) => {
     if (UI) {
         return <UI />
     }
-    console.log(props)
     const buttonText: string = props.buttonText || 'Ok'
     const alertTitle: string = props.title || 'Alert'
     const alertText: string = props.content || 'Sample Alert Text'
