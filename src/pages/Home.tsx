@@ -25,7 +25,7 @@ function makeRequestData(): object {
 
 const Home = () => {
     const [profileData, updateProfileData] = useState<any>(null)
-    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, title: '', content: '', buttonText: '' })
     const navigate = useNavigate()
     const requestData: object = makeRequestData()
 
@@ -45,6 +45,18 @@ const Home = () => {
                 if (data?.message === 'Unauthenticated.') {
                     localStorage.clear()
                     navigate('/login', { replace: true })
+                }
+                if (data?.blocked === 'true') {
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Blocked',
+                        content: 'You are blocked',
+                        buttonText: 'OK',
+                        cb: () => {
+                            localStorage.clear()
+                            navigate('/login', { replace: true })
+                        }
+                    })
                 }
                 console.log(data)
             }).catch(err => {
@@ -71,6 +83,7 @@ const Home = () => {
                 content={alertBoxDetails.content}
                 buttonText={alertBoxDetails.buttonText}
                 updater={updateAlertBoxDetails}
+                cb={alertBoxDetails.cb}
             />
             <div className="container">
                 <div className="greet">
