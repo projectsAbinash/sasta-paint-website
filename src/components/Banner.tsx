@@ -1,14 +1,12 @@
-import { useEffect, useState } from 'react'
-import '../scss/components/banner.scss'
+import { useEffect, useState } from 'react';
+import  SwiperCore, { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react";
 import joinLinks from '../linker';
+import '../scss/components/banner.scss';
 import token from '../tokens';
-import { Link } from 'react-router-dom';
-import images from '../assets/image';
-
+SwiperCore.use([Autoplay])
 
 function makeRequestData(): object {
     return {
@@ -27,7 +25,7 @@ const reqData = makeRequestData()
 
 function Banner() {
 
-    const [bannerData, updateBannerData] = useState<any>([])
+    const [bannerData, updateBannerData] = useState<any>(null)
     let allBanners: any[] = []
 
     useEffect(() => {
@@ -50,6 +48,14 @@ function Banner() {
 
     let id = 1
 
+    if(bannerData === null){
+        return (
+            <div className="bannerSkeleton">
+
+            </div>
+        )
+    }
+
     return (
         <div id="banner">
             <Swiper
@@ -59,6 +65,9 @@ function Banner() {
                 }}
                 modules={[Pagination]}
                 className="mySwiper"
+                autoplay={{
+                    delay : 1500
+                }}
             >
                 {bannerData.map((banner: any) => {
                     id++

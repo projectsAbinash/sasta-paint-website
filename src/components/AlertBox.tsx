@@ -3,11 +3,15 @@ import '../scss/components/alertBox.scss'
 
 const AlertBox = (props: any) => {
     const updater = props.updater
-
+    const cb = props.cb
+    const cbNo = props.cbNo
     const UI: any = props.ui
+
+
     if (UI) {
         return <UI />
     }
+    console.log(props)
     const buttonText: string = props.buttonText || 'Ok'
     const alertTitle: string = props.title || 'Alert'
     const alertText: string = props.content || 'Sample Alert Text'
@@ -17,7 +21,24 @@ const AlertBox = (props: any) => {
             <div id="box">
                 <p className='alertTitle'>{alertTitle}</p>
                 <p className="alertText">{alertText}</p>
-                <button className='alertButton' onClick={() => { updater({ active: false }) }}>{buttonText}</button>
+                <div className="buttons">
+                    <button className='alertButton'
+                        onClick={() => {
+                            updater({ active: false })
+                            cb ? cb() : undefined
+                        }}>{buttonText}
+                    </button>
+                    {props.btnNoText ?
+                        <button className='alertButton no'
+                            onClick={() => {
+                                updater({ active: false })
+                                cbNo ? cbNo() : undefined
+                            }}>
+                            {props.btnNoText || 'No'}
+                        </button>
+                        : <></>
+                    }
+                </div>
             </div>
         </div>
     )

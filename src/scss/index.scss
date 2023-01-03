@@ -97,7 +97,7 @@ input[type=email] {
     background-size: 1.3em;
 }
 
-input[type=date] {
+input[type=date], input.inp#dob {
     background-image: url('../assets/icons/calendar-days-solid.svg');
     background-size: 1.1em;
     -webkit-appearance: none;

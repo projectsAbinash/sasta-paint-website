@@ -26,7 +26,7 @@ function OrderReview() {
     const [orderReview, uOrderReview] = useState<any>(null)
     const navigate = useNavigate()
 
-    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, title: '', content: '', buttonText: '' })
 
 
     useEffect(() => {
@@ -59,8 +59,22 @@ function OrderReview() {
                 content={alertBoxDetails.content}
                 buttonText={alertBoxDetails.buttonText}
                 updater={updateAlertBoxDetails}
+                cb={alertBoxDetails.cb}
+                cbNo={alertBoxDetails.cbNo}
+                btnNoText={alertBoxDetails.btnNoText}
             />
-            <TitleHeader title='Order Review' />
+            <TitleHeader title='Order Review' back={()=>{
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Are you sure?',
+                            content: 'Are you sure you want to discard this order?',
+                            buttonText: 'Yes',
+                            btnNoText: 'No',
+                            cb: () => {
+                                navigate(-1)
+                            }
+                        })
+            }}/>
             <div className="container">
                 {/* <h1>Review Order</h1> */}
 

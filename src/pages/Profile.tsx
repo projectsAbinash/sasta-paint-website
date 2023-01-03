@@ -1,13 +1,13 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import { BrowserRouter, json, useNavigate } from "react-router-dom"
+import { useEffect, useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import icons from "../assets/icon"
 import images from "../assets/image"
 import checkBlock from "../checkBlock"
+import AlertBox from "../components/AlertBox"
 import Navigation from "../components/NavigationBar"
 import joinLinks from "../linker"
 import '../scss/pages/profile.scss'
 import token from "../tokens"
-import AlertBox from "../components/AlertBox"
 import Loading from "./Loading"
 const profileApiGetLink = joinLinks('profile')
 const profileApiUpdateLink = joinLinks('profile/update')
@@ -33,10 +33,10 @@ function Profile() {
     const [isStudent, uIsStudent] = useState<any>(null)
     // const [userData, updateUserData] = useState<any>(null)
     const navigate = useNavigate()
-    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, })
 
     const [saveChangesStatus, uSaveChangesStatus] = useState('Save Changes')
-
+    const [isFetched, uIsFetched] = useState(false)
 
     const [name, uName] = useState('')
     const [pic, uPic] = useState<any>(null)
@@ -50,6 +50,7 @@ function Profile() {
     const [occupation, uOccupation] = useState('')
     const [pagesCount, uPagesCount] = useState('')
     // const [isStudent, uIsStudent] = useState('')
+    const navigateHome = () => { navigate('/home') }
 
 
     function checkBlockLocal(status: string) {
@@ -62,7 +63,7 @@ function Profile() {
                 active: true,
                 title: 'Alert',
                 content: status,
-                buttonText: 'OK'
+                buttonText: 'OK',
             })
             navigate('/login')
         }
@@ -75,6 +76,7 @@ function Profile() {
         })
             .then(data => {
                 console.log(data)
+                uIsFetched(true)
                 const blockStatus: any = checkBlock(data)
                 // console.log(blockStatus)
                 checkBlockLocal(blockStatus)
@@ -85,7 +87,7 @@ function Profile() {
                 uEmail(user.email)
                 // uPic(user_extra.pic || icons.Profile)
 
-                uDob(user_extra.dob || '2002-01-01')
+                uDob(user_extra.dob || '')
                 uGender(user_extra.gender || null)
                 uIsStudent(user_extra.student)
                 uCollege_Name(user_extra.Collage_Name || '')
@@ -99,7 +101,7 @@ function Profile() {
             })
     }, [])
 
-    if (!name)
+    if (!isFetched)
         return <Loading />
     return (
         <div id="profile">
@@ -109,6 +111,9 @@ function Profile() {
                 content={alertBoxDetails.content}
                 buttonText={alertBoxDetails.buttonText}
                 updater={updateAlertBoxDetails}
+                cb={alertBoxDetails.cb}
+                cbNo={alertBoxDetails.cbNo}
+                btnNoText={alertBoxDetails.btnNoText}
             />
             <div className="container">
                 <div className="top">
@@ -124,7 +129,7 @@ function Profile() {
                         <p>Pages Printed</p>
                     </div>
                 </div>
-                <p className="selectedFileName">{selectedFileName}</p>
+                {/* <p className="selectedFileName">{selectedFileName}</p> */}
                 <div className="details">
                     <div>
                         <span>Your Name</span>
@@ -143,7 +148,7 @@ function Profile() {
                     <div>
                         <span>Date of Birth</span>
                         <input
-                            type="date" id='dob' placeholder='Date of Birth' name="dob"
+                            type="text" id='dob' placeholder='Date of Birth' name="dob" className="inp"
                             value={dob} onInput={(e: any) => uDob(e.target.value)}
                         />
                     </div>
@@ -224,11 +229,28 @@ function Profile() {
                         <input type="submit" value={saveChangesStatus} onClick={updateDetails} />
                     </div>
 
+                    <div>
+                        <input type="submit" value='Log Out' onClick={logOut} />
+                    </div>
+
                 </div>
             </div>
             <Navigation active='profile' />
         </div>
     )
+    function logOut() {
+        updateAlertBoxDetails({
+            active: true,
+            title: 'Are you sure?',
+            content: 'Are you sure you want to log out?',
+            buttonText: 'Yes',
+            btnNoText: 'No',
+            cb: () => {
+                localStorage.clear()
+                navigate('/')
+            }
+        })
+    }
 
     function updateDetails() {
         const body: any = {
@@ -273,14 +295,15 @@ function Profile() {
                         active: true,
                         title: 'Successful',
                         content: data.message,
-                        buttonText: 'OK'
+                        buttonText: 'OK',
+                        cb: navigateHome
                     })
                 } else {
                     updateAlertBoxDetails({
                         active: true,
                         title: 'Error',
                         content: data.message,
-                        buttonText: 'OK'
+                        buttonText: 'OK',
                     })
                 }
                 uSaveChangesStatus('Save Changes')
@@ -289,7 +312,7 @@ function Profile() {
                     active: true,
                     title: 'Error',
                     content: err,
-                    buttonText: 'OK'
+                    buttonText: 'OK',
                 })
             })
     }

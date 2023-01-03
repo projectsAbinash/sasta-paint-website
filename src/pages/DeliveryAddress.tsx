@@ -19,7 +19,7 @@ function DeliveryAddress() {
     const [addressStatus, updateAddressStatus] = useState('loading')
     const [activeAddress, updateActiveAddress] = useState(0)
     const [placeOrderStatus, uPlaceOderStatus] = useState('Deliver to this address')
-    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, title: '', content: '', buttonText: '' })
 
     const navigate = useNavigate()
     // const addressDOM = useRef()
@@ -83,8 +83,22 @@ function DeliveryAddress() {
                 content={alertBoxDetails.content}
                 buttonText={alertBoxDetails.buttonText}
                 updater={updateAlertBoxDetails}
+                cb={alertBoxDetails.cb}
+                cbNo={alertBoxDetails.cbNo}
+                btnNoText={alertBoxDetails.btnNoText}
             />
-            <TitleHeader title='Delivery Address' />
+            <TitleHeader title='Delivery Address' back={() => {
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Are you sure?',
+                    content: 'Are you sure you want to discard this order?',
+                    buttonText: 'Yes',
+                    btnNoText: 'No',
+                    cb: () => {
+                        navigate(-1)
+                    }
+                })
+            }} />
             <div className="container">
                 <div className="top">
 

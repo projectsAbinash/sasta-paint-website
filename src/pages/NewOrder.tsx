@@ -163,7 +163,7 @@ function NewOrder() {
 
     const navigate = useNavigate()
 
-    const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
+    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, title: '', content: '', buttonText: '' })
 
     const [noOfCopies, uNoOfCopies] = useState<any>(1)
     const [files, updateFiles] = useState([{ fileName: '', status: 'initial' }])
@@ -258,8 +258,22 @@ function NewOrder() {
                 content={alertBoxDetails.content}
                 buttonText={alertBoxDetails.buttonText}
                 updater={updateAlertBoxDetails}
+                cb={alertBoxDetails.cb}
+                cbNo={alertBoxDetails.cbNo}
+                btnNoText={alertBoxDetails.btnNoText}
             />
-            <TitleHeader title='Printing Details' />
+            <TitleHeader title='Printing Details' back={()=>{
+                        updateAlertBoxDetails({
+                            active: true,
+                            title: 'Are you sure?',
+                            content: 'Are you sure you want to discard this order?',
+                            buttonText: 'Yes',
+                            btnNoText: 'No',
+                            cb: () => {
+                                navigate(-1)
+                            }
+                        })
+            }}/>
             <div className="container">
                 {/* <form action=""> */}
                 {
@@ -360,8 +374,8 @@ function NewOrder() {
                             <div className="text">
                                 <span >One-Sided</span>
                                 <div className="price">
-                                    <span className='price cancel'>₹0.70</span>
-                                    <span className='price'>₹0.65/page</span>
+                                    <span className='price cancel'>₹0.80</span>
+                                    <span className='price'>₹0.70/page</span>
                                 </div>
                             </div>
                         </div>
@@ -455,7 +469,7 @@ function NewOrder() {
         //     'order_id': orderID,
         // }
         // localStorage.setItem('currentOrderDetails', JSON.stringify(formData))
-        navigate('/deliveryAddress')
+        navigate('/deliveryAddress', {replace:true})
     }
 }
 
