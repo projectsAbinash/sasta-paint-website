@@ -82,7 +82,9 @@ const PayButton = () => {
                         buttonText: 'Ok'
                     })
                 } else {
+                    updateAlertBoxDetails({ active: false })
                     { navigate('/trackOrder/' + localStorage.getItem('currentOrderID'), { replace: true }) }
+                    window.location.reload()
                 }
             })
     }

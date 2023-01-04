@@ -33,7 +33,7 @@ function Main() {
       <Router>
         <React.Suspense fallback={<Loading />}>
           <Routes>
-            <Route path='/' element={<LazyStart />} />
+            <Route path='/' element={<LazyLogin />} />
             <Route path='/loading' element={<Loading />} />
             <Route path='/login' element={<LazyLogin />} />
             <Route path='/signup' element={<LazySignup />} />

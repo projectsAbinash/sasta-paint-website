@@ -26,7 +26,11 @@ function makeRequestData(id: string, pass: string) {
 
 const Login = () => {
     const navigate = useNavigate()
-    useEffect(() => { document.title = 'Login to Sasta Paint' }, [])
+    useEffect(() => {
+        document.title = 'Welcome to Sasta Paint'
+        if (token.get('registrationToken'))
+            navigate('/home', { replace: true })
+    }, [])
 
     const userIDElem = useRef() as React.MutableRefObject<HTMLInputElement>
     const passElem = useRef() as React.MutableRefObject<HTMLInputElement>
