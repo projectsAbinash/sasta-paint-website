@@ -88,7 +88,7 @@ function Profile() {
 
                 uDob(user_extra.dob || '')
                 uGender(user_extra.gender || null)
-                uIsStudent(user_extra.student || null)
+                uIsStudent(user_extra.student)
                 uCollege_Name(user_extra.Collage_Name || '')
                 uCourse(user_extra.Course || '')
                 uOccupation(user_extra.occupation || '')
@@ -166,8 +166,8 @@ function Profile() {
                     <div>
                         <span>Are you a student?</span>
                         <div className="options">
-                            <div className={`option ${(isStudent === 1) ? ' active' : ''}`} onClick={() => { uIsStudent(1) }}>Yes</div>
-                            <div className={`option ${(isStudent === 0) ? ' active' : ''}`} onClick={() => { uIsStudent(0) }}>No</div>
+                            <div className={`option ${(isStudent == 1) ? ' active' : ''}`} onClick={() => { uIsStudent(1) }}>Yes</div>
+                            <div className={`option ${(isStudent == 0) ? ' active' : ''}`} onClick={() => { uIsStudent(0) }}>No</div>
                         </div>
                     </div>
 
