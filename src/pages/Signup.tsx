@@ -43,13 +43,13 @@ const Signup = () => {
 
             updateSigningUpStatus('Signing Up...')
             // Now register online
-            const body = {
+            const body:any = {
                 name,
-                email,
                 phone: num,
                 password: pass,
                 // password_confirmation: confPass
             }
+            if(email) body.email = email
             const reqData = {
                 method: 'POST',
                 headers: {
@@ -59,6 +59,7 @@ const Signup = () => {
                 body: JSON.stringify(body)
             }
 
+            console.log(reqData)
 
             // fetch(registerAPILink, reqData).then(data => data.json())
             //     .then(data => {
