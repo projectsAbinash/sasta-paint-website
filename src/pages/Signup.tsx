@@ -13,7 +13,7 @@ const Signup = () => {
     const fullName = useRef() as React.MutableRefObject<HTMLInputElement>
     const phoneNumber = useRef() as React.MutableRefObject<HTMLInputElement>
     const password = useRef() as React.MutableRefObject<HTMLInputElement>
-    const confirmPassword = useRef() as React.MutableRefObject<HTMLInputElement>
+    // const confirmPassword = useRef() as React.MutableRefObject<HTMLInputElement>
     const emailInput = useRef() as React.MutableRefObject<HTMLInputElement>
     const [signingUpStatus, updateSigningUpStatus] = useState('Sign Up')
     const [alertBoxDetails, updateAlertBoxDetails] = useState({ active: false, title: '', content: '', buttonText: '' })
@@ -25,21 +25,21 @@ const Signup = () => {
         const num = phoneNumber.current.value
         const email = emailInput.current.value
         const pass = password.current.value
-        const confPass = confirmPassword.current.value
+        // const confPass = confirmPassword.current.value
 
 
 
-        if (name && num && pass && confPass && email) {
+        if (name && num && pass /*&& confPass*/ && email) {
             // Check if password matches
-            if (pass != confPass) {
-                updateAlertBoxDetails({
-                    active: true,
-                    title: 'Warning',
-                    content: 'Make sure you use the same password in Confirm Password.',
-                    buttonText: 'OK'
-                })
-                return
-            }
+            // if (pass != confPass) {
+            //     updateAlertBoxDetails({
+            //         active: true,
+            //         title: 'Warning',
+            //         content: 'Make sure you use the same password in Confirm Password.',
+            //         buttonText: 'OK'
+            //     })
+            //     return
+            // }
 
             updateSigningUpStatus('Signing Up...')
             // Now register online
@@ -48,7 +48,7 @@ const Signup = () => {
                 email,
                 phone: num,
                 password: pass,
-                password_confirmation: confPass
+                // password_confirmation: confPass
             }
             const reqData = {
                 method: 'POST',
@@ -145,10 +145,10 @@ const Signup = () => {
                     <span>Password</span>
                     <input type="password" id='password' placeholder='********' ref={password} />
                 </div>
-                <div>
+                {/* <div>
                     <span>Confirm Password</span>
                     <input type="password" id='confirmPassword' placeholder='********' ref={confirmPassword} />
-                </div>
+                </div> */}
                 <input type="submit" value={signingUpStatus} onClick={networkSignUp} />
                 <p className='text-center signup'>Already have an account? <Link to='/login'>Log In</Link></p>
             </div>
