@@ -260,7 +260,7 @@ function Profile() {
         if (isStudent === 1 || isStudent === 0) {
             body.student = isStudent
         }
-        
+
         if (pp.current.files[0]) {
             body.pic = pp.current.files[0] || null
             uPic(URL.createObjectURL(pp.current.files[0]))
@@ -281,7 +281,8 @@ function Profile() {
 
         Object.entries(body).forEach(entry => {
             const [key, value]: any = entry;
-            formData.append(key, value)
+            if (value)
+                formData.append(key, value)
         })
 
 
