@@ -28,7 +28,7 @@ function TrackOrder() {
     useEffect(() => {
         const reqData: any = makeRequestData()
         reqData.body = JSON.stringify({ order_id: id })
-        localStorage.setItem('currentOrderId', id + '')
+        localStorage.setItem('currentOrderID', id + '')
         fetch(getByIdApiLink, reqData)
             .then(data => data.json())
             .then(data => {
