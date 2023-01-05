@@ -29,7 +29,7 @@ const Signup = () => {
 
 
 
-        if (name && num && pass /*&& confPass*/ && email) {
+        if (name && num && pass /*&& confPass&& email*/ ) {
             // Check if password matches
             // if (pass != confPass) {
             //     updateAlertBoxDetails({
