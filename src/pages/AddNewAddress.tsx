@@ -72,17 +72,17 @@ function AddNewAddress() {
             <TitleHeader title="Add new address" />
             <div className="container">
                 <span className="label">Address Line 1</span>
-                <input type="text" className="inp address" placeholder="Address Line 1" onChange={(e) => { setAddressData({ ...addressDataState, Address_1: val(e) }) }} />
+                <input type="text" className="inp address" placeholder="Address Line 1" onInput={(e) => { setAddressData({ ...addressDataState, Address_1: val(e) }) }} />
                 <span className="label">Address Line 2</span>
-                <input type="text" className="inp address" placeholder="Address Line 2" onChange={(e) => setAddressData({ ...addressDataState, Address_2: val(e) })} />
+                <input type="text" className="inp address" placeholder="Address Line 2" onInput={(e) => setAddressData({ ...addressDataState, Address_2: val(e) })} />
                 <span className="label">Landmark</span>
-                <input type="text" className="inp landmark" placeholder="Landmark" onChange={(e) => setAddressData({ ...addressDataState, Landmark: val(e) })} />
+                <input type="text" className="inp landmark" placeholder="Landmark" onInput={(e) => setAddressData({ ...addressDataState, Landmark: val(e) })} />
                 <span className="label">City</span>
-                <input type="text" className="inp city" placeholder="City" onChange={(e) => setAddressData({ ...addressDataState, City: val(e) })} />
+                <input type="text" className="inp city" placeholder="City" onInput={(e) => setAddressData({ ...addressDataState, City: val(e) })} />
                 <span className="label">Pin Code</span>
-                <input type="number" className="inp pincode" placeholder="Pin code" onChange={(e) => setAddressData({ ...addressDataState, PinCode: val(e) })} />
+                <input type="number" className="inp pincode" placeholder="Pin code" onInput={(e) => setAddressData({ ...addressDataState, PinCode: val(e) })} />
                 <span className="label">State</span>
-                <select name="state" id="state" className="select state" onChange={(e) => setAddressData({ ...addressDataState, State: val(e) })}>
+                <select name="state" id="state" className="select state" onInput={(e) => setAddressData({ ...addressDataState, State: val(e) })}>
                     <option value="" disabled defaultChecked>Select State</option>
                     <option value="Madhya Pradesh">Madhya Pradesh</option>
                 </select>
