@@ -15,13 +15,13 @@ function AddNewAddress() {
     const address_work = useRef<any>()
     const address_other = useRef<any>()
     const navigate = useNavigate()
-    const [addressDataState, setAddressData] = useState({
+    const [addressDataState, setAddressData] = useState<any>({
         // Address_1: '',
         // Address_2: '',
         // Landmark: '',
         // City: '',
         // PinCode: '',
-        // State: '',
+        State: 'Madhya Pradesh',
         // Address_Type: '',
         // Alternate_number: null,
     })
