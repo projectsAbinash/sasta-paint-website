@@ -97,7 +97,7 @@ function NewOrder() {
         uCurrentDocId(null)
         colorRadio1.current.click()
         // updatePrintConfig('black_and_white') 
-        spiral.current.click()
+        loose_paper.current.click()
         pageSide2.current.click()
         // updatePageConfig('two_side')
         updateTitle('')
@@ -262,18 +262,18 @@ function NewOrder() {
                 cbNo={alertBoxDetails.cbNo}
                 btnNoText={alertBoxDetails.btnNoText}
             />
-            <TitleHeader title='Printing Details' back={()=>{
-                        updateAlertBoxDetails({
-                            active: true,
-                            title: 'Are you sure?',
-                            content: 'Are you sure you want to discard this order?',
-                            buttonText: 'Yes',
-                            btnNoText: 'No',
-                            cb: () => {
-                                navigate(-1)
-                            }
-                        })
-            }}/>
+            <TitleHeader title='Printing Details' back={() => {
+                updateAlertBoxDetails({
+                    active: true,
+                    title: 'Are you sure?',
+                    content: 'Are you sure you want to discard this order?',
+                    buttonText: 'Yes',
+                    btnNoText: 'No',
+                    cb: () => {
+                        navigate(-1)
+                    }
+                })
+            }} />
             <div className="container">
                 {/* <form action=""> */}
                 {
@@ -384,13 +384,13 @@ function NewOrder() {
                 <div className="selectPage">
                     <p className="label">Binding Configuration</p>
                     <div className="selectPage">
-                        <div className="select" onClick={() => spiral.current.click()}>
-                            <input ref={spiral} type="radio" name="binding" value='spiral_binding' onChange={changeBindingStatus} />
+                        <div className="select" onClick={() => loose_paper.current.click()}>
+                            <input ref={loose_paper} type="radio" name="binding" value='loose_paper' defaultChecked onChange={changeBindingStatus} />
                             <div className="text">
-                                <span >Spiral Binding</span>
+                                <span >Loose Paper</span>
                                 <div className="price">
-                                    {/* <span className='price cancel'>$25.00</span> */}
-                                    <span className='price'>₹9/- Upto 100 Pages</span>
+                                    {/* <span className='price calcel'>$0.65/page</span> */}
+                                    <span className='price'>₹0.00 / Page</span>
                                 </div>
                             </div>
                         </div>
@@ -404,13 +404,14 @@ function NewOrder() {
                                 </div>
                             </div>
                         </div>
-                        <div className="select" onClick={() => loose_paper.current.click()}>
-                            <input ref={loose_paper} type="radio" name="binding" value='loose_paper' defaultChecked onChange={changeBindingStatus} />
+
+                        <div className="select" onClick={() => spiral.current.click()}>
+                            <input ref={spiral} type="radio" name="binding" value='spiral_binding' onChange={changeBindingStatus} />
                             <div className="text">
-                                <span >Loose Paper</span>
+                                <span >Spiral Binding</span>
                                 <div className="price">
-                                    {/* <span className='price calcel'>$0.65/page</span> */}
-                                    <span className='price'>₹0.00 / Page</span>
+                                    {/* <span className='price cancel'>$25.00</span> */}
+                                    <span className='price'>₹9/- Upto 100 Pages</span>
                                 </div>
                             </div>
                         </div>
@@ -469,7 +470,7 @@ function NewOrder() {
         //     'order_id': orderID,
         // }
         // localStorage.setItem('currentOrderDetails', JSON.stringify(formData))
-        navigate('/deliveryAddress', {replace:true})
+        navigate('/deliveryAddress', { replace: true })
     }
 }
 
