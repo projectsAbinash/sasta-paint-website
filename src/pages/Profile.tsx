@@ -274,6 +274,7 @@ function Profile() {
         if (gender) body.gender = gender
         if (dob) body.dob = dob
 
+
         const formData = new FormData()
         // formData.append('name', name)
         // formData.append('email', email)
@@ -281,9 +282,11 @@ function Profile() {
 
         Object.entries(body).forEach(entry => {
             const [key, value]: any = entry;
-            if (value)
+            if (value === 0 || vlue)
                 formData.append(key, value)
         })
+
+
 
 
         const newReqData: any = { ...requestData, body: formData }
