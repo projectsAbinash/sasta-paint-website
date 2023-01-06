@@ -11,7 +11,7 @@ const reset_password_api_link = joinLinks('login/forget/reset')
 
 
 export default function ResetPassword() {
-    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, title: '', content: '', buttonText: ''})
+    const [alertBoxDetails, updateAlertBoxDetails] = useState<any>({ active: false, title: '', content: '', buttonText: '' })
     const [reset_password_status, u_reset_password_status] = useState('Reset Password')
     const navigate = useNavigate()
     const [otp, u_top] = useState(null)
@@ -107,6 +107,14 @@ export default function ResetPassword() {
                             navigate('/login', { replace: true })
                         }
                     })
+                } else {
+                    updateAlertBoxDetails({
+                        active: true,
+                        title: 'Error',
+                        content: data.message,
+                        buttonText: 'OK',
+                    })
+
                 }
             })
             .catch(err => {

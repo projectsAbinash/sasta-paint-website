@@ -34,7 +34,7 @@ export default function ForgetPassword() {
                     {/* <h1>Reset Password</h1> */}
                     <p>Enter the phone number associated with your account and we'll send an OTP to reset your password.</p>
                     <span className="label">Mobile Number</span>
-                    <input type="tel" id='number' placeholder='+91 123 456 7879' onChange={updateMobileNumber} />
+                    <input type="tel" id='number' placeholder='+91 123 456 7879' onChange={updateMobileNumber} autoComplete="off" />
                     <input type="submit" value={send_otp_status} className='btnFullWidth' onClick={send_otp} />
                 </div>
 
