@@ -22,7 +22,9 @@ const NewOrder = React.lazy(() => import('./NewOrder'))
 const DeliveryAddress = React.lazy(() => import('./DeliveryAddress'))
 const AddNewAddress = React.lazy(() => import('./AddNewAddress'))
 const OrderReview = React.lazy(() => import('./OrderReview'))
-const TrackOrder = React.lazy(() => import('./TrackOrder'))
+const TrackOrder = React.lazy(() => import('./TrackOrder'))  
+const ForgetPassword = React.lazy(() => import('./ForgetPassword'))  
+const ResetPassword = React.lazy(() => import('./ResetPassword'))  
 
 
 
@@ -48,6 +50,8 @@ function Main() {
             <Route path='/addNewAddress' element={<AddNewAddress />} />
             <Route path='/orderReview' element={<OrderReview />} />
             <Route path='/trackOrder/:id' element={<TrackOrder />} />
+            <Route path='/forgetPassword' element={<ForgetPassword />} />
+            <Route path='/resetPassword' element={<ResetPassword />} />
           </Routes>
         </React.Suspense>
       </Router>

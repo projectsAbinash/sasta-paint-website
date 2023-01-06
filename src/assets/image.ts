@@ -14,6 +14,9 @@ import undraw_fast_loading_re_8oi3 from './images/undraw_fast_loading_re_8oi3.sv
 import undraw_delivery_address_re_cjca from './images/undraw_delivery_address_re_cjca.svg'
 import undraw_map_dark_re_36sy from './images/undraw_map_dark_re_36sy.svg'
 import undraw_reminder_re_fe15 from './images/undraw_reminder_re_fe15.svg'
+import undraw_fingerprint_login_re_t71l from './images/undraw_fingerprint_login_re_t71l.svg'
+import undraw_secure_login_pdn4 from './images/undraw_secure_login_pdn4.svg'
+import undraw_authentication_re_svpt from './images/undraw_authentication_re_svpt.svg'
 
 
 const images = {
@@ -22,7 +25,8 @@ const images = {
     undraw_mobile_user_re_xta4, sample_banner, sample_banner_2,
     undraw_new_notifications_re_xpcv, undraw_fast_loading_re_8oi3,
     undraw_delivery_address_re_cjca, undraw_map_dark_re_36sy,
-    undraw_reminder_re_fe15
+    undraw_reminder_re_fe15, undraw_fingerprint_login_re_t71l,
+    undraw_secure_login_pdn4, undraw_authentication_re_svpt
 }
 
 export default images
