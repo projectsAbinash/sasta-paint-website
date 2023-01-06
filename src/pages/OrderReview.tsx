@@ -44,6 +44,10 @@ function OrderReview() {
                     navigate('/newOrder', { replace: true })
                 }
                 console.log(data)
+                if(data.errors){
+                    // alert("Error")
+                    navigate('/home')
+                }
             })
     }, [])
 
