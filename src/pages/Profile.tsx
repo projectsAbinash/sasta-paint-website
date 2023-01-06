@@ -195,10 +195,10 @@ function Profile() {
                                     <span>Year</span>
                                     <select id="year" name="year" defaultValue={year} onInput={(e: any) => { uYear(e.target.value) }}>
                                         <option value="" disabled>Select Your year</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
+                                        <option value="1">1 Year</option>
+                                        <option value="2">2 Year</option>
+                                        <option value="3">3 Year</option>
+                                        <option value="4">4 Year</option>
                                     </select>
                                 </div>
                                 <div className="input">
