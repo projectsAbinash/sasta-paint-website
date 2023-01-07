@@ -167,22 +167,22 @@ const VerifyOTP = () => {
                 <h1>Verify OTP</h1>
                 <div className='inputs'>
                     <div className="input">
-                        <input className="otp" type="text" ref={otp[0]} maxLength={1} onChange={() => focusNext(0)} autoFocus />
+                        <input className="otp" type="number" ref={otp[0]} maxLength={1} onChange={() => focusNext(0)} autoFocus />
                     </div>
                     <div className="input">
-                        <input className="otp" type="text" ref={otp[1]} maxLength={1} onChange={() => focusNext(1)} />
+                        <input className="otp" type="number" ref={otp[1]} maxLength={1} onChange={() => focusNext(1)} />
                     </div>
                     <div className="input">
-                        <input className="otp" type="text" ref={otp[2]} maxLength={1} onChange={() => focusNext(2)} />
+                        <input className="otp" type="number" ref={otp[2]} maxLength={1} onChange={() => focusNext(2)} />
                     </div>
                     <div className="input">
-                        <input className="otp" type="text" ref={otp[3]} maxLength={1} onChange={() => focusNext(3)} />
+                        <input className="otp" type="number" ref={otp[3]} maxLength={1} onChange={() => focusNext(3)} />
                     </div>
                     <div className="input">
-                        <input className="otp" type="text" ref={otp[4]} maxLength={1} onChange={() => focusNext(4)} />
+                        <input className="otp" type="number" ref={otp[4]} maxLength={1} onChange={() => focusNext(4)} />
                     </div>
                     <div className="input">
-                        <input className="otp" type="text" ref={otp[5]} maxLength={1} onChange={() => focusNext(5)} />
+                        <input className="otp" type="number" ref={otp[5]} maxLength={1} onChange={() => focusNext(5)} />
                     </div>
                 </div>
                 <button onClick={() => verifyEnteredOTP()}>{otpVerifyStatus}</button>
