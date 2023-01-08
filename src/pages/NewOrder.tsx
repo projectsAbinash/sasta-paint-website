@@ -355,7 +355,7 @@ function NewOrder() {
                 </div>
 
                 <div className="selectPage">
-                    <p className="label">Page Sides</p>
+                    <p className="label">Page Sides (A4 size)</p>
                     <div className="selectPage">
                         <div className="select" onClick={() => { pageSide2.current.click() }}>
                             <input ref={pageSide2} type="radio" name="pageSide" id="color1" value='two_side'
@@ -390,7 +390,7 @@ function NewOrder() {
                                 <span >Loose Paper</span>
                                 <div className="price">
                                     {/* <span className='price calcel'>$0.65/page</span> */}
-                                    <span className='price'>₹0.00 / Page</span>
+                                    <span className='price'>₹0.00/Page</span>
                                 </div>
                             </div>
                         </div>

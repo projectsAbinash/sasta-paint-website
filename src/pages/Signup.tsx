@@ -139,7 +139,7 @@ const Signup = () => {
                     <input type="tel" id='number' placeholder='+91 123 456 78790' ref={phoneNumber} />
                 </div>
                 <div>
-                    <span>Email</span>
+                    <span>Email (Optional)</span>
                     <input type="email" id='email' placeholder='example@abc.com' ref={emailInput} />
                 </div>
                 <div>
