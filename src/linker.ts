@@ -1,5 +1,5 @@
 function joinLinks(link : string) : string{
-    return 'http://localhost:8000/api/' + link
+    return 'https://backend.codexindia.com/api/' + link
 }
 
 export default joinLinks
