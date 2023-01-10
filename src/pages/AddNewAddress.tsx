@@ -101,7 +101,7 @@ function AddNewAddress() {
                         u_state('')
                         const reqData: any = makeRequestData()
                         const pincode = val(e)
-                        
+
                         reqData.body = JSON.stringify({ pincode })
                         if (pincode.length >= 6) {
                             fetchCityData()
@@ -119,14 +119,14 @@ function AddNewAddress() {
                                             content: 'This pincode is not deliverable',
                                             buttonText: 'OK'
                                         })
-                                        return
                                     }
                                     else if (data.status === 'true') {
                                         console.log(data.city)
                                         u_all_cities(data.city)
                                         u_state(data.state)
                                         u_btn_disable(false)
-                                        setAddressData({ ...addressDataState, State: val(e) })
+                                        setAddressData({ ...addressDataState, State: data.state, PinCode: pincode, City: data.city[0] })
+                                        console.table(addAddressStatus)
                                     }
                                     u_img_loading(false)
                                     console.log(data)
