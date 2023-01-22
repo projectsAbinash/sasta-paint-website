@@ -118,7 +118,20 @@ function DeliveryAddress() {
                                         </p>
                                     </div>
                                     <div className="right" >
-                                        <img src={icons.trash} className='delete' onClick={() => deleteAddressById(addressCount++, add.id)} />
+                                        <img src={icons.trash} className='delete'
+                                            onClick={() => {
+                                                updateAlertBoxDetails({
+                                                    active: true,
+                                                    title: 'Are you sure?',
+                                                    content: 'Are you sure you want to delete this address?',
+                                                    buttonText: 'Yes',
+                                                    btnNoText: 'No',
+                                                    cb: () => {
+                                                        deleteAddressById(addressCount++, add.id)
+                                                    }
+                                                })
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             )

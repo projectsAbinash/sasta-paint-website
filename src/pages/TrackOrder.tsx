@@ -34,7 +34,9 @@ function TrackOrder() {
             .then(data => {
                 console.log(data)
                 // data.order_data.tracking_link = "https://google.com"
+
                 uOrderData(data.order_data)
+
             })
     }, [])
 
@@ -123,7 +125,8 @@ function TrackOrder() {
                         <div className="detail">
                             <span>Address</span>
                             <span className="address">
-                                {orderData.get_address.City} {orderData.get_address.Address_1} {orderData.get_address.State} {orderData.get_address.PinCode}
+                                {/* {orderData.full_address.City} {orderData.full_address.Address_1} {orderData.full_address.State} {orderData.full_address.PinCode} */}
+                                {makeAddress(orderData.full_address)}
                             </span>
                         </div>
                         <div className="detail">
@@ -143,6 +146,12 @@ function TrackOrder() {
             </div>
         </div >
     )
+}
+
+function makeAddress(address: string) {
+    const a = JSON.parse(address)
+    console.log(a)
+    return `${a.city} ${a.address_1} ${a.state} ${a.pincode}`
 }
 
 export default TrackOrder

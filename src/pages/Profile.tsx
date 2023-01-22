@@ -175,7 +175,7 @@ function Profile() {
 
                     {/* Condition for isStudent */}
                     {[isStudent].map((s) => {
-                        if (s === 1)
+                        if (s == 1)
                             return <div id="studentDetails" key={1233}>
                                 <div className="input">
                                     <span>College Name</span>
@@ -209,7 +209,7 @@ function Profile() {
                                     />
                                 </div>
                             </div>
-                        else if (s === 0) {
+                        else if (s == 0) {
                             return <div id="professionalDetails" key={9999}>
                                 <div className="input">
                                     <span>Occupation</span>
