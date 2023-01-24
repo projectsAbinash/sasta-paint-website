@@ -282,8 +282,10 @@ function Profile() {
 
         Object.entries(body).forEach(entry => {
             const [key, value]: any = entry;
-            if (value === 0 || value)
+            if (value === 0 || value === 1 || value) {
+                console.log(key, value)
                 formData.append(key, value)
+            }
         })
 
 
