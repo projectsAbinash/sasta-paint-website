@@ -140,7 +140,7 @@ function TrackOrder() {
                     </div>
                 </div>
                 <div className="bottom">
-                    {(orderData.tracking_link != null && orderData.status === 'shipped') ? <TrackLinkButton trackLink={orderData.tracking_link} /> : ""}
+                    {(orderData.status.toLowerCase() === 'shipped') ? <TrackLinkButton trackLink={orderData.tracking_link} /> : ""}
                     {(orderData.status.toLowerCase() === 'unpaid') ? <PayButton /> : ''}
                 </div>
             </div>
